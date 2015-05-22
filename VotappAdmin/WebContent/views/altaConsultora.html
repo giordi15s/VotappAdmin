@@ -1,15 +1,15 @@
  <div class="container" ng-show="mostrarFormulario()">
       <form class="form-signin">
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-info btn-block" ng-show="mostrarFormulario()" type="submit" ng-click="signin()" >Sign in</button>
+       <div id="resultado" style="margin-top:-35px;">
+				<h3> Nueva Consultora </h3>
+		</div>
+        <label>Usuario</label>
+        <input  style="margin-bottom: 10px;" class="form-control" ng-model="consultora.username" required autofocus>
+        <label>Password</label>
+        <input type="password" id="inputPassword" class="form-control" ng-model="consultora.password" required> 
+      
+        <button class="btn btn-lg btn-info btn-block" ng-click="crearUsuario(consultora)" >Crear</button>
       </form>
+      
 
     </div>

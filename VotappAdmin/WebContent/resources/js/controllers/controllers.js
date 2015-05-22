@@ -16,27 +16,29 @@ angular.module("app.controllers",[])
 		
 		ConsultoraFactory.getConsultora(consultoraId).then(
 				function(response){
-					$scope.consultora.nombre = response.data.nombre;
-					$scope.consultora.descripcion = response.data.descripcion;
+					console.log(response.data);
 				},
 				
 				function(response){
 					//error messagge
+					console.log(response.data);
 				}
 		)
 		
 	};
+	
+
+	
 	
 	//$scope.updateResultado(1); //valor inicial de la consulta
 	
 }])
 
 
-.controller('HomeController', ['$scope', function($scope){
+.controller('HomeController', ['$scope', 'ConsultoraFactory', function($scope, ConsultoraFactory){
 	var booleano = false;
 	
 	$scope.mostrarFormulario = function(){
-		console.log("Holaaaaaaaaaa");
 		return booleano;
 		
 	}
@@ -46,8 +48,32 @@ angular.module("app.controllers",[])
 		booleano = true;
 	}
 	
+	$scope.crearUsuario = function(consultora){
+		console.log("Entro a Crear usuarioooo");
+		console.log(consultora);
+		
+		
+		ConsultoraFactory.crearUsuario(consultora).then(
+				function(response){
+					
+				},
+				
+				function(response){
+					//error messagge
+						
+				}
+		)
+		
+	};
 	
 	
+}])
+
+.controller('UsuarioController', ['$scope', 'UsuarioFactory', function($scope, UsuarioFactory) {
 	
+
+	
+	
+	//$scope.updateResultado(1); //valor inicial de la consulta
 	
 }])

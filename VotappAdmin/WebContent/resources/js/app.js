@@ -14,6 +14,7 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/consultora', {templateUrl: 'index2.html', controller: 'ConsultoraController'});
   $routeProvider.when('/', {templateUrl: 'views/login.html', controller: 'LoginController'});
   $routeProvider.when('/home', {templateUrl: 'views/home.html',  controller: 'HomeController'});
+  $routeProvider.when('/crearConsultora', {templateUrl: 'views/altaConsultora.html',  controller: 'ConsultoraController'});
   $routeProvider.otherwise({redirectTo: '/', templateUrl: 'views/login.html'});
 }]);
 
