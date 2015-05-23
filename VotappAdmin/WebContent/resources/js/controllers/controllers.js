@@ -1,11 +1,22 @@
 'use strict';
 
-angular.module("app.controllers",[])
-.controller("LoginController", ['$scope', 'LoginFactory', '$location', function($scope, LoginFactory, $location){
-	
+angular.module("app.controllers",[
+'angular-storage'
+])
+.controller("LoginController", ['$scope', 'LoginFactory', '$location', 'store',function($scope, LoginFactory, $location, store){
+	$scope.user = {};
 	$scope.signin = function(){
-		
-		$location.url("/home");
+		LoginFactory.login($scope.user).then(
+				function(response){					
+					store.set('token', response.data);
+					$location.url("/home");
+				},
+				
+				function(response){
+					//error messagge
+					console.log(response.data);
+				}
+			)	
 	
 	}
 	
@@ -43,16 +54,12 @@ angular.module("app.controllers",[])
 		
 	}
 	
-	$scope.crearConsultora = function(){
-		console.log("Clikeado");
+	$scope.crearConsultora = function(){		
 		booleano = true;
 	}
 	
 	$scope.crearUsuario = function(consultora){
-		console.log("Entro a Crear usuarioooo");
-		console.log(consultora);
-		
-		
+				
 		ConsultoraFactory.crearUsuario(consultora).then(
 				function(response){
 					
@@ -72,8 +79,6 @@ angular.module("app.controllers",[])
 .controller('UsuarioController', ['$scope', 'UsuarioFactory', function($scope, UsuarioFactory) {
 	
 
-	
-	
-	//$scope.updateResultado(1); //valor inicial de la consulta
+			
 	
 }])

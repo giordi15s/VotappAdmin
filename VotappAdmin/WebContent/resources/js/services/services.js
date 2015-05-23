@@ -11,7 +11,7 @@ value('version', '0.1')
 		},
 		crearUsuario:function(user){
 			console.log(user);
-			return $http.post('http://localhost:8080/Votapp/services/usuario/crear', user)
+			return $http.post('http://localhost:8080/Votapp/services/usuario/protected/crear', user)
 		}
 	}
 	
@@ -22,7 +22,9 @@ value('version', '0.1')
 
 .factory('LoginFactory', ['$http',function($http) {
 	return{
-		
+		login:function(user){
+			return $http.post('http://localhost:8080/Votapp/services/usuario/loginAdmin', user)
+		}
 	}
 }])
 

@@ -3,9 +3,9 @@
 	<img src="resources/img/votapp.png" width="240px" /> </div>
       <form class="form-signin">
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input type="text" id="inputName" class="form-control" placeholder="Username" required autofocus ng-model="user.username">
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required ng-model="user.password">
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> Remember me
