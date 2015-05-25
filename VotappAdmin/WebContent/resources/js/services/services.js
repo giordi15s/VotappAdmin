@@ -23,7 +23,23 @@ value('version', '0.1')
 .factory('LoginFactory', ['$http',function($http) {
 	return{
 		login:function(user){
-			return $http.post('http://localhost:8080/Votapp/services/usuario/loginAdmin', user)
+			
+			//Asi funciona la encriptacion:
+			/*var objHashResult=CryptoJS.SHA256(user.password)
+			var strHashResult=objHashResult.toString(CryptoJS.enc.Hex);
+			console.log(strHashResult);*/
+						
+			var usuario = {
+					password : CryptoJS.SHA256(user.password).toString(CryptoJS.enc.Hex),
+					username : user.username
+			}
+			// Cree el objeto "usuario" para que el usuario no vea como se le cambia la contraseña a hex
+			// ya que user.password esta bindeado con el <input> del password
+			// y si hago user.password = CryptoJS.SHA256(user.password).toString(CryptoJS.enc.Hex)
+			// el usuario lo ve x un momento
+			
+
+			return $http.post('http://localhost:8080/Votapp/services/usuario/loginAdmin', usuario)
 		}
 	}
 }])

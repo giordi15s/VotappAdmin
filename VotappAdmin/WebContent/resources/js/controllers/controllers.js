@@ -7,7 +7,8 @@ angular.module("app.controllers",[
 	$scope.user = {};
 	$scope.signin = function(){
 		LoginFactory.login($scope.user).then(
-				function(response){					
+				function(response){			
+					$scope.user.password = ""; // Borrar la contraseña, ya que solo se necesita el token
 					store.set('token', response.data);
 					$location.url("/home");
 				},
