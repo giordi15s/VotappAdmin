@@ -4,9 +4,11 @@
 				<h3> Nueva Consultora </h3>
 		</div>
         <label>Usuario</label>
-        <input  style="margin-bottom: 10px;" class="form-control" ng-model="consultora.username" required autofocus>
+        <input  style="margin-bottom: 10px;" class="form-control" ng-model="consultora.nombreAdminConsultora" required autofocus>
         <label>Password</label>
-        <input type="password" id="inputPassword" class="form-control" ng-model="consultora.password" required> 
+        <input type="password" id="inputPassword" class="form-control" ng-model="consultora.passAdminConsultora" required>
+		<input type="text" id="inputNombre" class="form-control" placeholder="Nombre" required  ng-model="consultora.nombre">
+        <input type="text" id="inputDescripcion" class="form-control" placeholder="Descripcion" required  ng-model="consultora.descripcion">
       
         <button class="btn btn-lg btn-info btn-block" ng-click="crearUsuario(consultora)" >Crear</button>
       </form>

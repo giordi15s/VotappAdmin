@@ -61,7 +61,7 @@ angular.module("app.controllers",[
 	
 	$scope.crearUsuario = function(consultora){
 				
-		ConsultoraFactory.crearUsuario(consultora).then(
+		ConsultoraFactory.crearConsultora(consultora).then(
 				function(response){
 					
 				},

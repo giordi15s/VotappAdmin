@@ -9,9 +9,9 @@ value('version', '0.1')
 		getConsultora:function(idConsultora){
 			return $http.get('http://localhost:8080/Votapp/services/consultoras/'+idConsultora)
 		},
-		crearUsuario:function(user){
-			console.log(user);
-			return $http.post('http://localhost:8080/Votapp/services/usuario/protected/crear', user)
+		crearConsultora:function(dataConsultora){
+			console.log(dataConsultora);
+			return $http.post('http://localhost:8080/Votapp/services/consultoras/protected/crear', dataConsultora)
 		}
 	}
 	
