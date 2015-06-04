@@ -10,7 +10,8 @@ value('version', '0.1')
 			return $http.get('http://localhost:8080/Votapp/services/consultoras/'+idConsultora)
 		},
 		crearConsultora:function(dataConsultora){
-			console.log(dataConsultora);
+			
+			dataConsultora.passAdminConsultora = CryptoJS.SHA256(dataConsultora.passAdminConsultora).toString(CryptoJS.enc.Hex);
 			return $http.post('http://localhost:8080/Votapp/services/consultoras/protected/crear', dataConsultora)
 		}
 	}
