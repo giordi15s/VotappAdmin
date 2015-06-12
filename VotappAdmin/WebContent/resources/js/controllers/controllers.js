@@ -3,14 +3,14 @@
 angular.module("app.controllers",[
 'angular-storage'
 ])
-.controller("LoginController", ['$scope', 'LoginFactory', '$location', 'store',function($scope, LoginFactory, $location, store){
+.controller("LoginController", ['$scope', 'LoginFactory', '$state', 'store',function($scope, LoginFactory, $state, store){
 	$scope.user = {};
 	$scope.signin = function(){
 		LoginFactory.login($scope.user).then(
 				function(response){			
 					$scope.user.password = ""; // Borrar la contraseña, ya que solo se necesita el token
 					store.set('token', response.data);
-					$location.url("/home");
+					$state.go("home");
 				},
 				
 				function(response){
