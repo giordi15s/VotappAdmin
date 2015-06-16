@@ -1,18 +1,32 @@
- <div class="container" ng-show="mostrarFormulario()" style="padding-top: 5%">
+ <div ng-show="mostrarFormulario()" class="row">
+ 	 <div class="container container-fluid" style="padding-top: 3%">
+     
       <form class="form-signin">
-       <div id="resultado">
-				<h3> Nueva Consultora </h3>
-		</div>
-        <label>Usuario</label>
-        <input class="form-control" ng-model="consultora.nombreAdminConsultora" required autofocus>
-        <br>
-        <label>Password</label>
-        <input type="password" id="inputPassword" class="form-control" ng-model="consultora.passAdminConsultora" required>
-		<input type="text" id="inputNombre" class="form-control" placeholder="Nombre" required  ng-model="consultora.nombre">
-        <input type="text" id="inputDescripcion" class="form-control" placeholder="Descripcion" required  ng-model="consultora.descripcion">
-      
+      	<h1>Administrador</h1>
+        <div class="row">    
+        <input  style="margin-bottom: 10px;" class="form-control" placeholder="Usuario" ng-model="consultora.nombreAdminConsultora" required>
+        </div>
+        
+        <div class="row">    
+		<input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" ng-model="consultora.passAdminConsultora" required>
+        </div>
+        
+         <br>
+         
+        <h1>Consultora</h1>
+        <div class="row" style="padding-bottom: 4%">
+        <input type="text" id="inputNombre" class="form-control" placeholder="Nombre" required  ng-model="consultora.nombre">    
+        </div>
+        
+        <div class="row" style="padding-bottom: 4%">
+        <input type="text" id="inputDescripcion" class="form-control" placeholder="Descripcion" required  ng-model="consultora.descripcion">    
+        </div>
+        
+         <div  class="row col-md-13"> 
         <button class="btn btn-lg btn-info btn-block" ng-click="crearUsuario(consultora)" >Crear</button>
+        </div>
       </form>
       
 
     </div>
+</div>

@@ -19,7 +19,7 @@ body                            { padding-top:20px; }
     border-radius:50%; }
 
 /* active buttons turn light green-blue*/
-#status-buttons a.active span   { background:#00BC8C; }
+#status-buttons a.active span   {  text-decoration: underline; background:#5bc0de; }
 
 .partidos { width:300px; height: 100px;}
 

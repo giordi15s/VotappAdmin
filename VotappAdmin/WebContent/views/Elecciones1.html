@@ -2,15 +2,14 @@
  <form class="form-signin container-fluid">
             
         <div class="row">    
-        <label>Nombre</label>
-        <input  style="margin-bottom: 10px;" class="form-control" ng-model="consultora.nombreAdminConsultora" required autofocus>
+        <input  style="margin-bottom: 10px;" class="form-control" placeholder="Nombre" ng-model="consultora.nombreAdminConsultora" required autofocus>
         </div>
         
         <div class="row">
-        <label>Fecha</label>
+        
       
             <p class="input-group">
-              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="datePicker.isOpen" min-date="minDate" max-date="'2015-12-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <input type="text" class="form-control" datepicker-popup="{{format}}" init-date="Fecha" placeholder="Fecha" ng-model="dt" is-open="datePicker.isOpen" min-date="minDate" max-date="'2015-12-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
