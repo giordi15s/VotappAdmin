@@ -1,10 +1,11 @@
- <div class="container" ng-show="mostrarFormulario()">
+ <div class="container" ng-show="mostrarFormulario()" style="padding-top: 5%">
       <form class="form-signin">
-       <div id="resultado" style="margin-top:-35px;">
+       <div id="resultado">
 				<h3> Nueva Consultora </h3>
 		</div>
         <label>Usuario</label>
-        <input  style="margin-bottom: 10px;" class="form-control" ng-model="consultora.nombreAdminConsultora" required autofocus>
+        <input class="form-control" ng-model="consultora.nombreAdminConsultora" required autofocus>
+        <br>
         <label>Password</label>
         <input type="password" id="inputPassword" class="form-control" ng-model="consultora.passAdminConsultora" required>
 		<input type="text" id="inputNombre" class="form-control" placeholder="Nombre" required  ng-model="consultora.nombre">

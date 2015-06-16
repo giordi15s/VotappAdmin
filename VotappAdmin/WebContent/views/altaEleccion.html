@@ -1,0 +1,43 @@
+<div ng-show="showFormulario()" class="row">
+  <div class="container" style="padding-top: 5%">
+
+        <div>
+            
+            <div class="text-center">
+            <h2>Nueva Eleccion</h2>
+            
+            <!-- the links to our nested states using relative paths -->
+            <!-- add the active class if the state matches our ui-sref -->
+            <div id="status-buttons" class="text-center">
+            
+                <a ng-class="{active : activoPaso1}" ng-click="setStep(1)"><span>1</span> Eleccion</a>
+                <a ng-class="{active : activoPaso2}" ng-click="setStep(2)"><span>2</span> Partidos</a>
+                <a ng-class="{active : activoPaso3}" ng-click="setStep(3)"><span>3</span> XXXXXXXX</a> 
+            </div>
+       		 </div>
+       	</div>	 
+			   <div  class="text-center" ng-switch="step">
+			      <div ng-switch-when="1">
+			        
+			         <div ng-include="'views/Elecciones1.html'"></div>
+			         
+			         
+			        <!--  <button ng-click="setStep(2)"></button> -->
+			      </div>
+			     
+			      <div ng-switch-when="2">
+			
+				 <div ng-include="'views/Elecciones2.html'"></div>
+			         
+			       
+			      </div> 
+			      
+			      <div ng-switch-when="3">
+			         <div ng-include src="'form-payment.html'"></div>
+			         <button ng-click="setStep(1)"></button>
+			      </div>
+			   </div>
+			
+
+    </div>
+</div>
