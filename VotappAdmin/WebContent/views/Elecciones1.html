@@ -16,13 +16,21 @@
      
         </div>
         
+        <div class="row"> 
+           	<label for="tipoEleccion">Tipo Eleccion:</label>
+           	<select class="form-control" id="tipoEleccion" name="tipoEleccion" type="checkbox" ng-model="formData.tipoEleccion" >
+           		<option value="N">Nacional</option>
+           		<option value="D">Departamental</option>
+				<option value="O">Otra</option>	
+           	</select>
+           <br>
+      	</div>
         
         <br>
-        <div class="row col-md-13">
+        
+        <div class="row">
 		  <a ng-click="setStep(2)" class="btn btn-block btn-info"> Siguiente <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
 		</div>
-            
-   		
-      
+       
 </div>						
 					
