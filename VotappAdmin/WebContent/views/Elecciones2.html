@@ -1,12 +1,11 @@
 <div>
- <form class="form-signin container-fluid">
       
 				<h4> Partidos Participantes </h4>
 		
 	<div class="partidos">
-    <input type="checkbox" /> Partido Blanco <br />
-    <input type="checkbox" /> Partido Colorado<br />
-    <input type="checkbox" /> Partido Frente Amplio <br />
+    <input type="checkbox" ng-model="formData.Partido1" ng-true-value="'Partido Blanco'"/> Partido Blanco <br />
+    <input type="checkbox" ng-model="formData.Partido2" ng-true-value="'Partido Colorado'"/> Partido Colorado<br />
+    <input type="checkbox" ng-model="formData.Partido3" ng-true-value="'Partido Frente Amplio'"/> Partido Frente Amplio <br />
 	</div>
 	
 	
@@ -14,7 +13,6 @@
         <div>
 		  <a ng-click="setStep(3)" class="btn btn-block btn-info"> Siguiente <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
 		</div>
-		</form>
 		
  
 </div>

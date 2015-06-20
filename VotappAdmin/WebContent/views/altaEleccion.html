@@ -16,6 +16,7 @@
             </div>
        		 </div>
        		 
+       		 <form class="form-signin container-fluid" ng-submit="processForm()">
 			   <div  class="text-center" ng-switch="step">
 			      <div ng-switch-when="1">
 			          <div ng-include="'views/Elecciones1.html'"></div>
@@ -29,7 +30,11 @@
 			          <div ng-include="'views/Elecciones3.html'"></div>
 			      </div>
 			   </div>
+			</form>
 			
+			 <pre>
+        {{ formData }}
+    </pre>
 
    
 </div>

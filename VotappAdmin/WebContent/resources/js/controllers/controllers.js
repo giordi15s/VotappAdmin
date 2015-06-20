@@ -93,7 +93,7 @@ angular.module("app.controllers",[
 	    
 	    // function to process the form
 	    $scope.processForm = function() {
-	        alert('awesome!');
+	        alert('Eleccion creada!');
 	    };
 	
 	$scope.mostrarFormulario = function(){
