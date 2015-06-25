@@ -12,7 +12,9 @@
             
                 <a ng-class="{active : activoPaso1}" ng-click="setStep(1)"><span>1</span> Eleccion</a>
                 <a ng-class="{active : activoPaso2}" ng-click="setStep(2)"><span>2</span> Partidos</a>
-                <a ng-class="{active : activoPaso3}" ng-click="setStep(3)"><span>3</span> Estilo</a> 
+			    <a ng-class="{active : activoPaso3}" ng-click="setStep(3)"><span>3</span> Listas</a>
+			    <a ng-class="{active : activoPaso4}" ng-click="setStep(4)"><span>4</span> Candidatos</a>
+			    <a ng-class="{active : activoPaso5}" ng-click="setStep(5)"><span>5</span> Diseño</a> 
             </div>
        		 </div>
        		 
@@ -29,11 +31,20 @@
 			      <div ng-switch-when="3">
 			          <div ng-include="'views/Elecciones3.html'"></div>
 			      </div>
+			      
+			      <div ng-switch-when="4">
+			          <div ng-include="'views/Elecciones4.html'"></div>
+			      </div>
+			      
+			      <div ng-switch-when="5">
+			          <div ng-include="'views/Elecciones5.html'"></div>
+			      </div>
 			   </div>
 			</form>
 			
 			 <pre>
         {{ formData }}
+        {{ partidos }}
     </pre>
 
    

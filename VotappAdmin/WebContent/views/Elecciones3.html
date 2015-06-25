@@ -1,20 +1,33 @@
-<div>
-      
-				<h4>Ingrese un logo</h4>
-		
-		
-	<div class="row">
-		<div class="col-xs-8">
-  		<input type="file" name="img" style="">
+ <div>
+ <h3>Nueva Lista</h3>
+             
+        <div class="row">  
+         <div class="col-md-6">   
+        <input  style="margin-bottom: 10px; float: left;" class="form-control" placeholder="Numero" ng-model="formData.NumeroLista"required autofocus>
+      	</div>
+        
+         <div class="row">  
+        <div class="col-md-6"> 
+        	
+        	 <select  ng-options="partido.Nombre for partido in partidos" ng-model="formData.PartidoSeleccionado"></select>
+        	<!-- <select class="form-control" ng-model="formData.partidos">
+                <option ng-repeat="option in formData.partidos" value={{option.Nombre}} data-ng-selected="{{option.selected}}">{{option.Nombre}}</option>
+            </select> -->
+           </div>
+           </div>
+        <br>
+        </div>
+           
+     
+        
+        <div class="row">
+        <div class="col-md-6">
+          <a ng-click="nuevoPartido()" class="btn btn-block btn-info"> Crear <span class="glyphicon"></span></a>
+		 </div>
+		 <div class="col-md-6">
+		  <a ng-click="setStep(4)" class="btn btn-block btn-info"> Siguiente <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+		 </div> 
 		</div>
-			
-		<br>
-        <div style="padding-top: 20%;">
-            <button type="submit" class="btn btn-block btn-info">Finalizar</button>
-		</div>
-	</div>
-		
-	
-		
- 
-</div>
+       
+</div>						
+					

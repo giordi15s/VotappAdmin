@@ -47,10 +47,88 @@ angular.module("app.controllers",[
 }])
 
 
-.controller('HomeController', ['$scope', 'ConsultoraFactory', function($scope, ConsultoraFactory){
+.controller('HomeController', ['$scope', 'ConsultoraFactory', '$filter', function($scope, ConsultoraFactory, $filter){
 	var booleano = false;
 	var eleccion = false;
 	$scope.step = 1;
+	$scope.partidos = [];
+	$scope.listas = [];
+	$scope.candidatos = [];
+
+	
+	//Arreglo de Candidatos creados en Wizard
+	$scope.nuevoCandidato = function (formData){
+		$scope.selection = [];
+		var lista =
+		{
+		 numero: $scope.formData.NumeroLista,
+		 partido: $scope.formData.PartidoSeleccionado.Nombre
+		}
+		
+		var candidato =
+			{
+			 nombre: $scope.formData.NombreCandidato,
+			 edad: $scope.formData.EdadCandidato,
+			 fuenteNoticia: $scope.formData.FNCandidato,
+			 listas: lista
+			}
+		$scope.candidatos.push(candidato);
+		$scope.formData.NumeroLista ="";
+		$scope.formData.PartidoSeleccionado = null;
+
+		$scope.toggleSelection = function toggleSelection(lista) {
+			    var idx = $scope.selection.indexOf(lista);
+
+			    // is currently selected
+			    if (idx > -1) {
+			      $scope.selection.splice(idx, 1);
+			    }
+
+			    // is newly selected
+			    else {
+			      $scope.selection.push(lista);
+			    }
+			  };
+		
+	}
+	
+	
+	//Arreglo de Listas creadas en Wizard
+	$scope.nuevaLista = function (formData){
+		
+		var lista =
+			{
+			 numero: $scope.formData.NumeroLista,
+			 partido: $scope.formData.PartidoSeleccionado.Nombre
+			}
+		$scope.listas.push(lista);
+		$scope.formData.NumeroLista ="";
+		$scope.formData.PartidoSeleccionado = null;
+
+	}
+	
+	//Arreglo de partidos creados en Wizard
+	$scope.nuevoPartido = function (formData){
+		var datefilter = $filter('date'),
+	    formattedDate = datefilter($scope.formData.FechaPartido, 'yyyy/MM/dd');
+		$scope.formData.FechaPartido = formattedDate;
+		var partido = 
+        {
+         nombre: $scope.formData.NombrePartido , 
+         fecha: $scope.formData.FechaPartido,
+         presidente: $scope.formData.Presidente,
+         descripcion:$scope.formData.Descripcion,
+         fuenteInfo: $scope.formData.FNPartido
+        }
+		$scope.partidos.push(partido);
+		$scope.formData.NombrePartido="";
+		$scope.formData.FechaPartido="";
+		$scope.formData.Presidente="";
+		$scope.formData.Descripcion="";
+		$scope.formData.FNPartido="";
+		console.log("Partidooooo"+$scope.partidos);	
+		
+	}
 	
 	$scope.datePicker = {
 		isOpen : false	
@@ -65,22 +143,44 @@ angular.module("app.controllers",[
 			$scope.activoPaso1 = true;
 			$scope.activoPaso2 = false;
 			$scope.activoPaso3 = false;
+			$scope.activoPaso4 = false;
+			$scope.activoPaso5 = false;
 			break;
 	    case 2:
 	    	$scope.activoPaso1 = false;
 			$scope.activoPaso2 = true;
 			$scope.activoPaso3 = false;
+			$scope.activoPaso4 = false;
+			$scope.activoPaso5 = false;
 			break;
 	    case 3:
 	    	$scope.activoPaso1 = false;
 			$scope.activoPaso2 = false;
 			$scope.activoPaso3 = true;
+			$scope.activoPaso4 = false;
+			$scope.activoPaso5 = false;
+			break;
+	    case 4:
+	    	$scope.activoPaso1 = false;
+			$scope.activoPaso2 = false;
+			$scope.activoPaso3 = false;
+			$scope.activoPaso4 = true;
+			$scope.activoPaso5 = false;
+			break;
+	    case 5:
+	    	$scope.activoPaso1 = false;
+			$scope.activoPaso2 = false;
+			$scope.activoPaso3 = false;
+			$scope.activoPaso4 = false;
+			$scope.activoPaso5 = true;
 			break;
 	
 		default:
 			$scope.activoPaso1 = false;
 			$scope.activoPaso2 = false;
 			$scope.activoPaso3 = false;
+			$scope.activoPaso4 = false;
+			$scope.activoPaso5 = false;
 			break;
        }
       
@@ -114,7 +214,7 @@ angular.module("app.controllers",[
 	$scope.crearEleccion = function(){
 		eleccion = true;
 		booleano = false;
-		
+		$scope.formData.PartidoSeleccionado = null;
 	}
 	
 	$scope.today = function() {

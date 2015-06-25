@@ -1,0 +1,31 @@
+ <div style="margin-top: -20px;">
+ <h3>Nuevo Candidato</h3>
+             
+        <div class="row">    
+        <input  style="margin-bottom: 10px;" class="form-control" placeholder="Nombre" ng-model="formData.NombreCandidato"required autofocus>
+        </div>
+        
+        
+        <div class="row"> 
+          <input  style="margin-bottom: 10px;" class="form-control" placeholder="Edad" ng-model="formData.EdadCandidato"required autofocus>
+       	</div>
+       	
+       	 <div class="row"> 
+          <input  style="margin-bottom: 10px;" class="form-control" placeholder="Fuente de Noticias" ng-model="formData.FNCandidato"required autofocus>
+       	</div>
+       	
+       	<div class="row"> 
+       		<label ng-repeat="lista in listas">
+			  <input  type="checkbox" name="selectedFruits[]" value="{{lista.Numero}}" ng-checked="selection.indexOf(lista.Numero) > -1" ng-click="toggleSelection(lista.Numero)">
+			</label>
+       	</div>
+        <br>
+       
+		 
+        <div class="row">
+		  <a ng-click="setStep(5)" class="btn btn-block btn-info"> Siguiente <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+		</div>
+		
+       
+</div>						
+					
