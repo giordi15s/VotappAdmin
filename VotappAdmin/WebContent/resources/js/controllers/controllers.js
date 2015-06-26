@@ -54,28 +54,26 @@ angular.module("app.controllers",[
 	$scope.partidos = [];
 	$scope.listas = [];
 	$scope.candidatos = [];
-	$scope.selection = [];
+	$scope.selection = [];	
 
 	
 	//Arreglo de Candidatos creados en Wizard
 	$scope.nuevoCandidato = function (formData){
 		
+		var fuentesDatosCandidato = [];
 		
-		var candidato =
-			{
+		var fuenteDatos = {
+				url: formData.FNCandidato
+		}
+		fuentesDatosCandidato.push(fuenteDatos);
+		var candidato =	{
 			 nombre: $scope.formData.NombreCandidato,
 			 edad: $scope.formData.EdadCandidato,
-			 dataFuenteDatos: $scope.formData.FNCandidato,
-			 listas: $scope.selection
-			}
-		$scope.candidatos.push(candidato);
-		$scope.formData.NumeroLista ="";
-		$scope.formData.PartidoSeleccionado = null;
-		
-			  
-			  console.log("CANDIDATOOOOOSSS"+candidato.listas[0].numero);
-			  console.log("CANDIDATOOOOOSSS"+candidato.listas[1].nombrePartido);
-		
+			 dataFuenteDatos: fuentesDatosCandidato,
+			 dataListas: $scope.selection
+		}
+		$scope.candidatos.push(candidato);		
+							
 	}
 	
 	$scope.toggleSelection = function toggleSelection(lista) {
