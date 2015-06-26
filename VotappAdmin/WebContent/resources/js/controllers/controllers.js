@@ -54,52 +54,51 @@ angular.module("app.controllers",[
 	$scope.partidos = [];
 	$scope.listas = [];
 	$scope.candidatos = [];
+	$scope.selection = [];
 
 	
 	//Arreglo de Candidatos creados en Wizard
 	$scope.nuevoCandidato = function (formData){
-		$scope.selection = [];
-		var lista =
-		{
-		 numero: $scope.formData.NumeroLista,
-		 partido: $scope.formData.PartidoSeleccionado.Nombre
-		}
+		
 		
 		var candidato =
 			{
 			 nombre: $scope.formData.NombreCandidato,
 			 edad: $scope.formData.EdadCandidato,
 			 dataFuenteDatos: $scope.formData.FNCandidato,
-			 listas: lista
+			 listas: $scope.selection
 			}
 		$scope.candidatos.push(candidato);
 		$scope.formData.NumeroLista ="";
 		$scope.formData.PartidoSeleccionado = null;
-
-		$scope.toggleSelection = function toggleSelection(lista) {
-			    var idx = $scope.selection.indexOf(lista);
-
-			    // is currently selected
-			    if (idx > -1) {
-			      $scope.selection.splice(idx, 1);
-			    }
-
-			    // is newly selected
-			    else {
-			      $scope.selection.push(lista);
-			    }
-			  };
+		
+			  
+			  console.log("CANDIDATOOOOOSSS"+candidato.listas[0].numero);
+			  console.log("CANDIDATOOOOOSSS"+candidato.listas[1].nombrePartido);
 		
 	}
 	
-	
+	$scope.toggleSelection = function toggleSelection(lista) {
+	    var idx = $scope.selection.indexOf(lista);
+
+	    // is currently selected
+	    if (idx > -1) {
+	      $scope.selection.splice(idx, 1);
+	    }
+
+	    // is newly selected
+	    else {
+	      $scope.selection.push(lista);
+	    }
+	  };
+
 	//Arreglo de Listas creadas en Wizard
 	$scope.nuevaLista = function (formData){
 		
 		var lista =
 			{
 			 numero: $scope.formData.NumeroLista,
-			 nombrePartido: $scope.formData.PartidoSeleccionado.Nombre
+			 nombrePartido: formData.PartidoSeleccionado.nombre
 			}
 		$scope.listas.push(lista);
 		$scope.formData.NumeroLista ="";

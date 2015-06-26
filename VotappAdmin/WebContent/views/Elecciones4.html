@@ -16,14 +16,19 @@
        	
        	<div class="row"> 
        		<label ng-repeat="lista in listas">
-			  <input  type="checkbox" name="selectedFruits[]" value="{{lista.Numero}}" ng-checked="selection.indexOf(lista.Numero) > -1" ng-click="toggleSelection(lista.Numero)">
+			  <input  type="checkbox" value="{{lista}}" ng-checked="selection.indexOf(lista) > -1" ng-click="toggleSelection(lista)"> {{lista.numero}}
 			</label>
        	</div>
         <br>
        
 		 
-        <div class="row">
+         <div class="row">
+        <div class="col-md-6">
+          <a ng-click="nuevoCandidato(formData)" class="btn btn-block btn-info"> Crear <span class="glyphicon"></span></a>
+		 </div>
+		 <div class="col-md-6">
 		  <a ng-click="setStep(5)" class="btn btn-block btn-info"> Siguiente <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+		 </div> 
 		</div>
 		
        

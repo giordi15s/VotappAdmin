@@ -9,10 +9,8 @@
          <div class="row">  
         <div class="col-md-6"> 
         	
-        	 <select  ng-options="partido.Nombre for partido in partidos" ng-model="formData.PartidoSeleccionado"></select>
-        	<!-- <select class="form-control" ng-model="formData.partidos">
-                <option ng-repeat="option in formData.partidos" value={{option.Nombre}} data-ng-selected="{{option.selected}}">{{option.Nombre}}</option>
-            </select> -->
+          <select  ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoSeleccionado"></select>
+        	 
            </div>
            </div>
         <br>
@@ -22,7 +20,7 @@
         
         <div class="row">
         <div class="col-md-6">
-          <a ng-click="nuevoPartido()" class="btn btn-block btn-info"> Crear <span class="glyphicon"></span></a>
+          <a ng-click="nuevaLista(formData)" class="btn btn-block btn-info"> Crear <span class="glyphicon"></span></a>
 		 </div>
 		 <div class="col-md-6">
 		  <a ng-click="setStep(4)" class="btn btn-block btn-info"> Siguiente <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
