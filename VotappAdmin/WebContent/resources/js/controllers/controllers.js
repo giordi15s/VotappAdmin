@@ -237,7 +237,8 @@ angular.module("app.controllers",[
 				fecha: new Date(formData.Fecha),
 				dataPartidos: $scope.partidos,
 				dataListas: $scope.listas,
-				dataCandidatos: $scope.candidatos
+				dataCandidatos: $scope.candidatos,
+				tipoEleccion: formData.tipoEleccion
 		}
 		
 		EleccionFactory.crearEleccion(dataEleccion).then(
