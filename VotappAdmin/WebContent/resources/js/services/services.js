@@ -21,6 +21,18 @@ value('version', '0.1')
 	
 }])
 
+.factory('EleccionFactory',['$http', function($http) {
+	return{
+		crearEleccion:function(dataEleccion){
+			return $http.post('http://localhost:8080/Votapp/services/eleccion/protected/crear', dataEleccion)
+		}
+	}
+	
+	
+	
+	
+}])
+
 .factory('LoginFactory', ['$http',function($http) {
 	return{
 		login:function(user){

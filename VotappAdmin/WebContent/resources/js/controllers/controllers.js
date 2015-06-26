@@ -47,7 +47,7 @@ angular.module("app.controllers",[
 }])
 
 
-.controller('HomeController', ['$scope', 'ConsultoraFactory', '$filter', function($scope, ConsultoraFactory, $filter){
+.controller('HomeController', ['$scope', 'ConsultoraFactory', 'EleccionFactory', '$filter', function($scope, ConsultoraFactory, EleccionFactory, $filter){
 	var booleano = false;
 	var eleccion = false;
 	$scope.step = 1;
@@ -69,7 +69,7 @@ angular.module("app.controllers",[
 			{
 			 nombre: $scope.formData.NombreCandidato,
 			 edad: $scope.formData.EdadCandidato,
-			 fuenteNoticia: $scope.formData.FNCandidato,
+			 dataFuenteDatos: $scope.formData.FNCandidato,
 			 listas: lista
 			}
 		$scope.candidatos.push(candidato);
@@ -99,7 +99,7 @@ angular.module("app.controllers",[
 		var lista =
 			{
 			 numero: $scope.formData.NumeroLista,
-			 partido: $scope.formData.PartidoSeleccionado.Nombre
+			 nombrePartido: $scope.formData.PartidoSeleccionado.Nombre
 			}
 		$scope.listas.push(lista);
 		$scope.formData.NumeroLista ="";
@@ -112,13 +112,21 @@ angular.module("app.controllers",[
 		var datefilter = $filter('date'),
 	    formattedDate = datefilter($scope.formData.FechaPartido, 'yyyy/MM/dd');
 		$scope.formData.FechaPartido = formattedDate;
+		var dataFuenteDatos = [];
+		
+		var fuenteDatos = {
+				url: $scope.formData.FNPartido,
+		}		
+		
+		dataFuenteDatos.push(fuenteDatos);
+		
 		var partido = 
         {
-         nombre: $scope.formData.NombrePartido , 
-         fecha: $scope.formData.FechaPartido,
-         presidente: $scope.formData.Presidente,
-         descripcion:$scope.formData.Descripcion,
-         fuenteInfo: $scope.formData.FNPartido
+	         nombre: $scope.formData.NombrePartido , 
+	         fechaFundacion: new Date($scope.formData.FechaPartido),
+	         presidente: $scope.formData.Presidente,
+	         descripcion:$scope.formData.Descripcion,
+	         dataFuenteDatos: dataFuenteDatos
         }
 		$scope.partidos.push(partido);
 		$scope.formData.NombrePartido="";
@@ -211,11 +219,40 @@ angular.module("app.controllers",[
 		eleccion = false;
 	}
 	
+	//Se invoca desde el navbar para mostrar el Wizard
 	$scope.crearEleccion = function(){
 		eleccion = true;
 		booleano = false;
 		$scope.formData.PartidoSeleccionado = null;
+		$scope.formData.Nombre="";
 	}
+	
+	
+	//Crea una nueva Eleccion
+	$scope.altaEleccion = function(formData){
+		
+		var dataEleccion = {
+				nombre: formData.Nombre,
+				descripcion: formData.Descripcion,
+				fecha: new Date(formData.Fecha),
+				dataPartidos: $scope.partidos,
+				dataListas: $scope.listas,
+				dataCandidatos: $scope.candidatos
+		}
+		
+		EleccionFactory.crearEleccion(dataEleccion).then(
+				function(response){
+					
+				},
+				
+				function(response){
+					//error messagge
+						
+				}
+		)
+			
+	}
+
 	
 	$scope.today = function() {
 	    $scope.dt = new Date();
