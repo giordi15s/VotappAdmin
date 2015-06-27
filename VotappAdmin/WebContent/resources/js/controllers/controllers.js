@@ -54,8 +54,25 @@ angular.module("app.controllers",[
 	$scope.partidos = [];
 	$scope.listas = [];
 	$scope.candidatos = [];
-	$scope.selection = [];	
+	$scope.selection = [];
+	$scope.listasPorPartido = [];
 
+	
+	$scope.listasXPartido = function (){	
+		$scope.listasPorPartido = [];
+		for (var x=0;x<$scope.listas.length;x++){
+			
+			if($scope.listas[x].nombrePartido == $scope.formData.PartidoSeleccionado.nombre){
+				var lis = {
+					numero: $scope.listas[x].numero,
+					partido:$scope.listas[x].nombrePartido 
+				}
+			$scope.listasPorPartido.push(lis);
+			}
+			
+		}
+		
+	}
 	
 	//Arreglo de Candidatos creados en Wizard
 	$scope.nuevoCandidato = function (formData){
@@ -76,8 +93,8 @@ angular.module("app.controllers",[
 							
 	}
 	
-	$scope.toggleSelection = function toggleSelection(lista) {
-	    var idx = $scope.selection.indexOf(lista);
+	$scope.toggleSelection = function toggleSelection(listasPorPartido) {
+	    var idx = $scope.selection.indexOf(listasPorPartido);
 
 	    // is currently selected
 	    if (idx > -1) {
@@ -86,7 +103,7 @@ angular.module("app.controllers",[
 
 	    // is newly selected
 	    else {
-	      $scope.selection.push(lista);
+	      $scope.selection.push(listasPorPartido);
 	    }
 	  };
 

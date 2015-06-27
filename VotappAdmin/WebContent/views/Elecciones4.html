@@ -14,9 +14,15 @@
           <input  style="margin-bottom: 10px;" class="form-control" placeholder="Fuente de Noticias" ng-model="formData.FNCandidato"required autofocus>
        	</div>
        	
+       	 <div class="row"> 
+       	 <label>Seleccione Partido:</label>
+        	 <select ng-change="listasXPartido()" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoSeleccionado"></select>
+           </div>
+       	
        	<div class="row"> 
-       		<label ng-repeat="lista in listas">
-			  <input  type="checkbox" value="{{lista}}" ng-checked="selection.indexOf(lista) > -1" ng-click="toggleSelection(lista)"> {{lista.numero}}
+       		<label>Seleccione Lista/s:</label>
+       		<label ng-repeat="lis in listasPorPartido">
+			  <input  type="checkbox" value="{{lis}}" ng-checked="selection.indexOf(lis) > -1" ng-click="toggleSelection(lis)"> {{lis.numero}}
 			</label>
        	</div>
         <br>
