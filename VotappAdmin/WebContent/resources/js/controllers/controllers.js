@@ -65,9 +65,9 @@ angular.module("app.controllers",[
 			if($scope.listas[x].nombrePartido == $scope.formData.PartidoSeleccionado.nombre){
 				var lis = {
 					numero: $scope.listas[x].numero,
-					partido:$scope.listas[x].nombrePartido 
+					nombrePartido:$scope.listas[x].nombrePartido 
 				}
-			$scope.listasPorPartido.push(lis);
+				$scope.listasPorPartido.push(lis);
 			}
 			
 		}
@@ -89,7 +89,13 @@ angular.module("app.controllers",[
 			 dataFuenteDatos: fuentesDatosCandidato,
 			 dataListas: $scope.selection
 		}
-		$scope.candidatos.push(candidato);		
+		$scope.candidatos.push(candidato);
+		
+		//Limpiar para el siguiente candidato:
+		formData.NombreCandidato = "";
+		formData.EdadCandidato = "";
+		$scope.selection = [];
+		formData.FNCandidato = "";
 							
 	}
 	
@@ -147,8 +153,7 @@ angular.module("app.controllers",[
 		$scope.formData.FechaPartido="";
 		$scope.formData.Presidente="";
 		$scope.formData.Descripcion="";
-		$scope.formData.FNPartido="";
-		console.log("Partidooooo"+$scope.partidos);	
+		$scope.formData.FNPartido="";		
 		
 	}
 	
