@@ -4,6 +4,7 @@ angular.module("app.controllers",[
 'angular-storage'
 ])
 .controller("LoginController", ['$scope', 'LoginFactory', '$state', 'store',function($scope, LoginFactory, $state, store){
+	
 	$scope.user = {};
 	$scope.signin = function(){
 		LoginFactory.login($scope.user).then(
@@ -24,32 +25,41 @@ angular.module("app.controllers",[
 }])
 .controller('ConsultoraController', ['$scope', 'ConsultoraFactory', function($scope, ConsultoraFactory) {
 	
-	$scope.updateResultado = function(consultoraId){
+	$scope.crearUsuario = function(consultora){
 		
-		ConsultoraFactory.getConsultora(consultoraId).then(
+		ConsultoraFactory.crearConsultora(consultora).then(
 				function(response){
-					console.log(response.data);
+					
 				},
 				
 				function(response){
 					//error messagge
-					console.log(response.data);
+						
 				}
 		)
 		
 	};
 	
+}])
 
-	
-	
-	//$scope.updateResultado(1); //valor inicial de la consulta
+.controller('HeaderController', ['$scope', 'LoginFactory', '$state', function($scope, LoginFactory, $state){
+
+	$scope.mostrarHeader = function(){
+		if($state.current.name ==='home' || $state.current.name ==='crearConsultora' || $state.current.name ==='crearEleccion')
+			return true;
+		else
+			return false;
+	}
 	
 }])
 
+.controller('HomeController', ['$scope', function($scope){
+		
+	
+}])
 
-.controller('HomeController', ['$scope', 'ConsultoraFactory', 'EleccionFactory', '$filter', function($scope, ConsultoraFactory, EleccionFactory, $filter){
-	var booleano = false;
-	var eleccion = false;
+.controller('EleccionController', ['$scope', 'ConsultoraFactory', 'EleccionFactory', '$filter',function($scope, ConsultoraFactory, EleccionFactory, $filter) {
+	
 	$scope.step = 1;
 	$scope.partidos = [];
 	$scope.listas = [];
@@ -211,9 +221,6 @@ angular.module("app.controllers",[
 			break;
        }
       
-       
-   
-       console.log("El valor de Step, es:"+step);
     } //Cambia las vistas del wizzard
 	
 	 $scope.formData = {};
@@ -223,25 +230,8 @@ angular.module("app.controllers",[
 	        alert('Eleccion creada!');
 	    };
 	
-	$scope.mostrarFormulario = function(){
-		return booleano;
-		
-	}
-	
-	$scope.showFormulario = function(){
-		return eleccion;
-		
-	}
-	
-	$scope.crearConsultora = function(){		
-		booleano = true;
-		eleccion = false;
-	}
-	
 	//Se invoca desde el navbar para mostrar el Wizard
-	$scope.crearEleccion = function(){
-		eleccion = true;
-		booleano = false;
+	$scope.crearEleccion = function(){		
 		$scope.formData.PartidoSeleccionado = null;
 		$scope.formData.Nombre="";
 	}
@@ -336,28 +326,5 @@ angular.module("app.controllers",[
 
 	    return '';
 	  };
-	
-	$scope.crearUsuario = function(consultora){
-				
-		ConsultoraFactory.crearConsultora(consultora).then(
-				function(response){
-					
-				},
-				
-				function(response){
-					//error messagge
-						
-				}
-		)
-		
-	};
-	
-	
-}])
-
-.controller('UsuarioController', ['$scope', 'UsuarioFactory', function($scope, UsuarioFactory) {
-	
-
-			
 	
 }])

@@ -8,19 +8,19 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Votapp</a>
+        <a class="navbar-brand" ui-sref="home">Votapp</a>
       </div>
     
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
       
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#" ng-click="crearConsultora()">Nueva Consultora</a></li>
+          <li ><a ui-sref="crearConsultora">Nueva Consultora</a></li>
           
           <li dropdown>
             <a href="#" dropdown-toggle>Elecciones <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#" ng-click="crearEleccion()">Nueva Eleccion</a></li>
+              <li><a ui-sref="crearEleccion">Nueva Eleccion</a></li>
               <li><a href="#">Elecciones 2015</a></li>
               <li><a href="#">Elecciones 2014</a></li>
             </ul>
