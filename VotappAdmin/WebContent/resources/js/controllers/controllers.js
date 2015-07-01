@@ -66,7 +66,45 @@ angular.module("app.controllers",[
 	$scope.candidatos = [];
 	$scope.selection = [];
 	$scope.listasPorPartido = [];
+	$scope.noticiasPartidos = [];
+	var esNacional = false;
 
+	$scope.nuevaFuente =function (){
+		var fuente = {
+			tipo: $scope.formData.tipoFuente,
+			url:  $scope.formData.FNPartido
+		}
+		$scope.noticiasPartidos.push(fuente);
+		$scope.formData.FNPartido = "";
+	}
+	
+	$scope.mostrarCargo = function(){
+		console.log(esNacional)
+		return esNacional;
+	}
+	
+	$scope.eleccionNacional = function(){
+		  console.log($scope.formData.tipoEleccion);
+	       switch ($scope.formData.tipoEleccion) {
+	       
+		    case "Nacional":
+				esNacional = true;
+				break;
+				
+		    case "Departamental":
+				esNacional = false;
+				break;
+
+		    case "Otra":
+		    	esNacional = false;
+				break;
+		    
+			default:
+				esNacional = false;
+				break;
+	       }
+			
+	}
 	
 	$scope.listasXPartido = function (){	
 		$scope.listasPorPartido = [];
@@ -156,7 +194,8 @@ angular.module("app.controllers",[
 	         fechaFundacion: new Date($scope.formData.FechaPartido),
 	         presidente: $scope.formData.Presidente,
 	         descripcion:$scope.formData.Descripcion,
-	         dataFuenteDatos: dataFuenteDatos
+	         dataFuenteDatos: $scope.noticiasPartidos
+
         }
 		$scope.partidos.push(partido);
 		$scope.formData.NombrePartido="";

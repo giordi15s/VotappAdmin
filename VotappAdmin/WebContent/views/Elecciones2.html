@@ -26,7 +26,27 @@
        	</div>
        	
        	 <div class="row"> 
-          <input  style="margin-bottom: 10px;" class="form-control" placeholder="Fuente de Informacion" ng-model="formData.FNPartido"required autofocus>
+          	<input  style="margin-bottom: 10px;" class="form-control" placeholder="Fuente de Informacion" ng-model="formData.FNPartido"required autofocus>
+ 
+ 		<label class="col-md-4">
+	    	<input type="radio" ng-model="formData.tipoFuente" value="facebook">
+	    	<i class="fa fa-facebook-square fa-3x facebook-icon"></i>Facebook
+	  	</label>
+		<label class="col-md-4">
+	    	<input type="radio" ng-model="formData.tipoFuente" value="twitter">
+	    	<i class="fa fa-twitter-square fa-3x twitter-icon"></i>Twitter
+	  	</label>
+		<label class="col-md-4">
+		  	<input type="radio" ng-model="formData.tipoFuente" value="youtube">
+		  	<i class="fa fa-youtube-play fa-3x youtube-icon"></i>Youtube
+		</label>
+		<br/>
+	
+        <button ng-click=nuevaFuente() class="btn btn-block btn-info">Alta Fuente</button>
+	  	
+	  	<br/>
+	
+	  
        	</div>
         
         <br>
