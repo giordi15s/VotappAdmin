@@ -15,11 +15,11 @@ body                            { padding-top:20px; }
 #status-buttons a:hover         { cursor: pointer; text-decoration:none; }
 
 /* we will style the span as the circled number */
-#status-buttons span            { background:#080808; display:block; height:30px; margin:0 auto 10px; padding-top:5px; width:30px; 
+#status-buttons span            { background:#346E7F; display:block; height:30px; margin:0 auto 10px; padding-top:5px; width:30px; 
     border-radius:50%; }
 
 /* active buttons turn light green-blue*/
-#status-buttons a.active span   {  text-decoration: underline; background:#5bc0de; }
+#status-buttons a.active span   {  text-decoration: none; background:#43585E; }
 
 .partidos { width:300px; height: 100px;}
 
@@ -34,4 +34,11 @@ body                            { padding-top:20px; }
     color: black;
   }
   
+/*****************/
+/**ALTA ELECCION**/
+/*****************/  
+#headAltaEleccion{
+	background-color: #5bc0de;
+	padding: 2em;
+}
  
