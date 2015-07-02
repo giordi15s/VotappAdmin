@@ -4,6 +4,7 @@ angular.module("app.controllers",[
 'angular-storage'
 ])
 .controller("LoginController", ['$scope', 'LoginFactory', '$state', 'store',function($scope, LoginFactory, $state, store){
+	
 	$scope.user = {};
 	$scope.signin = function(){
 		LoginFactory.login($scope.user).then(
@@ -24,40 +25,86 @@ angular.module("app.controllers",[
 }])
 .controller('ConsultoraController', ['$scope', 'ConsultoraFactory', function($scope, ConsultoraFactory) {
 	
-	$scope.updateResultado = function(consultoraId){
+	$scope.crearUsuario = function(consultora){
 		
-		ConsultoraFactory.getConsultora(consultoraId).then(
+		ConsultoraFactory.crearConsultora(consultora).then(
 				function(response){
-					console.log(response.data);
+					
 				},
 				
 				function(response){
 					//error messagge
-					console.log(response.data);
+						
 				}
 		)
 		
 	};
 	
+}])
 
-	
-	
-	//$scope.updateResultado(1); //valor inicial de la consulta
+.controller('HeaderController', ['$scope', 'LoginFactory', '$state', function($scope, LoginFactory, $state){
+
+	$scope.mostrarHeader = function(){
+		if($state.current.name ==='home' || $state.current.name ==='crearConsultora' || $state.current.name ==='crearEleccion')
+			return true;
+		else
+			return false;
+	}
 	
 }])
 
+.controller('HomeController', ['$scope', function($scope){
+		
+	
+}])
 
-.controller('HomeController', ['$scope', 'FacebookFactory', 'ConsultoraFactory', 'EleccionFactory', '$filter', function($scope, FacebookFactory, ConsultoraFactory, EleccionFactory, $filter){
-	var booleano = false;
-	var eleccion = false;
+.controller('EleccionController', ['$scope', 'ConsultoraFactory', 'EleccionFactory', '$filter',function($scope, ConsultoraFactory, EleccionFactory, $filter) {
+	
 	$scope.step = 1;
 	$scope.partidos = [];
 	$scope.listas = [];
 	$scope.candidatos = [];
 	$scope.selection = [];
 	$scope.listasPorPartido = [];
-	$scope.fuente = [];
+	$scope.noticiasPartidos = [];
+	var esNacional = false;
 
+	$scope.nuevaFuente =function (){
+		var fuente = {
+			tipo: $scope.formData.tipoFuente,
+			url:  $scope.formData.FNPartido
+		}
+		$scope.noticiasPartidos.push(fuente);
+		$scope.formData.FNPartido = "";
+	}
+	
+	$scope.mostrarCargo = function(){
+		console.log(esNacional)
+		return esNacional;
+	}
+	
+	$scope.eleccionNacional = function(){
+		  console.log($scope.formData.tipoEleccion);
+	       switch ($scope.formData.tipoEleccion) {
+	       
+		    case "Nacional":
+				esNacional = true;
+				break;
+				
+		    case "Departamental":
+				esNacional = false;
+				break;
+
+		    case "Otra":
+		    	esNacional = false;
+				break;
+		    
+			default:
+				esNacional = false;
+				break;
+	       }
+			
+	}
 	
 	$scope.listasXPartido = function (){	
 		$scope.listasPorPartido = [];
@@ -66,9 +113,9 @@ angular.module("app.controllers",[
 			if($scope.listas[x].nombrePartido == $scope.formData.PartidoSeleccionado.nombre){
 				var lis = {
 					numero: $scope.listas[x].numero,
-					partido:$scope.listas[x].nombrePartido 
+					nombrePartido:$scope.listas[x].nombrePartido 
 				}
-			$scope.listasPorPartido.push(lis);
+				$scope.listasPorPartido.push(lis);
 			}
 			
 		}
@@ -90,7 +137,13 @@ angular.module("app.controllers",[
 			 dataFuenteDatos: fuentesDatosCandidato,
 			 dataListas: $scope.selection
 		}
-		$scope.candidatos.push(candidato);		
+		$scope.candidatos.push(candidato);
+		
+		//Limpiar para el siguiente candidato:
+		formData.NombreCandidato = "";
+		formData.EdadCandidato = "";
+		$scope.selection = [];
+		formData.FNCandidato = "";
 							
 	}
 	
@@ -141,15 +194,15 @@ angular.module("app.controllers",[
 	         fechaFundacion: new Date($scope.formData.FechaPartido),
 	         presidente: $scope.formData.Presidente,
 	         descripcion:$scope.formData.Descripcion,
-	         dataFuenteDatos: dataFuenteDatos
+	         dataFuenteDatos: $scope.noticiasPartidos
+
         }
 		$scope.partidos.push(partido);
 		$scope.formData.NombrePartido="";
 		$scope.formData.FechaPartido="";
 		$scope.formData.Presidente="";
 		$scope.formData.Descripcion="";
-		$scope.formData.FNPartido="";
-		console.log("Partidooooo"+$scope.partidos);	
+		$scope.formData.FNPartido="";		
 		
 	}
 	
@@ -207,9 +260,6 @@ angular.module("app.controllers",[
 			break;
        }
       
-       
-   
-       console.log("El valor de Step, es:"+step);
     } //Cambia las vistas del wizzard
 	
 	 $scope.formData = {};
@@ -219,43 +269,8 @@ angular.module("app.controllers",[
 	        alert('Eleccion creada!');
 	    };
 	
-	$scope.mostrarFormulario = function(){
-		return booleano;
-		
-	}
-	
-	$scope.showFormulario = function(){
-		return eleccion;
-		
-	}
-	
-	$scope.crearConsultora = function(){		
-		booleano = true;
-		eleccion = false;
-	}
-	
-	$scope.crearFuenteInfo = function(){		
-		booleano = true;
-		eleccion = false;
-	}
-	
-	$scope.mostrarPag = function(key){
-		FacebookFactory.getMyLastName(key).then(
-				function(response){
-					$scope.fuente.data = response.data;
-				},
-				
-				function(response){
-					//error messagge
-					console.log(response);	
-				}
-		)
-	}
-	
 	//Se invoca desde el navbar para mostrar el Wizard
-	$scope.crearEleccion = function(){
-		eleccion = true;
-		booleano = false;
+	$scope.crearEleccion = function(){		
 		$scope.formData.PartidoSeleccionado = null;
 		$scope.formData.Nombre="";
 	}
@@ -350,28 +365,5 @@ angular.module("app.controllers",[
 
 	    return '';
 	  };
-	
-	$scope.crearUsuario = function(consultora){
-				
-		ConsultoraFactory.crearConsultora(consultora).then(
-				function(response){
-					
-				},
-				
-				function(response){
-					//error messagge
-						
-				}
-		)
-		
-	};
-	
-	
-}])
-
-.controller('UsuarioController', ['$scope', 'UsuarioFactory', function($scope, UsuarioFactory) {
-	
-
-			
 	
 }])
