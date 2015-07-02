@@ -47,7 +47,7 @@ angular.module("app.controllers",[
 }])
 
 
-.controller('HomeController', ['$scope', 'ConsultoraFactory', 'EleccionFactory', '$filter', function($scope, ConsultoraFactory, EleccionFactory, $filter){
+.controller('HomeController', ['$scope', 'FacebookFactory', 'ConsultoraFactory', 'EleccionFactory', '$filter', function($scope, FacebookFactory, ConsultoraFactory, EleccionFactory, $filter){
 	var booleano = false;
 	var eleccion = false;
 	$scope.step = 1;
@@ -56,6 +56,7 @@ angular.module("app.controllers",[
 	$scope.candidatos = [];
 	$scope.selection = [];
 	$scope.listasPorPartido = [];
+	$scope.fuente = [];
 
 	
 	$scope.listasXPartido = function (){	
@@ -231,6 +232,24 @@ angular.module("app.controllers",[
 	$scope.crearConsultora = function(){		
 		booleano = true;
 		eleccion = false;
+	}
+	
+	$scope.crearFuenteInfo = function(){		
+		booleano = true;
+		eleccion = false;
+	}
+	
+	$scope.mostrarPag = function(key){
+		FacebookFactory.getMyLastName(key).then(
+				function(response){
+					$scope.fuente.data = response.data;
+				},
+				
+				function(response){
+					//error messagge
+					console.log(response);	
+				}
+		)
 	}
 	
 	//Se invoca desde el navbar para mostrar el Wizard

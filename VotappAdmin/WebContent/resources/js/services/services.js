@@ -20,6 +20,20 @@ value('version', '0.1')
 	
 	
 }])
+.factory('FacebookFactory',['$http', function($http) {
+	return{
+		getPage:function(username){
+			return $http.get('https://graph.facebook.com/v2.3/'+username+'?access_token=1007712492573393|EfLT3Ng0fwrOezKdxtlmTw8E45A')
+		},
+		getMyLastName: function() {
+            FB.api('/FrenteAmplioOficial', {
+            	access_token: '1007712492573393|EfLT3Ng0fwrOezKdxtlmTw8E45A'
+            }, function(response) {
+                	return response;
+            });
+        }
+	}
+}])
 
 .factory('EleccionFactory',['$http', function($http) {
 	return{
