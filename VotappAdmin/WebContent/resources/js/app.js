@@ -11,17 +11,17 @@ angular.module('app', [
   'app.services',
   'ui.bootstrap',
   //'app.directives',
-  'app.controllers'
+  'app.controllers',
+  'ngAnimate'
 ])
 .config(['$urlRouterProvider', '$stateProvider','jwtInterceptorProvider', '$httpProvider', function($urlRouterProvider, $stateProvider,jwtInterceptorProvider, $httpProvider) {
 	
 	$urlRouterProvider.otherwise('/');
 	
 	$stateProvider.state('login', {url: '/login', templateUrl: 'views/login.html', controller: 'LoginController'})
-	.state('home', {url:'/', templateUrl: 'views/home.html',  controller: 'HomeController', data:{requiresLogin:true} })
-	.state('crearConsultora', {url:'/crearConsultora', templateUrl: 'views/altaConsultora.html',  controller: 'ConsultoraController'})
-	.state('crearEleccion', {url:'/crearEleccion', templateUrl: 'views/altaEleccion.html',  controller: 'ConsultoraController'})
-    .state('crearEleccion.profile', { url: '/profile', templateUrl: 'views/form-profile.html'})
+	.state('home', {url:'/',  controller: 'HomeController', data:{requiresLogin:true} })
+	.state('crearConsultora', {url:'/crearConsultora', templateUrl: 'views/altaConsultora.html',  controller: 'ConsultoraController', data:{requiresLogin:true}})
+	.state('crearEleccion', {url:'/crearEleccion', templateUrl: 'views/altaEleccion.html',  controller: 'EleccionController', data:{requiresLogin:true}})    
   
   jwtInterceptorProvider.tokenGetter = function(store){
 	  return store.get('token');
@@ -31,10 +31,11 @@ angular.module('app', [
   
 }])
 
-.run(['$rootScope','jwtHelper', 'store', '$state', function($rootScope, jwtHelper, store, $state){
-	
+.run(['$rootScope','jwtHelper', 'store', '$state', '$stateParams', function($rootScope, jwtHelper, store, $state, $stateParams){
+	$rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
 	$rootScope.$on("$stateChangeStart", function (event, next, current) {
-	    if (next.data && next.data.requiresLogin) {
+		if (next.data && next.data.requiresLogin) {
 	    	if(!store.get('token')){
 	    		event.preventDefault();
 	    		$state.go('login');

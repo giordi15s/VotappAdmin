@@ -9,22 +9,23 @@
 <link rel="stylesheet" href="resources/css/login.css">
 <link rel="stylesheet" href="resources/css/sidemenu.css">
 <link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/ui-router-animate.css">
 
 </head>
-<body>
-
-
-
+<body >
+	<div ng-controller="HeaderController">
+		<div ng-include src="'layout/headerMenu.html'" ng-show="mostrarHeader()" ></div>
+		<div ng-include src="'layout/header.html'" ng-show="$state.current.name ==='login'" ></div>
+	</div>
 	
 	
-
-		<div ui-view></div>
-
-
-
-
+	<div class="ui-view-container">
+      <div ui-view ></div>  <!-- class="well"-->
+   	</div>
+		
 
 	<div ng-include src="'layout/footer.html'"></div>
+	
 	<script type="text/javascript" src="resources/js/angular.min.js"></script>
 	<script type="text/javascript" src="resources/js/angular-ui-router.js"></script>
 	<script type="text/javascript" src="resources/js/angular-storage.min.js"></script>
@@ -34,7 +35,7 @@
 	<script type="text/javascript" src="resources/js/services/services.js"></script>
 	<script type="text/javascript" src="resources/js/ui-bootstrap-tpls-0.13.0.min.js"></script>
 	<script type="text/javascript" src="resources/js/sha256.js"></script>
- 	<script type="text/javascript" src="http://code.angularjs.org/1.2.1/angular-animate.js"></script>
+ 	<script type="text/javascript" src="resources/js/angular-animate.min.js"></script>
 	
 </body>
 </html>
