@@ -68,8 +68,10 @@ angular.module("app.controllers",[
 	$scope.listasPorPartido = [];
 	$scope.noticiasPartidos = [];
 	var esNacional = false;
+	var mostrarListas = false;
 
 	$scope.nuevaFuente =function (){
+		console.log("Este es el tipo Fuente:"+ $scope.formData.tipoFuente);
 		var fuente = {
 			tipo: $scope.formData.tipoFuente,
 			url:  $scope.formData.FNPartido
@@ -79,8 +81,11 @@ angular.module("app.controllers",[
 	}
 	
 	$scope.mostrarCargo = function(){
-		console.log(esNacional)
 		return esNacional;
+	}
+	
+	$scope.mostrarListas = function(){
+		return mostrarListas;
 	}
 	
 	$scope.eleccionNacional = function(){
@@ -89,18 +94,22 @@ angular.module("app.controllers",[
 	       
 		    case "Nacional":
 				esNacional = true;
+				mostrarListas = false;
 				break;
 				
 		    case "Departamental":
 				esNacional = false;
+				mostrarListas = true;
 				break;
 
 		    case "Otra":
 		    	esNacional = false;
+		    	mostrarListas = true;
 				break;
 		    
 			default:
 				esNacional = false;
+				mostrarListas = false;
 				break;
 	       }
 			

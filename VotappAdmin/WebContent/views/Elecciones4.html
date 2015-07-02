@@ -19,7 +19,7 @@
         	 <select ng-change="listasXPartido()" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoSeleccionado"></select>
            </div>
        	
-       	<div ng-show="mostrarCargo()" class="row"> 
+       	<div ng-show="mostrarListas()" class="row"> 
        		<label>Seleccione Lista/s:</label>
        		<label ng-repeat="lis in listasPorPartido">
 			  <input  type="checkbox" value="{{lis}}" ng-checked="selection.indexOf(lis) > -1" ng-click="toggleSelection(lis)"> {{lis.numero}}
