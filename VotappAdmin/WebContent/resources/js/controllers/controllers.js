@@ -67,6 +67,7 @@ angular.module("app.controllers",[
 	$scope.selection = [];
 	$scope.listasPorPartido = [];
 	$scope.noticiasPartidos = [];
+	$scope.noticiasCandidato = [];
 	var esNacional = false;
 	var mostrarListas = false;
 
@@ -78,6 +79,16 @@ angular.module("app.controllers",[
 		}
 		$scope.noticiasPartidos.push(fuente);
 		$scope.formData.FNPartido = "";
+	}
+	
+	$scope.nuevaFuenteCandidato =function (){
+		console.log("Este es el tipo Fuente:"+ $scope.formData.tipoFuente);
+		var fuente = {
+			tipo: $scope.formData.tipoFuenteCandidato,
+			url:  $scope.formData.FNCandidato
+		}
+		$scope.noticiasCandidato.push(fuente);
+		$scope.formData.FNCandidato = "";
 	}
 	
 	$scope.mostrarCargo = function(){
@@ -119,7 +130,7 @@ angular.module("app.controllers",[
 		$scope.listasPorPartido = [];
 		for (var x=0;x<$scope.listas.length;x++){
 			
-			if($scope.listas[x].nombrePartido == $scope.formData.PartidoSeleccionado.nombre){
+			if($scope.listas[x].nombrePartido == $scope.formData.PartidoCandidato.nombre){
 				var lis = {
 					numero: $scope.listas[x].numero,
 					nombrePartido:$scope.listas[x].nombrePartido 
@@ -137,14 +148,16 @@ angular.module("app.controllers",[
 		var fuentesDatosCandidato = [];
 		
 		var fuenteDatos = {
-				url: formData.FNCandidato
+				url: formData.FNCandidato,
+				tipo:formData.tipoFuenteCandidato
 		}
 		fuentesDatosCandidato.push(fuenteDatos);
 		var candidato =	{
 			 nombre: $scope.formData.NombreCandidato,
 			 edad: $scope.formData.EdadCandidato,
-			 dataFuenteDatos: fuentesDatosCandidato,
-			 dataListas: $scope.selection
+			 dataFuenteDatos: $scope.noticiasCandidato,
+			 dataListas: $scope.selection,
+			 nombrePartido: formData.PartidoCandidato.nombre
 		}
 		$scope.candidatos.push(candidato);
 		
@@ -189,14 +202,7 @@ angular.module("app.controllers",[
 		var datefilter = $filter('date'),
 	    formattedDate = datefilter($scope.formData.FechaPartido, 'yyyy/MM/dd');
 		$scope.formData.FechaPartido = formattedDate;
-		var dataFuenteDatos = [];
-		
-		var fuenteDatos = {
-				url: $scope.formData.FNPartido,
-		}		
-		
-		dataFuenteDatos.push(fuenteDatos);
-		
+			
 		var partido = 
         {
 	         nombre: $scope.formData.NombrePartido , 
