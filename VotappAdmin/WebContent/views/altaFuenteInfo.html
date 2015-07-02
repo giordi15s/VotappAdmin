@@ -1,0 +1,36 @@
+ <div class="row">
+ 
+  <div class="container" style="padding-top: 5%">
+ 	<pre>ALTA FUENTE INFO</pre>
+	 <form name="formFuente">
+ 		<label class="col-md-4">
+	    	<input type="radio" ng-model="fuente.nombre" value="facebook">
+	    	<i class="fa fa-facebook-square fa-3x facebook-icon"></i>Facebook
+	  	</label>
+		<label class="col-md-4">
+	    	<input type="radio" ng-model="fuente.nombre" value="twitter">
+	    	<i class="fa fa-twitter-square fa-3x twitter-icon"></i>Twitter
+	  	</label>
+		<label class="col-md-4">
+		  	<input type="radio" ng-model="fuente.nombre" value="youtube">
+		  	<i class="fa fa-youtube-play fa-3x youtube-icon"></i>Youtube
+		</label>
+		<br/>
+		<div class="form-group">
+			<label for="urlInput">Url: </label>
+		    <input type="text" class="form-control" id="urlInput" ng-model="fuente.url" placeholder="Url">
+		</div>
+        <button ng-click="mostrarPag(fuente.url)" type="submit" class="btn btn-block btn-info">Alta Fuente</button>
+	  	<pre>color = {{fuente | json}}</pre>
+	  	<pre>color = {{fuente.data | json}}</pre>
+	  	<br/>
+	 </form>
+	 
+	 <div id="facebook-page"></div>
+	 
+	 <div class="fb-page" data-href="https://www.facebook.com/suarez16luis" data-small-header="false" 
+	 data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true">
+	 <div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/suarez16luis">
+	 <a href="https://www.facebook.com/suarez16luis">Facebook</a></blockquote></div></div>
+ </div>
+</div>
