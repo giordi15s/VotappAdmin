@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+
+.radio-fuentes{
+	vertical-align: middle;
+	margin: 0px;
+}
+.facebook-icon{
+	color:#3b5998;
+}
+.twitter-icon{
+	color:#2e98d0;
+}
+.youtube-icon{
+	color:red;
+}
