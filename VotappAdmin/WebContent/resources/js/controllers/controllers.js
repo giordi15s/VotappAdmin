@@ -70,6 +70,13 @@ angular.module("app.controllers",[
 	$scope.noticiasCandidato = [];
 	var esNacional = false;
 	var mostrarListas = false;
+	var esOtra = true;
+	var salteo = null;
+	
+	//oculta el paso 2 del wizard si la eleccion es Otra
+	$scope.eleccionOtra = function(){
+		return esOtra;
+	}
 
 	$scope.nuevaFuente =function (){
 		console.log("Este es el tipo Fuente:"+ $scope.formData.tipoFuente);
@@ -99,28 +106,32 @@ angular.module("app.controllers",[
 		return mostrarListas;
 	}
 	
-	$scope.eleccionNacional = function(){
+	$scope.tipoEleccionSel = function(){
 		  console.log($scope.formData.tipoEleccion);
 	       switch ($scope.formData.tipoEleccion) {
 	       
 		    case "Nacional":
 				esNacional = true;
 				mostrarListas = false;
+				esOtra = true;
 				break;
 				
 		    case "Departamental":
 				esNacional = false;
 				mostrarListas = true;
+				esOtra = true;
 				break;
 
 		    case "Otra":
 		    	esNacional = false;
 		    	mostrarListas = true;
-				break;
+		    	esOtra = false;
+		    	break;
 		    
 			default:
 				esNacional = false;
 				mostrarListas = false;
+				esOtra = true;
 				break;
 	       }
 			
@@ -238,6 +249,9 @@ angular.module("app.controllers",[
 			$scope.activoPaso5 = false;
 			break;
 	    case 2:
+	    	if ($scope.eleccionOtra){
+	    		$scope.setStep(3)
+	    	}
 	    	$scope.activoPaso1 = false;
 			$scope.activoPaso2 = true;
 			$scope.activoPaso3 = false;
