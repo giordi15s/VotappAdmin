@@ -72,6 +72,10 @@ angular.module("app.controllers",[
 	var mostrarListas = false;
 	var esOtra = true;
 	var salteo = null;
+	$scope.numeroPaso3 = 3;
+	$scope.numeroPaso4 = 4;
+	$scope.numeroPaso5 = 5;
+	$scope.siguientePaso1 = 2;
 	
 	//oculta el paso 2 del wizard si la eleccion es Otra
 	$scope.eleccionOtra = function(){
@@ -114,24 +118,40 @@ angular.module("app.controllers",[
 				esNacional = true;
 				mostrarListas = false;
 				esOtra = true;
+				$scope.numeroPaso3 = 3;
+				$scope.numeroPaso4 = 4;
+				$scope.numeroPaso5 = 5;
+				$scope.siguientePaso1 = 2;
 				break;
 				
 		    case "Departamental":
 				esNacional = false;
 				mostrarListas = true;
 				esOtra = true;
+				$scope.numeroPaso3 = 3;
+				$scope.numeroPaso4 = 4;
+				$scope.numeroPaso5 = 5;
+				$scope.siguientePaso1 = 2;
 				break;
 
 		    case "Otra":
 		    	esNacional = false;
 		    	mostrarListas = true;
 		    	esOtra = false;
+		    	$scope.numeroPaso3 = 2;
+		    	$scope.numeroPaso4 = 3;
+		    	$scope.numeroPaso5 = 4;
+		    	$scope.siguientePaso1 = 3;
 		    	break;
 		    
 			default:
 				esNacional = false;
 				mostrarListas = false;
 				esOtra = true;
+				$scope.numeroPaso3 = 3;
+				$scope.numeroPaso4 = 4;
+				$scope.numeroPaso5 = 5;
+				$scope.siguientePaso1 = 2;
 				break;
 	       }
 			
@@ -249,7 +269,7 @@ angular.module("app.controllers",[
 			$scope.activoPaso5 = false;
 			break;
 	    case 2:
-	    	if ($scope.eleccionOtra){
+	    	if (!$scope.eleccionOtra){
 	    		$scope.setStep(3)
 	    	}
 	    	$scope.activoPaso1 = false;
