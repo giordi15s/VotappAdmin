@@ -11,15 +11,11 @@
        	</div>
        	
        	 <div class="row"> 
-          <input  style="margin-bottom: 10px;" class="form-control" placeholder="Fuente de Noticias" ng-model="formData.FNCandidato"required autofocus>
-       	</div>
-       	
-       	 <div class="row"> 
        	 <label>Seleccione Partido:</label>
-        	 <select ng-change="listasXPartido()" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoSeleccionado"></select>
+        	 <select ng-change="listasXPartido()" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoCandidato"></select>
            </div>
        	
-       	<div ng-show="mostrarCargo()" class="row"> 
+       	<div ng-show="mostrarListas()" class="row"> 
        		<label>Seleccione Lista/s:</label>
        		<label ng-repeat="lis in listasPorPartido">
 			  <input  type="checkbox" value="{{lis}}" ng-checked="selection.indexOf(lis) > -1" ng-click="toggleSelection(lis)"> {{lis.numero}}
@@ -34,6 +30,27 @@
            	</select>
            <br>
       	</div>
+      	
+      	<div class="row"> 
+          <input  style="margin-bottom: 10px;" class="form-control" placeholder="Fuente de Noticias" ng-model="formData.FNCandidato"required autofocus>
+
+ 		<label class="col-md-4">
+	    	<input type="radio" ng-model="formData.tipoFuenteCandidato" value="facebook">
+	    	<i class="fa fa-facebook-square fa-3x facebook-icon"></i>Facebook
+	  	</label>
+		<label class="col-md-4">
+	    	<input type="radio" ng-model="formData.tipoFuenteCandidato" value="twitter">
+	    	<i class="fa fa-twitter-square fa-3x twitter-icon"></i>Twitter
+	  	</label>
+		<label class="col-md-4">
+		  	<input type="radio" ng-model="formData.tipoFuenteCandidato" value="youtube">
+		  	<i class="fa fa-youtube-play fa-3x youtube-icon"></i>Youtube
+		</label>
+		<br/>
+		<div class="form-group">
+        <button  ng-click="nuevaFuenteCandidato()" class="btn btn-block btn-info">Alta Fuente</button>	
+	  </div>
+       	</div>	
 		 
          <div class="row">
         <div class="col-md-6">

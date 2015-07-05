@@ -67,9 +67,23 @@ angular.module("app.controllers",[
 	$scope.selection = [];
 	$scope.listasPorPartido = [];
 	$scope.noticiasPartidos = [];
+	$scope.noticiasCandidato = [];
 	var esNacional = false;
+	var mostrarListas = false;
+	var esOtra = true;
+	var salteo = null;
+	$scope.numeroPaso3 = 3;
+	$scope.numeroPaso4 = 4;
+	$scope.numeroPaso5 = 5;
+	$scope.siguientePaso1 = 2;
+	
+	//oculta el paso 2 del wizard si la eleccion es Otra
+	$scope.eleccionOtra = function(){
+		return esOtra;
+	}
 
 	$scope.nuevaFuente =function (){
+		console.log("Este es el tipo Fuente:"+ $scope.formData.tipoFuente);
 		var fuente = {
 			tipo: $scope.formData.tipoFuente,
 			url:  $scope.formData.FNPartido
@@ -78,29 +92,66 @@ angular.module("app.controllers",[
 		$scope.formData.FNPartido = "";
 	}
 	
+	$scope.nuevaFuenteCandidato =function (){
+		console.log("Este es el tipo Fuente:"+ $scope.formData.tipoFuente);
+		var fuente = {
+			tipo: $scope.formData.tipoFuenteCandidato,
+			url:  $scope.formData.FNCandidato
+		}
+		$scope.noticiasCandidato.push(fuente);
+		$scope.formData.FNCandidato = "";
+	}
+	
 	$scope.mostrarCargo = function(){
-		console.log(esNacional)
 		return esNacional;
 	}
 	
-	$scope.eleccionNacional = function(){
+	$scope.mostrarListas = function(){
+		return mostrarListas;
+	}
+	
+	$scope.tipoEleccionSel = function(){
 		  console.log($scope.formData.tipoEleccion);
 	       switch ($scope.formData.tipoEleccion) {
 	       
 		    case "Nacional":
 				esNacional = true;
+				mostrarListas = false;
+				esOtra = true;
+				$scope.numeroPaso3 = 3;
+				$scope.numeroPaso4 = 4;
+				$scope.numeroPaso5 = 5;
+				$scope.siguientePaso1 = 2;
 				break;
 				
 		    case "Departamental":
 				esNacional = false;
+				mostrarListas = true;
+				esOtra = true;
+				$scope.numeroPaso3 = 3;
+				$scope.numeroPaso4 = 4;
+				$scope.numeroPaso5 = 5;
+				$scope.siguientePaso1 = 2;
 				break;
 
 		    case "Otra":
 		    	esNacional = false;
-				break;
+		    	mostrarListas = true;
+		    	esOtra = false;
+		    	$scope.numeroPaso3 = 2;
+		    	$scope.numeroPaso4 = 3;
+		    	$scope.numeroPaso5 = 4;
+		    	$scope.siguientePaso1 = 3;
+		    	break;
 		    
 			default:
 				esNacional = false;
+				mostrarListas = false;
+				esOtra = true;
+				$scope.numeroPaso3 = 3;
+				$scope.numeroPaso4 = 4;
+				$scope.numeroPaso5 = 5;
+				$scope.siguientePaso1 = 2;
 				break;
 	       }
 			
@@ -110,7 +161,7 @@ angular.module("app.controllers",[
 		$scope.listasPorPartido = [];
 		for (var x=0;x<$scope.listas.length;x++){
 			
-			if($scope.listas[x].nombrePartido == $scope.formData.PartidoSeleccionado.nombre){
+			if($scope.listas[x].nombrePartido == $scope.formData.PartidoCandidato.nombre){
 				var lis = {
 					numero: $scope.listas[x].numero,
 					nombrePartido:$scope.listas[x].nombrePartido 
@@ -128,14 +179,16 @@ angular.module("app.controllers",[
 		var fuentesDatosCandidato = [];
 		
 		var fuenteDatos = {
-				url: formData.FNCandidato
+				url: formData.FNCandidato,
+				tipo:formData.tipoFuenteCandidato
 		}
 		fuentesDatosCandidato.push(fuenteDatos);
 		var candidato =	{
 			 nombre: $scope.formData.NombreCandidato,
 			 edad: $scope.formData.EdadCandidato,
-			 dataFuenteDatos: fuentesDatosCandidato,
-			 dataListas: $scope.selection
+			 dataFuenteDatos: $scope.noticiasCandidato,
+			 dataListas: $scope.selection,
+			 nombrePartido: formData.PartidoCandidato.nombre
 		}
 		$scope.candidatos.push(candidato);
 		
@@ -180,14 +233,7 @@ angular.module("app.controllers",[
 		var datefilter = $filter('date'),
 	    formattedDate = datefilter($scope.formData.FechaPartido, 'yyyy/MM/dd');
 		$scope.formData.FechaPartido = formattedDate;
-		var dataFuenteDatos = [];
-		
-		var fuenteDatos = {
-				url: $scope.formData.FNPartido,
-		}		
-		
-		dataFuenteDatos.push(fuenteDatos);
-		
+			
 		var partido = 
         {
 	         nombre: $scope.formData.NombrePartido , 
@@ -223,6 +269,9 @@ angular.module("app.controllers",[
 			$scope.activoPaso5 = false;
 			break;
 	    case 2:
+	    	if (!$scope.eleccionOtra){
+	    		$scope.setStep(3)
+	    	}
 	    	$scope.activoPaso1 = false;
 			$scope.activoPaso2 = true;
 			$scope.activoPaso3 = false;

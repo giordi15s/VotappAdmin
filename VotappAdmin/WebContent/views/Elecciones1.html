@@ -18,10 +18,10 @@
         
         <div class="row"> 
            	<label for="tipoEleccion">Tipo Eleccion:</label>
-           	<select ng-click="eleccionNacional()" class="form-control" id="tipoEleccion" name="tipoEleccion" type="checkbox" ng-model="formData.tipoEleccion" >
+           	<select ng-click="tipoEleccionSel()" class="form-control" id="tipoEleccion" name="tipoEleccion" type="checkbox" ng-model="formData.tipoEleccion" >
            		<option value="Nacional">Nacional</option>
            		<option value="Departamental">Departamental</option>
-				<option value="Otro">Otra</option>	
+				<option value="Otra">Otra</option>	
            	</select>
            <br>
       	</div>
@@ -29,7 +29,7 @@
         <br>
         
         <div class="row">
-		  <a ng-click="setStep(2)" class="btn btn-block btn-info"> Siguiente <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+		  <a ng-click="setStep(siguientePaso1)" class="btn btn-block btn-info"> Siguiente <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
 		</div>
        
 </div>						
