@@ -58,8 +58,10 @@ angular.module("app.controllers",[
 	
 }])
 
-.controller('EleccionController', ['$scope', 'ConsultoraFactory', 'EleccionFactory', '$filter',function($scope, ConsultoraFactory, EleccionFactory, $filter) {
+.controller('EleccionController', ['$scope', 'ConsultoraFactory', 'EleccionFactory', '$filter', '$modal',function($scope, ConsultoraFactory, EleccionFactory, $filter, $modal) {
 	
+	$scope.seleccion = {eleccion : null};
+	$scope.items = ['item1', 'item2', 'item3'];
 	$scope.step = 1;
 	$scope.partidos = [];
 	$scope.listas = [];
@@ -76,6 +78,41 @@ angular.module("app.controllers",[
 	$scope.numeroPaso4 = 4;
 	$scope.numeroPaso5 = 5;
 	$scope.siguientePaso1 = 2;
+	$scope.deptos = [];
+	var fuenteXPartido = false;
+	var deptosYnoticias = false;
+	
+	$scope.deptos.push("Artigas")
+	$scope.deptos.push("Cerro Largo")
+	$scope.deptos.push("Durazno")
+	$scope.deptos.push("Florida")
+	$scope.deptos.push("Maldonado")
+	$scope.deptos.push("Paysandú")
+	$scope.deptos.push("Rivera")
+	$scope.deptos.push("Salto")
+	$scope.deptos.push("Soriano")
+	$scope.deptos.push("Treinta y Tres")
+	$scope.deptos.push("Canelones")
+	$scope.deptos.push("Colonia")
+	$scope.deptos.push("Flores")
+	$scope.deptos.push("Lavalleja")
+	$scope.deptos.push("Montevideo")
+	$scope.deptos.push("Río Negro")
+	$scope.deptos.push("Rocha")
+	$scope.deptos.push("San José")
+	$scope.deptos.push("Tacuarembó")
+	
+	
+	$scope.deptos;
+	
+	$scope.deptosYNoticias = function (){
+		return deptosYnoticias;
+	}
+	
+	
+	$scope.fuentePorPartido = function (){
+		return fuenteXPartido;
+	}
 	
 	//oculta el paso 2 del wizard si la eleccion es Otra
 	$scope.eleccionOtra = function(){
@@ -115,6 +152,8 @@ angular.module("app.controllers",[
 	       switch ($scope.formData.tipoEleccion) {
 	       
 		    case "Nacional":
+		    	deptosYnoticias = false;
+		    	fuenteXPartido = true;
 				esNacional = true;
 				mostrarListas = false;
 				esOtra = true;
@@ -125,6 +164,8 @@ angular.module("app.controllers",[
 				break;
 				
 		    case "Departamental":
+		    	deptosYnoticias = true;
+		    	fuenteXPartido = false;
 				esNacional = false;
 				mostrarListas = true;
 				esOtra = true;
@@ -132,6 +173,7 @@ angular.module("app.controllers",[
 				$scope.numeroPaso4 = 4;
 				$scope.numeroPaso5 = 5;
 				$scope.siguientePaso1 = 2;
+//				$scope.formData.FNPartido = "vacio"
 				break;
 
 		    case "Otra":
@@ -145,6 +187,8 @@ angular.module("app.controllers",[
 		    	break;
 		    
 			default:
+				deptosYnoticias = false;
+	    		fuenteXPartido = true;
 				esNacional = false;
 				mostrarListas = false;
 				esOtra = true;
@@ -414,5 +458,52 @@ angular.module("app.controllers",[
 
 	    return '';
 	  };
+	
+	  $scope.openModal = function () {
+			console.log("Open Modalllllll")
+		    var modalInstance = $modal.open({
+		      //animation: $scope.animationsEnabled,
+		      templateUrl: 'views/DeptosNoticiasModal.html',
+		      controller: 'ModalInstanceCtrl',
+		      //size: size,
+		      resolve: {
+		        deptos: function () {
+		          return $scope.deptos;
+		        },
+		        eleccion: function () {
+		          return $scope.seleccion.eleccion;
+		        }
+		      }
+		    });
+		    
+		    modalInstance.result.then(function (selectedItem) {
+		        $scope.selected = selectedItem;
+		      }, function () {
+		        //$log.info('Modal dismissed at: ' + new Date());
+		      });
+		};
+}])
+
+.controller('ModalInstanceCtrl', ['$scope', '$modalInstance','deptos', function($scope, $modalInstance, deptos) {
+	$scope.deptos = deptos;
+	
+	$scope.ok = function () {
+		$modalInstance.close($scope.selected.item);
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+	};
+	
+	$scope.preguntaPrincipal = {
+		pregunta : 'Candidato'
+	};
+	$scope.checkboxModel = {
+		value1 : false,//edad
+		value2 : false,//sexo
+		value3 : false,//nivel estudio
+		value4 : false// listas
+	};
+	
 	
 }])

@@ -25,7 +25,7 @@
           <input  style="margin-bottom: 10px;" class="form-control" placeholder="Descripcion" ng-model="formData.Descripcion"required autofocus>
        	</div>
        	
-       	 <div class="row"> 
+       	 <div ng-if="fuentePorPartido()" class="row"> 
           	<input  style="margin-bottom: 10px;" class="form-control" placeholder="Fuente de Informacion" ng-model="formData.FNPartido"required autofocus>
  
  		<label class="col-md-4">
@@ -42,10 +42,19 @@
 		</label>
 		<br/>
 	
-        <button ng-click=nuevaFuente() class="btn btn-block btn-info">Alta Fuente</button>	
+        <button ng-click="nuevaFuente()" class="btn btn-block btn-info">Alta Fuente</button>	
 	  
        	</div>
-        
+       
+        <div ng-show="deptosYNoticias()" class="row">
+        <div class="col-md-6">
+        <label>Seleccionar departamento:</label>
+         </div>
+         <div class="col-md-6">
+        <a ng-click="openModal()" class="col-md-4 btn btn-block btn-info">Departamentos</a>	
+      </div>
+        </div>
+       
         <br>
         
         <div class="row">
