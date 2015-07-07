@@ -220,13 +220,6 @@ angular.module("app.controllers",[
 	//Arreglo de Candidatos creados en Wizard
 	$scope.nuevoCandidato = function (formData){
 		
-		var fuentesDatosCandidato = [];
-		
-		var fuenteDatos = {
-				url: formData.FNCandidato,
-				tipo:formData.tipoFuenteCandidato
-		}
-		fuentesDatosCandidato.push(fuenteDatos);
 		var candidato =	{
 			 nombre: $scope.formData.NombreCandidato,
 			 edad: $scope.formData.EdadCandidato,
@@ -285,6 +278,7 @@ angular.module("app.controllers",[
 	         presidente: $scope.formData.Presidente,
 	         descripcion:$scope.formData.Descripcion,
 	         dataFuenteDatos: $scope.noticiasPartidos
+	         dataDeptos: $scope.se
 
         }
 		$scope.partidos.push(partido);
@@ -482,13 +476,78 @@ angular.module("app.controllers",[
 		        //$log.info('Modal dismissed at: ' + new Date());
 		      });
 		};
+		
+		
 }])
 
-.controller('ModalInstanceCtrl', ['$scope', '$modalInstance','deptos', function($scope, $modalInstance, deptos) {
+.controller('ModalInstanceCtrl', ['$scope', '$modalInstance','deptos', '$modal', function($scope, $modalInstance, deptos, $modal) {
 	$scope.deptos = deptos;
+	$scope.selectionDeptos = [];
+	$scope.seleccion = {eleccion : null};
+	$scope.FNDeptos=[];
+	
+	
+
+	$scope.crearFuenteDepto = function (){
+		
+		var FuenteNoticia = {
+			url: $scope.formData.FNDepto,	
+			tipo: $scope.formData.tipoFuente	
+		}
+		
+		$scope.FNDeptos.push(FuenteNoticia)
+		
+		
+		$scope.formData.FNDepto = ""
+		$scope.formData.tipoFuente = ""	
+	
+	}
+	
+	
+	  $scope.openModalFuente = function () {
+			console.log("Open Modalllllll")
+		    var modalInstance = $modal.open({
+		      //animation: $scope.animationsEnabled,
+		      templateUrl: 'views/DeptosNoticiasModal2.html',
+		      controller: 'ModalInstanceCtrl',
+		      //size: size,
+		      resolve: {
+		        deptos: function () {
+		          return $scope.deptos;
+		        },
+		       }
+		    });
+		    
+		    modalInstance.result.then(function (selectedItem) {
+		        $scope.selected = selectedItem;
+		      }, function () {
+		        //$log.info('Modal dismissed at: ' + new Date());
+		      });
+		};
+	
+	$scope.toggleSelection = function toggleSelection(deptos) {
+	    var idx = $scope.selectionDeptos.indexOf(deptos);
+
+	    // is currently selected
+	    if (idx > -1) {
+	      $scope.selectionDeptos.splice(idx, 1);
+	      console.log("ENTRO AL SPLICEEEEEEEE")
+	    }
+
+	    // is newly selected
+	    else {
+	      $scope.selectionDeptos.push(deptos);
+	      $scope.openModalFuente()
+	    }
+	  };
 	
 	$scope.ok = function () {
-		$modalInstance.close($scope.selected.item);
+		
+	};
+	
+	$scope.agregar = function (){
+		
+		
 	};
 
 	$scope.cancel = function () {

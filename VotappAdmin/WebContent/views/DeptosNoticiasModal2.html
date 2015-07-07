@@ -1,0 +1,35 @@
+<div class="modal-header">
+	<h3 class="modal-title">Seleccione fuente de noticia</h3>
+</div>
+<div class="modal-body ">
+	<div class="form-group">
+		
+		<div class="row">
+      		 
+     	  		<input type="text" ng-model="formData.FNDepto" >
+			</div>
+			<div class="row"> 
+			 <label>
+	    		<input type="radio" ng-model="formData.tipoFuente" value="facebook">
+	    		<i class="fa fa-facebook-square fa-3x facebook-icon"></i>Facebook
+	  		  </label>
+			  <label>
+	    		<input type="radio" ng-model="formData.tipoFuente" value="twitter">
+	    		<i class="fa fa-twitter-square fa-3x twitter-icon"></i>Twitter
+	  	      </label>
+			  <label>
+				<input type="radio" ng-model="formData.tipoFuente" value="youtube">
+				<i class="fa fa-youtube-play fa-3x youtube-icon"></i>Youtube
+			  </label>	
+			 </div>
+			 </div>
+					
+       	</div>
+	
+    </div>
+
+ {{ FNDeptos|json }}
+<div class="modal-footer">
+	<button class="btn btn-primary" ng-click="crearFuenteDepto()">OK</button>
+	<button class="btn btn-danger" ng-click="cancel()">Finalizar</button>
+</div>

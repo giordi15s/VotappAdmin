@@ -6,17 +6,19 @@
 		
 		<div class="row">
       		 
-      		 <ul>
-      		 <li ng-repeat="dep in deptos">
-			  <input  type="checkbox" value="{{dep}}" ng-checked="selection.indexOf(dep) > -1" ng-click="toggleSelection(dep)" ng-model="mySwitch"> {{dep}}
-			  <input ng-disabled="!mySwitch" type="text" ng-model="formData.FNDepto" >	 
-			 </li>
-			 </ul>
+       <ul style="margin-left: -2%">
+        <li style="list-style: none;" ng-repeat="dep in deptos">
+      		<div class="col-md-6"> 
+			  <input  type="checkbox" value="{{dep}}" ng-checked="selection.indexOf(dep) > -1" ng-click="toggleSelection(dep)" ng-model="formData.deptoSel"> {{dep}}
+			</div>
+		  </li>
+		 </ul>
 					
        	</div>
 	
     </div>
 </div>
+ {{ selectionDeptos|json }}
 <div class="modal-footer">
 	<button class="btn btn-primary" ng-click="ok()">OK</button>
 	<button class="btn btn-danger" ng-click="cancel()">Cancel</button>
