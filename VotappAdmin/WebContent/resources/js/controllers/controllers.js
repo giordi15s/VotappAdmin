@@ -277,7 +277,7 @@ angular.module("app.controllers",[
 	         fechaFundacion: new Date($scope.formData.FechaPartido),
 	         presidente: $scope.formData.Presidente,
 	         descripcion:$scope.formData.Descripcion,
-	         dataFuenteDatos: $scope.noticiasPartidos
+	         dataFuenteDatos: $scope.noticiasPartidos,
 	         dataDeptos: $scope.se
 
         }
