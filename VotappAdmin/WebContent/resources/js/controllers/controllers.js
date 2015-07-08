@@ -102,9 +102,7 @@ angular.module("app.controllers",[
 	$scope.deptos.push("San José")
 	$scope.deptos.push("Tacuarembó")
 	
-	
-	$scope.deptos;
-	
+		
 	$scope.deptosYNoticias = function (){
 		return deptosYnoticias;
 	}
@@ -120,7 +118,7 @@ angular.module("app.controllers",[
 	}
 
 	$scope.nuevaFuente =function (){
-		console.log("Este es el tipo Fuente:"+ $scope.formData.tipoFuente);
+		
 		var fuente = {
 			tipo: $scope.formData.tipoFuente,
 			url:  $scope.formData.FNPartido
@@ -130,7 +128,7 @@ angular.module("app.controllers",[
 	}
 	
 	$scope.nuevaFuenteCandidato =function (){
-		console.log("Este es el tipo Fuente:"+ $scope.formData.tipoFuente);
+		
 		var fuente = {
 			tipo: $scope.formData.tipoFuenteCandidato,
 			url:  $scope.formData.FNCandidato
@@ -148,7 +146,7 @@ angular.module("app.controllers",[
 	}
 	
 	$scope.tipoEleccionSel = function(){
-		  console.log($scope.formData.tipoEleccion);
+		  
 	       switch ($scope.formData.tipoEleccion) {
 	       
 		    case "Nacional":
@@ -278,7 +276,7 @@ angular.module("app.controllers",[
 	         presidente: $scope.formData.Presidente,
 	         descripcion:$scope.formData.Descripcion,
 	         dataFuenteDatos: $scope.noticiasPartidos,
-	         dataDeptos: $scope.se
+	         dataDeptos: $scope.selectedDeptos
 
         }
 		$scope.partidos.push(partido);
@@ -286,8 +284,7 @@ angular.module("app.controllers",[
 		$scope.formData.FechaPartido="";
 		$scope.formData.Presidente="";
 		$scope.formData.Descripcion="";
-		$scope.formData.FNPartido="";		
-		
+		$scope.formData.FNPartido="";
 	}
 	
 	$scope.datePicker = {
@@ -452,117 +449,146 @@ angular.module("app.controllers",[
 
 	    return '';
 	  };
+	  
+	  
+	  /*Funcion para abrir el 1er modal*/
 	
 	  $scope.openModal = function () {
-			console.log("Open Modalllllll")
+			
 		    var modalInstance = $modal.open({
-		      //animation: $scope.animationsEnabled,
 		      templateUrl: 'views/DeptosNoticiasModal.html',
-		      controller: 'ModalInstanceCtrl',
-		      //size: size,
+		      controller: 'ModalInstanceCtrl',		      
 		      resolve: {
-		        deptos: function () {
-		          return $scope.deptos;
-		        },
-		        eleccion: function () {
-		          return $scope.seleccion.eleccion;
+		    	  deptos: function(){
+		    		  return $scope.deptos;
 		        }
 		      }
 		    });
 		    
-		    modalInstance.result.then(function (selectedItem) {
-		        $scope.selected = selectedItem;
-		      }, function () {
+		    modalInstance.result.then(
+		    	function (listaDeptos) {
+		    		$scope.selectedDeptos = listaDeptos;
+		    	},
+		      	function () {
 		        //$log.info('Modal dismissed at: ' + new Date());
-		      });
-		};
+		      }
+		    );
+	  };
 		
 		
 }])
 
-.controller('ModalInstanceCtrl', ['$scope', '$modalInstance','deptos', '$modal', function($scope, $modalInstance, deptos, $modal) {
-	$scope.deptos = deptos;
-	$scope.selectionDeptos = [];
+.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'deptos', '$modal', function($scope, $modalInstance, deptos, $modal) {
+	
+	$scope.deptos = deptos; //Todos los *nombres* de los departamentos existentes
+	$scope.selectionDeptos = []; //Los departamentos seleccionados (x nombre)
 	$scope.seleccion = {eleccion : null};
-	$scope.FNDeptos=[];
-	
-	
-
-	$scope.crearFuenteDepto = function (){
-		
-		var FuenteNoticia = {
-			url: $scope.formData.FNDepto,	
-			tipo: $scope.formData.tipoFuente	
-		}
-		
-		$scope.FNDeptos.push(FuenteNoticia)
-		
-		
-		$scope.formData.FNDepto = ""
-		$scope.formData.tipoFuente = ""	
-	
-	}
-	
-	
-	  $scope.openModalFuente = function () {
-			console.log("Open Modalllllll")
-		    var modalInstance = $modal.open({
-		      //animation: $scope.animationsEnabled,
-		      templateUrl: 'views/DeptosNoticiasModal2.html',
-		      controller: 'ModalInstanceCtrl',
-		      //size: size,
-		      resolve: {
-		        deptos: function () {
-		          return $scope.deptos;
-		        },
-		       }
+	$scope.departamentosSeleccionados = []; //Son los *objetos* departamentos
+			
+	/*Funcion para abrir el 2do modal*/
+	$scope.openModalFuente = function (deptoNombre) {			
+		var modalInstance = $modal.open({		     
+				templateUrl: 'views/DeptosNoticiasModal2.html',
+				controller: 'ModalInstanceFuenteCtrl',		      
+				resolve: {
+					deptos: function () {
+						return $scope.deptos;
+					},
+				}
 		    });
 		    
-		    modalInstance.result.then(function (selectedItem) {
-		        $scope.selected = selectedItem;
-		      }, function () {
+		    modalInstance.result.then(
+		    	function (listaFuentes) {
+		    		
+		    		var departamento = {
+			    			nombre : deptoNombre,
+			    			listaFuenteDatos : listaFuentes
+			    	}
+			    	$scope.departamentosSeleccionados.push(departamento);
+		    	},
+		    	function () {
 		        //$log.info('Modal dismissed at: ' + new Date());
 		      });
 		};
 	
-	$scope.toggleSelection = function toggleSelection(deptos) {
-	    var idx = $scope.selectionDeptos.indexOf(deptos);
-
-	    // is currently selected
-	    if (idx > -1) {
-	      $scope.selectionDeptos.splice(idx, 1);
-	      console.log("ENTRO AL SPLICEEEEEEEE")
-	    }
-
-	    // is newly selected
-	    else {
-	      $scope.selectionDeptos.push(deptos);
-	      $scope.openModalFuente()
-	    }
-	  };
-	
-	$scope.ok = function () {
+	$scope.toggleSelection = function toggleSelection(deptoNombre) {		
 		
+		var idx = $scope.selectionDeptos.indexOf(deptoNombre);
+
+	    if (idx > -1) {
+	    	$scope.selectionDeptos.splice(idx, 1);
+	    	//Ahora tmb se tiene que quitar del arreglo de $scope.departamentosSeleccionados
+	    	// Debo obtener el index de dicho arreglo q tenga a departamento.nombre == deptoNombre
+	    	var index = getIndicePorNombre(deptoNombre);
+	    	$scope.departamentosSeleccionados.splice(index, 1);
+	    }
+
+	    else {
+	    	$scope.selectionDeptos.push(deptoNombre);
+	    	$scope.openModalFuente(deptoNombre);	    	
+	    }
 	};
 	
-	$scope.agregar = function (){
+	function getIndicePorNombre(deptoNombre){
+		var indice = 0;
+		var encontre = false;
+		while (!encontre) {
+			if($scope.departamentosSeleccionados[indice].nombre == deptoNombre){
+				encontre = true;
+			}else{
+				indice++;
+			}
+		}
 		
-		
+		return indice;
+	}
+	
+	
+	$scope.ok = function () {
+		$modalInstance.close($scope.departamentosSeleccionados);
 	};
 
 	$scope.cancel = function () {
 		$modalInstance.dismiss('cancel');
 	};
 	
-	$scope.preguntaPrincipal = {
-		pregunta : 'Candidato'
-	};
-	$scope.checkboxModel = {
-		value1 : false,//edad
-		value2 : false,//sexo
-		value3 : false,//nivel estudio
-		value4 : false// listas
-	};
+		
+}])
+
+.controller('ModalInstanceFuenteCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
 	
+	$scope.listaFuentes = [];
+	
+	$scope.crearFuenteDepto = function (){
+		
+		var DataFuenteDatos = {
+			url: $scope.formData.FNDepto,	
+			tipo: $scope.formData.tipoFuente	
+		}		
+		$scope.listaFuentes.push(DataFuenteDatos)		
+		
+		$scope.formData.FNDepto = ""
+		$scope.formData.tipoFuente = ""	
+	
+	}	
+	
+	$scope.finCrearFuentes = function () {
+		$modalInstance.close($scope.listaFuentes);
+	};
 	
 }])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
