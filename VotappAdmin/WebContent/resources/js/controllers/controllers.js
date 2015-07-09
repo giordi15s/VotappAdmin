@@ -61,7 +61,6 @@ angular.module("app.controllers",[
 .controller('EleccionController', ['$scope', 'ConsultoraFactory', 'EleccionFactory', '$filter', '$modal',function($scope, ConsultoraFactory, EleccionFactory, $filter, $modal) {
 	
 	$scope.seleccion = {eleccion : null};
-	$scope.items = ['item1', 'item2', 'item3'];
 	$scope.step = 1;
 	$scope.partidos = [];
 	$scope.listas = [];
@@ -223,7 +222,8 @@ angular.module("app.controllers",[
 			 edad: $scope.formData.EdadCandidato,
 			 dataFuenteDatos: $scope.noticiasCandidato,
 			 dataListas: $scope.selection,
-			 nombrePartido: formData.PartidoCandidato.nombre
+			 nombrePartido: formData.PartidoCandidato.nombre,
+			 cargo : formData.cargo.toUpperCase()
 		}
 		$scope.candidatos.push(candidato);
 		
