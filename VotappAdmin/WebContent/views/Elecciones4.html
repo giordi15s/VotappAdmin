@@ -12,8 +12,14 @@
        	
        	 <div class="row"> 
        	 <label>Seleccione Partido:</label>
-        	 <select ng-change="listasXPartido()" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoCandidato"></select>
+        	 <select ng-change="deptoXPartidoCandidato()" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoCandidato"></select>
            </div>
+           
+            <div class="row"> 
+       	 <label>Seleccione Depto:</label>
+        	 <select ng-change="listasXDeptos()"  ng-options="departamento.nombre for departamento in DeptoPartido" ng-model="formData.DeptoPartido"></select>
+           </div>
+        </div>
        	
        	<div ng-show="mostrarListas()" class="row"> 
        		<label>Seleccione Lista/s:</label>
@@ -22,11 +28,11 @@
 			</label>
        	</div>
         <br>
-            <div ng-show="mostrarCargo()" class="row"> 
+            <div class="row"> 
            	<label for="cargo">Cargo:</label>
            	<select class="form-control" id="cargo" name="cargo" type="checkbox" ng-model="formData.cargo" >
-           		<option value="Presidente">Presidente</option>
-           		<option value="Vicepresidente">Vicepresidente</option>
+           		<option value="{{primerCargo}}">{{primerCargo}}</option>
+           		<option ng-hide="esDepartamental" value="{{segundoCargo}}">{{segundoCargo}}</option>
            	</select>
            <br>
       	</div>

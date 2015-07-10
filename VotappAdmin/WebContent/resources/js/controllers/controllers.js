@@ -80,6 +80,8 @@ angular.module("app.controllers",[
 	$scope.deptos = [];
 	var fuenteXPartido = false;
 	var deptosYnoticias = false;
+	$scope.esDepartamental = false; 
+	$scope.DeptoPartido = [];
 	
 	$scope.deptos.push("Artigas")
 	$scope.deptos.push("Cerro Largo")
@@ -100,7 +102,33 @@ angular.module("app.controllers",[
 	$scope.deptos.push("Rocha")
 	$scope.deptos.push("San José")
 	$scope.deptos.push("Tacuarembó")
+	$scope.primerCargo = "Presidente";
 	
+	
+	$scope.listasXDeptos = function(){
+	
+		$scope.listasPorPartido = [];
+	
+		for (var x=0;x<$scope.listas.length;x++){
+			if (($scope.listas[x].nombrePartido==$scope.formData.PartidoCandidato.nombre)&&
+					($scope.listas[x].dataDepartamento.nombre==$scope.formData.DeptoPartido.nombre)){
+				
+				$scope.listasPorPartido.push($scope.listas[x]);
+			}
+		
+		}
+	}
+	
+	$scope.deptoXPartidoCandidato = function(){
+		$scope.listasPorPartido = [];
+		$scope.DeptoPartido =  $scope.formData.PartidoCandidato.dataDeptos;
+	}
+	
+	$scope.deptoXPartido = function (){
+		$scope.departamentoPartido = $scope.formData.PartidoSeleccionado.dataDeptos;
+		
+		
+	}
 		
 	$scope.deptosYNoticias = function (){
 		return deptosYnoticias;
@@ -136,9 +164,6 @@ angular.module("app.controllers",[
 		$scope.formData.FNCandidato = "";
 	}
 	
-	$scope.mostrarCargo = function(){
-		return esNacional;
-	}
 	
 	$scope.mostrarListas = function(){
 		return mostrarListas;
@@ -149,6 +174,9 @@ angular.module("app.controllers",[
 	       switch ($scope.formData.tipoEleccion) {
 	       
 		    case "Nacional":
+		    	$scope.primerCargo = "Presidente";
+		    	$scope.segundoCargo = "Vicepresidente";
+		    	$scope.esDepartamental = false; 
 		    	deptosYnoticias = false;
 		    	fuenteXPartido = true;
 				esNacional = true;
@@ -161,6 +189,8 @@ angular.module("app.controllers",[
 				break;
 				
 		    case "Departamental":
+		    	$scope.primerCargo = "Intendente";
+		    	$scope.esDepartamental = true; 
 		    	deptosYnoticias = true;
 		    	fuenteXPartido = false;
 				esNacional = false;
@@ -174,6 +204,9 @@ angular.module("app.controllers",[
 				break;
 
 		    case "Otra":
+		    	$scope.primerCargo = "Presidente";
+		    	$scope.segundoCargo = "Vicepresidente";
+		    	$scope.esDepartamental = false; 
 		    	esNacional = false;
 		    	mostrarListas = true;
 		    	esOtra = false;
@@ -254,13 +287,14 @@ angular.module("app.controllers",[
 		
 		var lista =
 			{
+			 dataDepartamento: formData.DeptoLista,	
 			 numero: $scope.formData.NumeroLista,
 			 nombrePartido: formData.PartidoSeleccionado.nombre
 			}
 		$scope.listas.push(lista);
 		$scope.formData.NumeroLista ="";
 		$scope.formData.PartidoSeleccionado = null;
-
+		$scope.formData.DeptoLista = null;
 	}
 	
 	//Arreglo de partidos creados en Wizard
