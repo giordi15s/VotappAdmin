@@ -26,7 +26,7 @@
        	</div>
        	
        	 <div ng-if="fuentePorPartido()" class="row"> 
-          	<input  style="margin-bottom: 10px;" class="form-control" placeholder="Fuente de Informacion" ng-model="formData.FNPartido"required autofocus>
+          	<input  style="margin-bottom: 10px;" class="form-control" placeholder="Fuente de Informacion" ng-model="formData.FNPartido"required autofocus> 
  
  		<label class="col-md-4">
 	    	<input type="radio" ng-model="formData.tipoFuente" value="facebook">
@@ -44,7 +44,18 @@
 	
         <button ng-click="nuevaFuente()" class="btn btn-block btn-info">Alta Fuente</button>	
 	  
+	    
+	  	<div ng-show="hayFuentes()" class="row"> 
+	  		
+       		<label>Fuentes Agregadas:</label>
+       		<div class="row">
+       		<label ng-repeat="fn in noticiasPartidos"> {{fn.url}} - {{fn.tipo}}	<br></label><br>
+			</div>
        	</div>
+	  
+	  
+       	</div>
+       	
        
         <div ng-show="deptosYNoticias()" class="row">
         <div class="col-md-6">
@@ -52,7 +63,7 @@
          </div>
          <div class="col-md-6">
         <a ng-click="openModal()" class="col-md-4 btn btn-block btn-info">Departamentos</a>	
-      </div>
+      </div><br>
         </div>
        
         <br>

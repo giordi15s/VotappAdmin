@@ -105,6 +105,22 @@ angular.module("app.controllers",[
 	$scope.primerCargo = "Presidente";
 	
 	
+	$scope.hayFuentes = function (){
+		var hayFuentes = false; 
+		
+		if($scope.noticiasPartidos.length<1){
+			hayFuentes = false;
+			console.log("Nticiassss Llenas:"+$scope.noticiasPartidos);
+		}
+		else{
+			hayFuentes = true;
+			console.log("Noticiasss Vacias"+$scope.noticiasPartidos);
+		}
+	
+		return hayFuentes;
+	}
+	
+	
 	$scope.listasXDeptos = function(){
 	
 		$scope.listasPorPartido = [];
@@ -609,6 +625,21 @@ angular.module("app.controllers",[
 	$scope.finCrearFuentes = function () {
 		$modalInstance.close($scope.listaFuentes);
 	};
+	
+	$scope.hayFuentes = function (){
+		var hayFuentes = false; 
+		
+		if($scope.listaFuentes.length<1){
+			hayFuentes = false;
+			console.log("Nticiassss Llenas:"+$scope.listaFuentes);
+		}
+		else{
+			hayFuentes = true;
+			console.log("Noticiasss Vacias"+$scope.listaFuentes);
+		}
+	
+		return hayFuentes;
+	}
 	
 }])
 
