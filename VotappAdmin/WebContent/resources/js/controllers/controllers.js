@@ -426,7 +426,8 @@ angular.module("app.controllers",[
 				dataPartidos: $scope.partidos,
 				dataListas: $scope.listas,
 				dataCandidatos: $scope.candidatos,
-				tipoEleccion: formData.tipoEleccion
+				tipoEleccion: formData.tipoEleccion,
+				logo : $scope.formData.logo
 		}
 		
 		EleccionFactory.crearEleccion(dataEleccion).then(
@@ -607,6 +608,29 @@ angular.module("app.controllers",[
 	$scope.cancel = function () {
 		$modalInstance.dismiss('cancel');
 	};
+	
+	$scope.addLogo = function($flow, $file, $message){
+		
+		var logo = {
+				name : $file.name,
+				file : ''
+		};
+		
+		var fileReader = new FileReader();
+		fileReader.onload = function(event){
+			var base64 = event.target.result;
+			var regex = /^data:.+\/(.+);base64,(.*)$/;
+			
+			var matches = base64.match(regex);
+			var ext = matches[1];
+			var data = matches[2];
+			logo.file = data;
+			$scope.formData.logo = logo;
+		}
+		
+		fileReader.readAsDataURL($file.file);
+		
+	}
 	
 		
 }])

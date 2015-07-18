@@ -12,7 +12,8 @@ angular.module('app', [
   'ui.bootstrap',
   //'app.directives',
   'app.controllers',
-  'ngAnimate'
+  'ngAnimate',
+  'flow'
 ])
 .config(['$urlRouterProvider', '$stateProvider','jwtInterceptorProvider', '$httpProvider', function($urlRouterProvider, $stateProvider,jwtInterceptorProvider, $httpProvider) {
 	
