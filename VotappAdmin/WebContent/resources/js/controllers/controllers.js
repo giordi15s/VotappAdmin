@@ -53,6 +53,7 @@ angular.module("app.controllers",[
 	
 	$scope.logout = function() {
 		store.remove('token');
+		$state.go('login');
 	}
 	
 }])
