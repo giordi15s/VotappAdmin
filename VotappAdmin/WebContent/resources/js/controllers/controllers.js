@@ -281,6 +281,7 @@ angular.module("app.controllers",[
 		formData.EdadCandidato = "";
 		$scope.selection = [];
 		formData.FNCandidato = "";
+		formData.PartidoCandidato = "";
 							
 	}
 	

@@ -14,7 +14,7 @@
            </div>
            </div>
         <br>
-     	 <div class="row"> 
+     	 <div ng-show="deptosYNoticias()" class="row"> 
        	 <label>Seleccione Depto:</label>
         	 <select ng-change="deptoXPartido()"  ng-options="departamento.nombre for departamento in departamentoPartido" ng-model="formData.DeptoLista"></select>
            </div>

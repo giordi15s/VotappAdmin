@@ -15,7 +15,7 @@
         	 <select ng-change="deptoXPartidoCandidato()" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoCandidato"></select>
            </div>
            
-            <div class="row"> 
+            <div ng-show="deptosYNoticias()" class="row"> 
        	 <label>Seleccione Depto:</label>
         	 <select ng-change="listasXDeptos()"  ng-options="departamento.nombre for departamento in DeptoPartido" ng-model="formData.DeptoPartido"></select>
            </div>
