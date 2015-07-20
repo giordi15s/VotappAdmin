@@ -421,7 +421,7 @@ angular.module("app.controllers",[
 		
 		var dataEleccion = {
 				nombre: formData.Nombre,
-				descripcion: formData.Descripcion,
+				descripcion: formData.DescripcionEleccion,
 				fecha: new Date(formData.Fecha),
 				dataPartidos: $scope.partidos,
 				dataListas: $scope.listas,
