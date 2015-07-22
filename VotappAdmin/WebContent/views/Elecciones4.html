@@ -10,7 +10,7 @@
           <input  style="margin-bottom: 10px;" class="form-control" placeholder="Edad" ng-model="formData.EdadCandidato"required autofocus>
        	</div>
        	
-       	 <div class="row"> 
+       	 <div class="row" ng-hide="formData.tipoEleccion == 'Otra'"> 
        	 <label>Seleccione Partido:</label>
         	 <select ng-change="deptoXPartidoCandidato()" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoCandidato"></select>
            </div>
@@ -28,6 +28,15 @@
 			</label>
        	</div>
         <br>
+        
+        <div ng-show="mostrarTodasListas" class="row"> 
+       		<label>Seleccione Lista/s:</label>
+       		<label ng-repeat="lis in listas">
+			  <input  type="checkbox" value="{{lis}}" ng-checked="selectionParaOtro.indexOf(lis) > -1" ng-click="toggleSelectionOtro(lis)"> {{lis.numero}}
+			</label>
+       	</div>
+        <br>
+        
             <div class="row"> 
            	<label for="cargo">Cargo:</label>
            	<select class="form-control" id="cargo" name="cargo" type="checkbox" ng-model="formData.cargo" >

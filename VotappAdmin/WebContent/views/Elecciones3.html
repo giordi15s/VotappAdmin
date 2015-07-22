@@ -6,7 +6,7 @@
         <input  style="margin-bottom: 10px; float: left;" class="form-control" placeholder="Numero" ng-model="formData.NumeroLista"required autofocus>
       	</div>
         
-         <div class="row">  
+         <div class="row" ng-hide="formData.tipoEleccion == 'Otra'">  
         <div class="col-md-6"> 
         	
           <select ng-change="deptoXPartido()"  ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoSeleccionado"></select>

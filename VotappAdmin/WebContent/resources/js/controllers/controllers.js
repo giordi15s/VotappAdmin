@@ -71,6 +71,7 @@ angular.module("app.controllers",[
 	$scope.listas = [];
 	$scope.candidatos = [];
 	$scope.selection = [];
+	$scope.selectionParaOtro = [];
 	$scope.listasPorPartido = [];
 	$scope.noticiasPartidos = [];
 	$scope.noticiasCandidato = [];
@@ -207,6 +208,7 @@ angular.module("app.controllers",[
 				$scope.numeroPaso4 = 4;
 				$scope.numeroPaso5 = 5;
 				$scope.siguientePaso1 = 2;
+				$scope.mostrarTodasListas = false;
 				break;
 				
 		    case "Departamental":
@@ -221,7 +223,7 @@ angular.module("app.controllers",[
 				$scope.numeroPaso4 = 4;
 				$scope.numeroPaso5 = 5;
 				$scope.siguientePaso1 = 2;
-//				$scope.formData.FNPartido = "vacio"
+				$scope.mostrarTodasListas = false;
 				break;
 
 		    case "Otra":
@@ -229,12 +231,14 @@ angular.module("app.controllers",[
 		    	$scope.segundoCargo = "Vicepresidente";
 		    	$scope.esDepartamental = false; 
 		    	esNacional = false;
-		    	mostrarListas = true;
+		    	mostrarListas = false;
 		    	esOtra = false;
 		    	$scope.numeroPaso3 = 2;
 		    	$scope.numeroPaso4 = 3;
 		    	$scope.numeroPaso5 = 4;
 		    	$scope.siguientePaso1 = 3;
+		    	deptosYnoticias = false;
+		    	$scope.mostrarTodasListas = true;
 		    	break;
 		    
 			default:
@@ -247,6 +251,7 @@ angular.module("app.controllers",[
 				$scope.numeroPaso4 = 4;
 				$scope.numeroPaso5 = 5;
 				$scope.siguientePaso1 = 2;
+				$scope.mostrarTodasListas = false;
 				break;
 	       }
 			
@@ -276,15 +281,23 @@ angular.module("app.controllers",[
 			 edad: $scope.formData.EdadCandidato,
 			 dataFuenteDatos: $scope.noticiasCandidato,
 			 dataListas: $scope.selection,
-			 nombrePartido: formData.PartidoCandidato.nombre,
+			 nombrePartido: '',
 			 cargo : formData.cargo.toUpperCase()
 		}
+		
+		if($scope.formData.tipoEleccion == 'Otra'){
+			candidato.dataListas = $scope.selectionParaOtro;
+		}else{
+			candidato.nombrePartido = formData.PartidoCandidato.nombre;
+		}
+		
 		$scope.candidatos.push(candidato);
 		
 		//Limpiar para el siguiente candidato:
 		formData.NombreCandidato = "";
 		formData.EdadCandidato = "";
 		$scope.selection = [];
+		$scope.selectionParaOtro = [];
 		formData.FNCandidato = "";
 		formData.PartidoCandidato = "";
 							
@@ -303,6 +316,20 @@ angular.module("app.controllers",[
 	      $scope.selection.push(listasPorPartido);
 	    }
 	  };
+	  	  
+	  $scope.toggleSelectionOtro = function toggleSelectionOtro(lista) {
+		    var idx = $scope.selectionParaOtro.indexOf(lista);
+
+		    // is currently selected
+		    if (idx > -1) {
+		      $scope.selectionParaOtro.splice(idx, 1);
+		    }
+
+		    // is newly selected
+		    else {
+		      $scope.selectionParaOtro.push(lista);
+		    }
+		  };
 
 	//Arreglo de Listas creadas en Wizard
 	$scope.nuevaLista = function (formData){
@@ -311,8 +338,13 @@ angular.module("app.controllers",[
 			{
 			 dataDepartamento: formData.DeptoLista,	
 			 numero: $scope.formData.NumeroLista,
-			 nombrePartido: formData.PartidoSeleccionado.nombre
+			 nombrePartido: ''
 			}
+		
+		if($scope.formData.tipoEleccion != 'Otra'){
+			lista.nombrePartido = $scope.formData.tipoEleccion;
+		}
+		
 		$scope.listas.push(lista);
 		$scope.formData.NumeroLista ="";
 		$scope.formData.PartidoSeleccionado = null;
@@ -421,7 +453,7 @@ angular.module("app.controllers",[
 		
 		var dataEleccion = {
 				nombre: formData.Nombre,
-				descripcion: formData.Descripcion,
+				descripcion: formData.DescripcionEleccion,
 				fecha: new Date(formData.Fecha),
 				dataPartidos: $scope.partidos,
 				dataListas: $scope.listas,
