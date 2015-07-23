@@ -116,11 +116,9 @@ angular.module("app.controllers",[
 		
 		if($scope.noticiasPartidos.length<1){
 			hayFuentes = false;
-			console.log("Nticiassss Llenas:"+$scope.noticiasPartidos);
 		}
 		else{
 			hayFuentes = true;
-			console.log("Noticiasss Vacias"+$scope.noticiasPartidos);
 		}
 	
 		return hayFuentes;
@@ -342,7 +340,7 @@ angular.module("app.controllers",[
 			}
 		
 		if($scope.formData.tipoEleccion != 'Otra'){
-			lista.nombrePartido = $scope.formData.tipoEleccion;
+			lista.nombrePartido = formData.PartidoSeleccionado.nombre;
 		}
 		
 		$scope.listas.push(lista);
