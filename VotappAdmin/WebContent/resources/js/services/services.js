@@ -23,7 +23,10 @@ value('version', '0.1')
 	return{
 		crearEleccion:function(dataEleccion){
 			return $http.post(ApiEndpointFactory.ApiEndpoint +'/Votapp/services/eleccion/protected/crear', dataEleccion)
-		}
+		},
+		getEleccionesActuales:function(){
+			return $http.get(ApiEndpointFactory.ApiEndpoint +'/Votapp/services/eleccion/protected/getEleccionesActuales')
+		}	
 	}	
 	
 }])
