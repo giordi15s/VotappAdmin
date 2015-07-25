@@ -9,7 +9,7 @@
         
       
             <p class="input-group">
-              <input type="text" class="form-control" datepicker-popup="{{format}}" init-date="Fecha" placeholder="Fecha de Fundacion" ng-model="formData.FechaPartido" is-open="datePicker.isOpen" min-date="1000-12-22" max-date="'2015-12-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <input type="text" class="form-control" datepicker-popup="{{format}}" init-date="Fecha" placeholder="Fecha de Fundacion" ng-model="formData.FechaPartido" is-open="datePicker.isOpen" min-date="1700-12-22" max-date="{{dt}}" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
@@ -30,16 +30,15 @@
  
  		<label class="col-md-4">
 	    	<input type="radio" ng-model="formData.tipoFuente" value="facebook">
-	    	<i class="fa fa-facebook-square fa-3x facebook-icon"></i>Facebook
+	    	<img src="resources/img/facebook.png"></img>
 	  	</label>
 		<label class="col-md-4">
 	    	<input type="radio" ng-model="formData.tipoFuente" value="twitter">
-	    	<i class="fa fa-twitter-square fa-3x twitter-icon"></i>Twitter
+	    	 <img src="resources/img/twitter.png"></img>
 	  	</label>
 		<label class="col-md-4">
 		  	<input type="radio" ng-model="formData.tipoFuente" value="youtube">
-		  	<i class="fa fa-youtube-play fa-3x youtube-icon"></i>Youtube
-		</label>
+			<img src="resources/img/youtube.png"></img>		</label>
 		<br/>
 	
         <button ng-click="nuevaFuente()" class="btn btn-block btn-info">Alta Fuente</button>	

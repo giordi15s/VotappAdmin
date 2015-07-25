@@ -45,7 +45,7 @@ angular.module("app.controllers",[
 .controller('HeaderController', ['$scope', 'LoginFactory', '$state', 'store', function($scope, LoginFactory, $state, store){
 
 	$scope.mostrarHeader = function(){
-		if($state.current.name ==='home' || $state.current.name ==='crearConsultora' || $state.current.name ==='crearEleccion')
+		if($state.current.name ==='home' || $state.current.name ==='crearConsultora' || $state.current.name ==='crearEleccion' || $state.current.name ==='borrarEleccion')
 			return true;
 		else
 			return false;
