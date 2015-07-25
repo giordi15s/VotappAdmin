@@ -12,30 +12,21 @@
        	
        	 <div class="row" ng-hide="formData.tipoEleccion == 'Otra'"> 
        	 <label>Seleccione Partido:</label>
-        	 <select ng-change="deptoXPartidoCandidato()" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoCandidato"></select>
+        	 <select ng-change="deptoXPartidoCandidato()"  class="form-control" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoCandidato"></select>
            </div>
            
             <div ng-show="deptosYNoticias()" class="row"> 
        	 <label>Seleccione Depto:</label>
-        	 <select ng-change="listasXDeptos()"  ng-options="departamento.nombre for departamento in DeptoPartido" ng-model="formData.DeptoPartido"></select>
+        	 <select ng-change="listasXDeptos()" class="form-control" ng-options="departamento.nombre for departamento in DeptoPartido" ng-model="formData.DeptoPartido"></select>
            </div>
         </div>
        	
        	<div ng-show="mostrarListas()" class="row"> 
-       		<label>Seleccione Lista/s:</label>
+       		<label>Seleccione Lista/s:</label><br>
        		<label ng-repeat="lis in listasPorPartido">
-			  <input  type="checkbox" value="{{lis}}" ng-checked="selection.indexOf(lis) > -1" ng-click="toggleSelection(lis)"> {{lis.numero}}
+			  <input style="" type="checkbox" value="{{lis}}"  class="form-control" ng-checked="selection.indexOf(lis) > -1" ng-click="toggleSelection(lis)"> {{lis.numero}}
 			</label>
        	</div>
-        <br>
-        
-        <div ng-show="mostrarTodasListas" class="row"> 
-       		<label>Seleccione Lista/s:</label>
-       		<label ng-repeat="lis in listas">
-			  <input  type="checkbox" value="{{lis}}" ng-checked="selectionParaOtro.indexOf(lis) > -1" ng-click="toggleSelectionOtro(lis)"> {{lis.numero}}
-			</label>
-       	</div>
-        <br>
         
             <div class="row"> 
            	<label for="cargo">Cargo:</label>

@@ -9,7 +9,7 @@
          <div class="row" ng-hide="formData.tipoEleccion == 'Otra'">  
         <div class="col-md-6"> 
         	
-          <select ng-change="deptoXPartido()"  ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoSeleccionado"></select>
+          <select ng-change="deptoXPartido()" class="form-control" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoSeleccionado"></select>
         	 
            </div>
            </div>

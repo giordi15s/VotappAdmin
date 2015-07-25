@@ -23,7 +23,8 @@ angular.module('app', [
 	.state('home', {url:'/',  controller: 'HomeController', data:{requiresLogin:true} })
 	.state('crearConsultora', {url:'/crearConsultora', templateUrl: 'views/altaConsultora.html',  controller: 'ConsultoraController', data:{requiresLogin:true}})
 	.state('crearEleccion', {url:'/crearEleccion', templateUrl: 'views/altaEleccion.html',  controller: 'EleccionController', data:{requiresLogin:true}})    
-  
+	.state('borrarEleccion', {url:'/borrarEleccion', templateUrl: 'views/borrarEleccion.html',  controller: 'EleccionController', data:{requiresLogin:true}})    
+
   jwtInterceptorProvider.tokenGetter = function(store){
 	  return store.get('token');
   };

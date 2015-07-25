@@ -110,6 +110,18 @@ angular.module("app.controllers",[
 	$scope.deptos.push("Tacuarembó")
 	$scope.primerCargo = "Presidente";
 	
+	$scope.elecciones = [];
+	$scope.getEleccionesActuales = function() {
+		EleccionFactory.getEleccionesActuales().then(
+				function(response) {
+					$scope.elecciones = response.data;
+				},
+				function(response){
+					//error messagge
+					console.log("Error en la obtencion de elecciones"+ response.data);
+				}
+		)
+	}
 	
 	$scope.hayFuentes = function (){
 		var hayFuentes = false; 
