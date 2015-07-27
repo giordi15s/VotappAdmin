@@ -113,10 +113,6 @@ angular.module("app.controllers",[
 //	$scope.elecciones = EleccionFactory.getEleccionesActuales();
 
 
-	$scope.ok = function () {
-		console.log("Entro al OK")
-		$modalInstance.close();
-	};
 	
 	$scope.getEleccionesActuales = function() {
 		console.log("Te Entroooo");
@@ -594,10 +590,10 @@ angular.module("app.controllers",[
 	  
 		
 	  $scope.openModalNoticias = function () {
-			
+			console.log("Entro al OPenModal");
 		    var modalInstance = $modal.open({
 		      templateUrl: 'views/NoticiasModal.html',
-		     // controller: 'EleccionController',		      
+		      controller: 'EleccionController',		      
 		      resolve: {
 		    	  noticiasPartidos: function(){
 		    		  return $scope.noticiasPartidos;
