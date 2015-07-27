@@ -197,7 +197,7 @@ angular.module("app.controllers",[
 		}
 		$scope.noticiasPartidos.push(fuente);
 		$scope.formData.FNPartido = "";
-		$scope.openModalNoticias();
+		//$scope.openModalNoticias();
 	}
 	
 	$scope.nuevaFuenteCandidato =function (){
