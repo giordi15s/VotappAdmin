@@ -20,6 +20,12 @@ value('version', '0.1')
 }])
 
 .factory('EleccionFactory',['$http', 'ApiEndpointFactory', function($http, ApiEndpointFactory) {
+//	var elecciones = null;
+//    var promise = $http.get('http://localhost:8080/Votapp/services/eleccion/getElecciones')
+//    .success(function (data) {
+//    	elecciones = data;
+//    });
+    
 	return{
 		crearEleccion:function(dataEleccion){
 			return $http.post(ApiEndpointFactory.ApiEndpoint +'/Votapp/services/eleccion/protected/crear', dataEleccion)
