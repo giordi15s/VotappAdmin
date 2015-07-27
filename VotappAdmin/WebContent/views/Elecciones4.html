@@ -37,6 +37,7 @@
            <br>
       	</div>
       	
+      <div style="padding-left:10%">	
       	<div class="row form-control"> 
           <input  style="margin-bottom: 10px;" class="form-control" placeholder="Fuente de Noticias" ng-model="formData.FNCandidato"required autofocus>
 
@@ -58,7 +59,18 @@
         <button  ng-click="nuevaFuenteCandidato()" class="btn btn-block btn-info">Alta Fuente</button>	
 	  </div>
 	  
-       	</div>	
+	    <div ng-show="hayFuentes()"> 
+	  		<div  class="row">
+       		<label>Fuentes Agregadas:</label>
+       		<div class="row">
+       		<label ng-repeat="fn in noticiasCandidato"> {{fn.url}} - {{fn.tipo}}	<br></label><br>
+			</div>
+			</div>
+       	</div>
+	</div>
+	</div>	  
+       	
+	
 		 
          <div class="row">
         <div class="col-md-6">
