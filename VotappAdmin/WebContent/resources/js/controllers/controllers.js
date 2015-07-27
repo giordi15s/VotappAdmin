@@ -113,6 +113,20 @@ angular.module("app.controllers",[
 //	$scope.elecciones = EleccionFactory.getEleccionesActuales();
 
 
+	$scope.hayFuentesCandidato = function (){
+		
+		var hayFuentes = false; 
+		
+		if($scope.noticiasCandidato.length<1){
+			hayFuentes = false;
+		}
+		else{
+			hayFuentes = true;
+		}
+	
+		return hayFuentes;	
+	}
+	
 	
 	$scope.getEleccionesActuales = function() {
 		console.log("Te Entroooo");
@@ -197,6 +211,7 @@ angular.module("app.controllers",[
 		}
 		$scope.noticiasPartidos.push(fuente);
 		$scope.formData.FNPartido = "";
+		$scope.formData.tipoFuente = "";
 		//$scope.openModalNoticias();
 	}
 	
@@ -208,6 +223,7 @@ angular.module("app.controllers",[
 		}
 		$scope.noticiasCandidato.push(fuente);
 		$scope.formData.FNCandidato = "";
+		$scope.formData.tipoFuenteCandidato = "";
 	}
 	
 	
@@ -751,6 +767,8 @@ angular.module("app.controllers",[
 	
 		return hayFuentes;
 	}
+	
+
 	
 }])
 

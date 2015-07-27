@@ -55,11 +55,12 @@
 		</label>
 		<br/>
 		
-		<div style="padding-top: 9%;" class="form-group">
-        <button  ng-click="nuevaFuenteCandidato()" class="btn btn-block btn-info">Alta Fuente</button>	
-	  </div>
+
+	  	<div class="row" style="width: inherit;padding-left: 30px;">
+	 	<a ng-click="nuevaFuenteCandidato()" class="btn btn-block btn-info"> Crear Fuente <span class="glyphicon"></span></a> 
+	  	</div>
 	  
-	    <div ng-show="hayFuentes()"> 
+	    <div ng-show="hayFuentesCandidato()"> 
 	  		<div  class="row">
        		<label>Fuentes Agregadas:</label>
        		<div class="row">
@@ -69,7 +70,7 @@
        	</div>
 	</div>
 	</div>	  
-       	
+       	<br>
 	
 		 
          <div class="row">
