@@ -1,15 +1,24 @@
-<div class="row">
-			<div class="" style="padding-top: 5em; padding-left: 4em;">
-					<button class="btn btn-info" ng-click="getEleccionesActuales()"> Mostrar Elecciones </button>
-			<div class="row">
-				<div class="form-group">
-					<div class="radio" ng-repeat="eleccion in elecciones">
-						<label>
-							<input type="checkbox" ng-value="eleccion" ng-model="seleccion.eleccion" id="{{eleccion}}"> {{eleccion.nombre}}
-						</label>
-					</div>
-						<button class="btn btn-info" ng-click="borrarEleccion(seleccion.eleccion.id)"> Borrar </button>
-				</div>
-			</div>
-		</div>
+<div class="container" style="padding-top:50px;">
+	
+
+		<button type="button" ng-click="getEleccionesActuales()" class="btn btn-sm btn-success">
+			<i class="glyphicon glyphicon-plus">
+			</i> Mostrar Elecciones
+		</button>
+
+		<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped" width="">
+			<tbody>
+			<tr ng-repeat="eleccion in elecciones">
+				<td>{{eleccion.nombre}}</td>
+				<td style="width: 5px;">
+				<button type="button" ng-click="removeEleccion(eleccion)" class="btn btn-sm btn-danger">
+					<i class="glyphicon glyphicon-remove-circle"></i>
+				</button>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+
+
+
 </div>

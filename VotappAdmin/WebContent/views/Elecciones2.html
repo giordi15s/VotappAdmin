@@ -11,7 +11,7 @@
             <p class="input-group">
               <input type="text" class="form-control" datepicker-popup="{{format}}" init-date="Fecha" placeholder="Fecha de Fundacion" ng-model="formData.FechaPartido" is-open="datePicker.isOpen" min-date="1700-12-22" max-date="{{dt}}" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
               <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                <button type="button" style="height: 3.12em;" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
             </p>
      
@@ -25,7 +25,8 @@
           <input  style="margin-bottom: 10px;" class="form-control" placeholder="Descripcion" ng-model="formData.Descripcion"required autofocus>
        	</div>
        	
-       	 <div ng-if="fuentePorPartido()" class="row"> 
+       <div style="padding-left:10%">	
+       <div ng-if="fuentePorPartido()" class="row form-control"> 
           	<input  style="margin-bottom: 10px;" class="form-control" placeholder="Fuente de Informacion" ng-model="formData.FNPartido"required autofocus> 
  
  		<label class="col-md-4">
@@ -38,21 +39,23 @@
 	  	</label>
 		<label class="col-md-4">
 		  	<input type="radio" ng-model="formData.tipoFuente" value="youtube">
-			<img src="resources/img/youtube.png"></img>		</label>
+			<img src="resources/img/youtube.png"></img>		
+		</label>
 		<br/>
 	
         <button ng-click="nuevaFuente()" class="btn btn-block btn-info">Alta Fuente</button>	
-	  
-	    
-	  	<div ng-show="hayFuentes()" class="row"> 
-	  		
+	  	
+	   
+	   
+	    <div ng-show="hayFuentes()"> 
+	  		<div  class="row">
        		<label>Fuentes Agregadas:</label>
        		<div class="row">
        		<label ng-repeat="fn in noticiasPartidos"> {{fn.url}} - {{fn.tipo}}	<br></label><br>
 			</div>
+			</div>
        	</div>
-	  
-	  
+       	</div>
        	</div>
        	
        

@@ -88,6 +88,7 @@ angular.module("app.controllers",[
 	var deptosYnoticias = false;
 	$scope.esDepartamental = false; 
 	$scope.DeptoPartido = [];
+	$scope.elecciones = [];
 	
 	$scope.deptos.push("Artigas")
 	$scope.deptos.push("Cerro Largo")
@@ -109,9 +110,12 @@ angular.module("app.controllers",[
 	$scope.deptos.push("San José")
 	$scope.deptos.push("Tacuarembó")
 	$scope.primerCargo = "Presidente";
+//	$scope.elecciones = EleccionFactory.getEleccionesActuales();
+
+
 	
-	$scope.elecciones = [];
 	$scope.getEleccionesActuales = function() {
+		console.log("Te Entroooo");
 		EleccionFactory.getEleccionesActuales().then(
 				function(response) {
 					$scope.elecciones = response.data;
@@ -122,6 +126,15 @@ angular.module("app.controllers",[
 				}
 		)
 	}
+	
+	$scope.displayedCollection = [].concat($scope.elecciones);
+	$scope.removeEleccion = function removeEleccion(eleccion) {
+        var index = $scope.elecciones.indexOf(eleccion);
+        if (index !== -1) {
+            $scope.elecciones.splice(index, 1);
+        }
+	}
+
 	
 	$scope.hayFuentes = function (){
 		var hayFuentes = false; 
@@ -184,6 +197,7 @@ angular.module("app.controllers",[
 		}
 		$scope.noticiasPartidos.push(fuente);
 		$scope.formData.FNPartido = "";
+		$scope.openModalNoticias();
 	}
 	
 	$scope.nuevaFuenteCandidato =function (){
@@ -573,6 +587,30 @@ angular.module("app.controllers",[
 		      }
 		    );
 	  };
+	  
+		
+	  $scope.openModalNoticias = function () {
+			console.log("Entro al OPenModal");
+		    var modalInstance = $modal.open({
+		      templateUrl: 'views/NoticiasModal.html',
+		      controller: 'EleccionController',		      
+		      resolve: {
+		    	  noticiasPartidos: function(){
+		    		  return $scope.noticiasPartidos;
+		        }
+		      }
+		    });
+		    
+		    modalInstance.result.then(
+		    	function (listaDeptos) {
+		    		$scope.selectedDeptos = listaDeptos;
+		    	},
+		      	function () {
+		        //$log.info('Modal dismissed at: ' + new Date());
+		      }
+		    );
+	  };
+	
 	  
 	  $scope.addLogo = function($flow, $file, $message){
 			
