@@ -636,6 +636,18 @@ angular.module("app.controllers",[
 			fileReader.readAsDataURL($file.file);
 			
 		}
+	  
+	  $scope.aceLoaded = function(_editor) {
+		    // Options
+			$scope.aceSession = _editor.getSession();
+		    //_editor.setReadOnly(true);
+			};
+		  
+		$scope.aceChanged = function(e) {
+			    //
+			$scope.aceDocumentValue = $scope.aceSession.getDocument().getValue();
+			};
+		
 		
 		
 }])

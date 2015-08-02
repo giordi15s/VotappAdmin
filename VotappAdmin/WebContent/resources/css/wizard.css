@@ -13,3 +13,43 @@
 .youtube-icon{
 	color:red;
 }
+/* Contenedor body */
+.contenedor-templates {
+	height: auto;
+	min-height: 650px;	
+}
+/* Contenedor Logo*/
+.logo-container {
+	width: 100%;
+	padding-left: 25%;
+	padding-right: 25%;
+	min-height: 100px;
+	max-height: 200px;
+}
+.logo-img{
+	border: 1px solid #337AA5;
+}
+.padding-titulo {
+	margin-left: 20px;
+}
+/* Form alta eleccion */
+.form-alta-eleccion {
+	width: 50%;
+	max-width: 1000px;
+	/*padding: 15px;*/
+	margin: 0 auto;
+}
+.margin-top-panel{
+	margin-top: 20px;
+}
+/* editor */
+.editor {
+	height: 300px;
+	width: 100%;
+}
+/* STEP 1*/
+.form-step{
+	margin-top: 20px;
+	padding-left: 25%;
+	padding-right: 25%;
+}

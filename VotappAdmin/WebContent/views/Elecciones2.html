@@ -1,42 +1,33 @@
- <div style="margin-top: -20px;">
+<div class="form-step"> 
  <h3>Nuevo Partido</h3>
-             
         <div class="row">    
         <input  style="margin-bottom: 10px;" class="form-control" placeholder="Nombre" ng-model="formData.NombrePartido"required autofocus>
         </div>
-        
         <div class="row">
-        
-      
             <p class="input-group">
               <input type="text" class="form-control" datepicker-popup="{{format}}" init-date="Fecha" placeholder="Fecha de Fundacion" ng-model="formData.FechaPartido" is-open="datePicker.isOpen" min-date="1700-12-22" max-date="{{dt}}" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
               <span class="input-group-btn">
                 <button type="button" style="height: 3.12em;" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
             </p>
-     
-        </div>
-        
+        </div>        
         <div class="row"> 
           <input  style="margin-bottom: 10px;" class="form-control" placeholder="Presidente" ng-model="formData.Presidente"required autofocus>
        	</div>
-       	
-       	 <div class="row"> 
+       	<div class="row"> 
           <input  style="margin-bottom: 10px;" class="form-control" placeholder="Descripcion" ng-model="formData.Descripcion"required autofocus>
        	</div>
-       	
-       <div style="padding-left:10%">	
-       <div ng-if="fuentePorPartido()" class="row form-control"> 
+       	<div style="padding-left:10%">	
+      	<div ng-if="fuentePorPartido()" class="row form-control"> 
           	<input  style="margin-bottom: 10px;" class="form-control" placeholder="Fuente de Informacion" ng-model="formData.FNPartido"required autofocus> 
- 
- 		<label class="col-md-4">
-	    	<input type="radio" ng-model="formData.tipoFuente" value="facebook">
-	    	<img src="resources/img/facebook.png"></img>
-	  	</label>
-		<label class="col-md-4">
-	    	<input type="radio" ng-model="formData.tipoFuente" value="twitter">
-	    	 <img src="resources/img/twitter.png"></img>
-	  	</label>
+	 		<label class="col-md-4">
+		    	<input type="radio" ng-model="formData.tipoFuente" value="facebook">
+		    	<img src="resources/img/facebook.png"></img>
+		  	</label>
+			<label class="col-md-4">
+		    	<input type="radio" ng-model="formData.tipoFuente" value="twitter">
+		    	 <img src="resources/img/twitter.png"></img>
+		  	</label>
 		<label class="col-md-4">
 		  	<input type="radio" ng-model="formData.tipoFuente" value="youtube">
 			<img src="resources/img/youtube.png"></img>		

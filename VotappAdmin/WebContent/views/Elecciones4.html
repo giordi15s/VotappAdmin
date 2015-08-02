@@ -1,86 +1,76 @@
- <div style="margin-top: -20px;">
- <h3>Nuevo Candidato</h3>
-             
-        <div class="row">    
-        <input  style="margin-bottom: 10px;" class="form-control" placeholder="Nombre" ng-model="formData.NombreCandidato"required autofocus>
-        </div>
-        
-        
-        <div class="row"> 
-          <input  style="margin-bottom: 10px;" class="form-control" placeholder="Edad" ng-model="formData.EdadCandidato"required autofocus>
-       	</div>
-       	
-       	 <div class="row" ng-hide="formData.tipoEleccion == 'Otra'"> 
-       	 <label>Seleccione Partido:</label>
-        	 <select ng-change="deptoXPartidoCandidato()"  class="form-control" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoCandidato"></select>
-           </div>
-           
-            <div ng-show="deptosYNoticias()" class="row"> 
-       	 <label>Seleccione Depto:</label>
-        	 <select ng-change="listasXDeptos()" class="form-control" ng-options="departamento.nombre for departamento in DeptoPartido" ng-model="formData.DeptoPartido"></select>
-           </div>
-        </div>
-       	
-       	<div ng-show="mostrarListas()" class="row"> 
-       		<label>Seleccione Lista/s:</label><br>
-       		<label ng-repeat="lis in listasPorPartido">
+ <div>
+		<h3 class="text-center">Candidatos <small>Crea un nuevo candidato.</small></h3>
+	<div class="form-step">
+	       <div class="row">
+	       <label>Nombre</label>    
+	       <input  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: José Pérez" ng-model="formData.NombreCandidato"required autofocus>
+	       </div>
+	       <div class="row"> 
+	       	<label>Edad</label>
+	       	<input  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: 50" ng-model="formData.EdadCandidato"required autofocus>
+	      	</div>
+	      	<div class="row" ng-hide="formData.tipoEleccion == 'Otra'"> 
+	      		<label>Seleccione Partido</label>
+	       	<select ng-change="deptoXPartidoCandidato()"  class="form-control" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoCandidato"></select>
+	       </div>
+	       	<div ng-show="deptosYNoticias()" class="row"> 
+	     	 		<label>Seleccione Depto</label>
+	      		<select ng-change="listasXDeptos()" class="form-control" ng-options="departamento.nombre for departamento in DeptoPartido" ng-model="formData.DeptoPartido"></select>
+	         	</div>
+	      	<div ng-show="mostrarListas()" class="row"> 
+	      		<label>Seleccione Lista/s:</label><br>
+	      		<label ng-repeat="lis in listasPorPartido">
 			  <input style="" type="checkbox" value="{{lis}}"  class="form-control" ng-checked="selection.indexOf(lis) > -1" ng-click="toggleSelection(lis)"> {{lis.numero}}
 			</label>
-       	</div>
-        
-            <div class="row"> 
-           	<label for="cargo">Cargo:</label>
-           	<select class="form-control" id="cargo" name="cargo" type="checkbox" ng-model="formData.cargo" >
-           		<option value="{{primerCargo}}">{{primerCargo}}</option>
-           		<option ng-hide="esDepartamental" value="{{segundoCargo}}">{{segundoCargo}}</option>
-           	</select>
-           <br>
-      	</div>
-      	
-      <div style="padding-left:10%">	
-      	<div class="row form-control"> 
-          <input  style="margin-bottom: 10px;" class="form-control" placeholder="Fuente de Noticias" ng-model="formData.FNCandidato"required autofocus>
-
- 		<label class="col-md-4">
-	    	<input type="radio" ng-model="formData.tipoFuenteCandidato" value="facebook">
-		   	<img src="resources/img/facebook.png"></img>			
-	  	</label>
-		<label class="col-md-4">
-	    	<input type="radio" ng-model="formData.tipoFuenteCandidato" value="twitter">
-   		    <img src="resources/img/twitter.png"></img>
-	  	</label>
-		<label class="col-md-4">
-		  	<input type="radio" ng-model="formData.tipoFuenteCandidato" value="youtube">
-			<img src="resources/img/youtube.png"></img>	
-		</label>
-		<br/>
-		
-		<div style="padding-top: 9%;" class="form-group">
-        <button  ng-click="nuevaFuenteCandidato()" class="btn btn-block btn-info">Alta Fuente</button>	
-	  </div>
-	  
-	    <div ng-show="hayFuentes()"> 
-	  		<div  class="row">
-       		<label>Fuentes Agregadas:</label>
-       		<div class="row">
-       		<label ng-repeat="fn in noticiasCandidato"> {{fn.url}} - {{fn.tipo}}	<br></label><br>
-			</div>
-			</div>
-       	</div>
-	</div>
-	</div>	  
-       	
-	
-		 
-         <div class="row">
-        <div class="col-md-6">
-          <a ng-click="nuevoCandidato(formData)" class="btn btn-block btn-info"> Crear <span class="glyphicon"></span></a>
-		 </div>
-		 <div class="col-md-6">
-		  <a ng-click="setStep(5)" class="btn btn-block btn-info"> Siguiente <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
-		 </div> 
+	      	</div>
+	       <div class="row"> 
+	          	<label for="cargo">Cargo:</label>
+	          	<select class="form-control" id="cargo" name="cargo" type="checkbox" ng-model="formData.cargo" >
+	          		<option value="{{primerCargo}}">{{primerCargo}}</option>
+	          		<option ng-hide="esDepartamental" value="{{segundoCargo}}">{{segundoCargo}}</option>
+	          	</select>
+	          <br>
+	     	</div>
+	    	</div> <!-- end form step -->
+	<div class="panel panel-info">
+		<div class="panel-heading">
+		    <h3 class="panel-title">Fuentes de Noticias</h3>
 		</div>
-		
-       
-</div>						
-					
+		<div class="panel-body">
+			<input  style="margin-bottom: 10px;" class="form-control" placeholder="Usuario de Facebook, Twitter o canal de Youtube.." ng-model="formData.FNCandidato" required autofocus>
+			<label class="col-md-4">
+			  	<input type="radio" ng-model="formData.tipoFuenteCandidato" value="facebook">
+			  	<img src="resources/img/facebook.png"></img>			
+			</label>
+			<label class="col-md-4">
+			   	<input type="radio" ng-model="formData.tipoFuenteCandidato" value="twitter">
+			 		    <img src="resources/img/twitter.png"></img>
+			</label>
+			<label class="col-md-4">
+			  	<input type="radio" ng-model="formData.tipoFuenteCandidato" value="youtube">
+				<img src="resources/img/youtube.png"></img>	
+			</label>
+			<br/>
+			<div class="form-group">
+				<button  ng-click="nuevaFuenteCandidato()" class="btn btn-block btn-info">Alta Fuente</button>	
+			</div>
+			 
+			<div ng-show="hayFuentes()"> 
+				<div  class="row">
+			    	<label>Fuentes Agregadas:</label>
+			    	<div class="row">
+			    		<label ng-repeat="fn in noticiasCandidato"> {{fn.url}} - {{fn.tipo}}<br></label><br>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	       <div class="row">
+	      <div class="col-md-6">
+	        <a ng-click="nuevoCandidato(formData)" class="btn btn-block btn-info"> Crear <span class="glyphicon"></span></a>
+	 </div>
+	 <div class="col-md-6">
+	  <a ng-click="setStep(5)" class="btn btn-block btn-info"> Siguiente <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+	 </div> 
+	</div>					
+</div>

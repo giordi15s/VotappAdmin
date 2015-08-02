@@ -13,7 +13,8 @@ angular.module('app', [
   //'app.directives',
   'app.controllers',
   'ngAnimate',
-  'flow'
+  'flow',
+  'ui.ace'
 ])
 .config(['$urlRouterProvider', '$stateProvider','jwtInterceptorProvider', '$httpProvider', function($urlRouterProvider, $stateProvider,jwtInterceptorProvider, $httpProvider) {
 	
