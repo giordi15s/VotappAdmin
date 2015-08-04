@@ -1,75 +1,78 @@
+ <h3 class="text-center">Partidos <small>Crea los partidos participantes.</small></h3>
 <div class="form-step"> 
- <h3>Nuevo Partido</h3>
         <div class="row">    
-        <input  style="margin-bottom: 10px;" class="form-control" placeholder="Nombre" ng-model="formData.NombrePartido"required autofocus>
+        <label>Nombre</label>
+        <input  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: Partido Popular" ng-model="formData.NombrePartido"required autofocus>
         </div>
         <div class="row">
+        <label>Fecha de Fundación</label>
             <p class="input-group">
-              <input type="text" class="form-control" datepicker-popup="{{format}}" init-date="Fecha" placeholder="Fecha de Fundacion" ng-model="formData.FechaPartido" is-open="datePicker.isOpen" min-date="1700-12-22" max-date="{{dt}}" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <input type="text" class="form-control" datepicker-popup="{{format}}" init-date="Fecha" placeholder="Ej: 24/11/1990" ng-model="formData.FechaPartido" is-open="datePicker.isOpen" min-date="1700-12-22" max-date="{{dt}}" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
               <span class="input-group-btn">
-                <button type="button" style="height: 3.12em;" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
             </p>
         </div>        
-        <div class="row"> 
-          <input  style="margin-bottom: 10px;" class="form-control" placeholder="Presidente" ng-model="formData.Presidente"required autofocus>
+        <div class="row">
+        <label>Presidente</label>
+          <input  style="margin-bottom: 10px;" class="form-control" placeholder="Nombre del Presidente" ng-model="formData.Presidente"required autofocus>
        	</div>
        	<div class="row"> 
-          <input  style="margin-bottom: 10px;" class="form-control" placeholder="Descripcion" ng-model="formData.Descripcion"required autofocus>
+       	<label>Historia</label>
+          <input  style="margin-bottom: 10px;" class="form-control" placeholder="" ng-model="formData.Descripcion"required autofocus>
        	</div>
-       	<div style="padding-left:10%">	
-      	<div ng-if="fuentePorPartido()" class="row form-control"> 
-          	<input  style="margin-bottom: 10px;" class="form-control" placeholder="Fuente de Informacion" ng-model="formData.FNPartido"required autofocus> 
-	 		<label class="col-md-4">
-		    	<input type="radio" ng-model="formData.tipoFuente" value="facebook">
-		    	<img src="resources/img/facebook.png"></img>
-		  	</label>
-			<label class="col-md-4">
-		    	<input type="radio" ng-model="formData.tipoFuente" value="twitter">
-		    	 <img src="resources/img/twitter.png"></img>
-		  	</label>
+</div>						
+    	<div ng-if="fuentePorPartido()" class="row"> 
+      	<div class="panel panel-info">
+		<div class="panel-heading">
+		    <h3 class="panel-title">Fuentes de Noticias</h3>
+		</div>
+		<div class="panel-body">	
+         	<input  style="margin-bottom: 10px;" class="form-control" placeholder="Fuente de Informacion" ng-model="formData.FNPartido"required autofocus> 
+ 		<label class="col-md-4">
+	    	<input type="radio" ng-model="formData.tipoFuente" value="facebook">
+	    	<img src="resources/img/facebook.png"></img>
+	  	</label>
+		<label class="col-md-4">
+	    	<input type="radio" ng-model="formData.tipoFuente" value="twitter">
+	    	 <img src="resources/img/twitter.png"></img>
+	  	</label>
 		<label class="col-md-4">
 		  	<input type="radio" ng-model="formData.tipoFuente" value="youtube">
 			<img src="resources/img/youtube.png"></img>		
 		</label>
-		<br/>
-	
-	 	<div class="row" style="width: inherit;padding-left: 30px;">
-	 	<a ng-click="nuevaFuente()" class="btn btn-block btn-info"> Crear Fuente <span class="glyphicon"></span></a> 
-	  	</div>
-	   
-	   
+
+		<div class="form-group">
+			<button  ng-click="nuevaFuente()" class="btn btn-block btn-info">Alta Fuente</button>	
+		</div>
 	    <div ng-show="hayFuentes()"> 
 	  		<div  class="row">
-       		<label>Fuentes Agregadas:</label>
-       		<div class="row">
-       		<label ng-repeat="fn in noticiasPartidos"> {{fn.url}} - {{fn.tipo}}	<br></label><br>
+       			<label>Fuentes Agregadas:</label>
+	       		<div class="row">
+	       		<label ng-repeat="fn in noticiasPartidos"> {{fn.url}} - {{fn.tipo}}	<br></label><br>
+				</div>
 			</div>
-			</div>
        	</div>
-       	</div>
-       	</div>
-       	
-       
-        <div ng-show="deptosYNoticias()" class="row">
-        <div class="col-md-6">
-        <label>Seleccionar departamento:</label>
-         </div>
-         <div class="col-md-6">
-        <a ng-click="openModal()" class="col-md-4 btn btn-block btn-info">Departamentos</a>	
-      </div><br>
-        </div>
-       
-        <br>
-        
-        <div class="row">
-        <div class="col-md-6">
-          <a ng-click="nuevoPartido()" class="btn btn-block btn-info"> Crear <span class="glyphicon"></span></a>
-		 </div>
-		 <div class="col-md-6">
-		  <a ng-click="setStep(3)" class="btn btn-block btn-info"> Siguiente <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
-		 </div> 
-		</div>
-       
-</div>						
-					
+      		</div>
+	</div>
+</div><!-- end of panel social -->
+     	
+     
+      <div ng-show="deptosYNoticias()" class="row">
+      <div class="col-md-6">
+      <label>Seleccionar departamento:</label>
+       </div>
+       <div class="col-md-6">
+      <a ng-click="openModal()" class="col-md-4 btn btn-block btn-info">Departamentos</a>	
+    </div><br>
+      </div>
+      
+      <div class="row">
+      <div class="col-md-6">
+        <a ng-click="nuevoPartido()" class="btn btn-block btn-info"> Crear <span class="glyphicon"></span></a>
+ </div>
+ <div class="col-md-6">
+  <a ng-click="setStep(3)" class="btn btn-block btn-info"> Siguiente <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+ </div> 
+</div>
+			

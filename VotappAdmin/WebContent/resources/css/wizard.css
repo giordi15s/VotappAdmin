@@ -47,9 +47,11 @@
 	height: 300px;
 	width: 100%;
 }
-/* STEP 1*/
+/* STEPS */
 .form-step{
 	margin-top: 20px;
 	padding-left: 25%;
 	padding-right: 25%;
+}
+.center-buttons{
 }

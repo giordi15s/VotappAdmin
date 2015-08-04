@@ -499,7 +499,8 @@ angular.module("app.controllers",[
 				dataListas: $scope.listas,
 				dataCandidatos: $scope.candidatos,
 				tipoEleccion: formData.tipoEleccion,
-				logo : $scope.formData.logo
+				logo : $scope.formData.logo,
+				css : $scope.formData.css
 		}
 		
 		EleccionFactory.crearEleccion(dataEleccion).then(
@@ -660,7 +661,8 @@ angular.module("app.controllers",[
 			};
 		  
 		$scope.aceChanged = function(e) {
-			    //
+			//
+			$scope.formData.css = $scope.aceSession.getDocument().getValue(); 
 			$scope.aceDocumentValue = $scope.aceSession.getDocument().getValue();
 			};
 		
