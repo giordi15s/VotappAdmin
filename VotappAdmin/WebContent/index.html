@@ -11,9 +11,10 @@
 <link rel="stylesheet" href="resources/css/style.css">
 <link rel="stylesheet" href="resources/css/wizard.css">
 <link rel="stylesheet" href="resources/css/ui-router-animate.css">
+<link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
 
 </head>
-<body >
+<body flow-prevent-drop>
 	<div ng-controller="HeaderController">
 		<div ng-include src="'layout/headerMenu.html'" ng-show="mostrarHeader()" ></div>
 		<div ng-include src="'layout/header.html'" ng-show="$state.current.name ==='login'" ></div>
