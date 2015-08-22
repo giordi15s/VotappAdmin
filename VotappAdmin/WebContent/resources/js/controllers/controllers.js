@@ -425,23 +425,43 @@ angular.module("app.controllers",[
        
        switch (step) {
 	    case 1:
-			$scope.activoPaso1 = true;
+	    	$scope.activoPaso1 = true;
 			$scope.activoPaso2 = false;
 			$scope.activoPaso3 = false;
 			$scope.activoPaso4 = false;
 			$scope.activoPaso5 = false;
+	    	
 			break;
 	    case 2:
-	    	if (!$scope.eleccionOtra){
-	    		$scope.setStep(3)
+	    	if(($scope.formData.Nombre==null)||($scope.formData.DescripcionEleccion==null)||($scope.formData.Fecha==null)||($scope.formData.tipoEleccion==null)){
+	    		alert('Todos los campos son obligatorios');
+	    		$scope.step = 1;
 	    	}
-	    	$scope.activoPaso1 = false;
-			$scope.activoPaso2 = true;
-			$scope.activoPaso3 = false;
-			$scope.activoPaso4 = false;
-			$scope.activoPaso5 = false;
+	    	else{
+		    	if (!$scope.eleccionOtra){
+		    		$scope.setStep(3)
+		    	}
+	    		console.log("Entro al Else");
+
+		    	$scope.activoPaso1 = false;
+				$scope.activoPaso2 = true;
+				$scope.activoPaso3 = false;
+				$scope.activoPaso4 = false;
+				$scope.activoPaso5 = false;
+		    }
 			break;
 	    case 3:
+	    	if(($scope.formData.Nombre==null)||($scope.formData.DescripcionEleccion==null)||($scope.formData.Fecha==null)||($scope.formData.tipoEleccion==null)||($scope.partidos.length==0
+	    			&& $scope.formData.tipoEleccion!="Otra")){
+	    		alert('Todos los campos son obligatorios');
+	    		
+	    		if ($scope.formData.tipoEleccion=="Otra"){
+	    			$scope.step = 3;
+	    		}
+	    		else{
+	    			$scope.step = 2;
+	    		}
+	    	}
 	    	$scope.activoPaso1 = false;
 			$scope.activoPaso2 = false;
 			$scope.activoPaso3 = true;
@@ -449,6 +469,11 @@ angular.module("app.controllers",[
 			$scope.activoPaso5 = false;
 			break;
 	    case 4:
+	    	if(($scope.formData.Nombre==null)||($scope.formData.DescripcionEleccion==null)||($scope.formData.Fecha==null)||($scope.formData.tipoEleccion==null)||($scope.partidos.length==0
+	    			&& $scope.formData.tipoEleccion!="Otra")||($scope.listas.length==0)){
+	    		alert('Todos los campos son obligatorios');
+	    		$scope.step = 3;
+	    	}
 	    	$scope.activoPaso1 = false;
 			$scope.activoPaso2 = false;
 			$scope.activoPaso3 = false;
@@ -456,6 +481,12 @@ angular.module("app.controllers",[
 			$scope.activoPaso5 = false;
 			break;
 	    case 5:
+	    	if(($scope.formData.Nombre==null)||($scope.formData.DescripcionEleccion==null)||($scope.formData.Fecha==null)||($scope.formData.tipoEleccion==null)||($scope.partidos.length==0
+	    			&& $scope.formData.tipoEleccion!="Otra")||($scope.listas.length==0)||($scope.candidatos.length==0)){
+	    		alert('Todos los campos son obligatorios');
+	    		$scope.step = 4;
+	    	}
+	    
 	    	$scope.activoPaso1 = false;
 			$scope.activoPaso2 = false;
 			$scope.activoPaso3 = false;
@@ -475,6 +506,8 @@ angular.module("app.controllers",[
     } //Cambia las vistas del wizzard
 	
 	 $scope.formData = {};
+		$scope.formData.Fecha = new Date();	
+		
 	    
 	    // function to process the form
 	    $scope.processForm = function() {
@@ -484,7 +517,9 @@ angular.module("app.controllers",[
 	//Se invoca desde el navbar para mostrar el Wizard
 	$scope.crearEleccion = function(){		
 		$scope.formData.PartidoSeleccionado = null;
-		$scope.formData.Nombre="";
+		$scope.formData.Nombre= "";
+		$scope.formData.DescripcionEleccion = "";
+		$scope.formData.Fecha = "";
 	}
 	
 	
