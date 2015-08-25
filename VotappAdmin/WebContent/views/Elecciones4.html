@@ -26,7 +26,7 @@
 	      	<div ng-show="mostrarListasOtra()" class="row"> 
 	      		<label>Seleccione Lista/s:</label><br>
 	      		<label ng-repeat="lis in listas">
-			  <input style="" type="checkbox" value="{{lis}}"  class="form-control" ng-checked="selection.indexOf(lis) > -1" ng-click="toggleSelection(lis)"> {{lis.numero}}
+			  <input style="" type="checkbox" value="{{lis}}"  class="form-control" ng-checked="selection.indexOf(lis) > -1" ng-click="toggleSelectionOtro(lis)"> {{lis.numero}}
 			</label>
 	      	</div>
 	       <div class="row"> 
