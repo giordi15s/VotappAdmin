@@ -52,19 +52,19 @@
 			</div>
 	 		<div class="radio-div">
 				<label class="col-md-4">
-			    	<input type="radio" ng-model="formData.tipoFuenteCandidato" value="facebook">
+			    	<input type="radio" ng-model="formData.tipoFuenteCandidato" ng-disabled="esFacebook()" value="facebook">
 			    	<span class="fa-stack fa-lg facebook-icon">
 					     	<i class="fa fa-facebook-square fa-stack-2x"></i>
 					</span>
 			  	</label>
 				<label class="col-md-4">
-			    	<input type="radio" ng-model="formData.tipoFuenteCandidato" value="twitter">
+			    	<input type="radio" ng-model="formData.tipoFuenteCandidato" ng-disabled="esTwitter()" value="twitter">
 			    	<span class="fa-stack fa-lg twitter-icon">
 					     	<i class="fa fa-twitter fa-stack-2x"></i>
 					</span>
 			  	</label>
 				<label class="col-md-4">
-				  	<input type="radio" ng-model="formData.tipoFuenteCandidato" value="youtube">
+				  	<input type="radio" ng-model="formData.tipoFuenteCandidato" ng-disabled="esYoutube()" value="youtube">
 					<span class="fa-stack fa-lg youtube-icon">
 					     	<i class="fa fa-youtube-play fa-stack-2x"></i>
 					</span>	

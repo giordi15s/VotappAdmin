@@ -88,6 +88,9 @@ angular.module("app.controllers",[
 	$scope.deptos = [];
 	var fuenteXPartido = false;
 	var deptosYnoticias = false;
+	var esFacebook = false;
+	var esTwitter = false;
+	var esYoutube = false;
 	$scope.esDepartamental = false; 
 	$scope.DeptoPartido = [];
 	$scope.elecciones = [];
@@ -204,15 +207,59 @@ angular.module("app.controllers",[
 	$scope.eleccionOtra = function(){
 		return esOtra;
 	}
-
+	
+	
+		
+	$scope.esTwitter = function(){
+		return esTwitter;
+	}
+	
+	$scope.esYoutube = function(){
+		return esYoutube;
+	}
+	
+	$scope.esFacebook = function(){
+		return esFacebook;
+	}
+	
 	$scope.nuevaFuente =function (){
+		
 		
 		var fuente = {
 			tipo: $scope.formData.tipoFuente,
 			url:  $scope.formData.FNPartido
 		}
 		$scope.noticiasPartidos.push(fuente);
-		//$scope.noticiasPartidosReal.push(fuente);
+		
+		  switch ($scope.formData.tipoFuente) {
+	       
+		    case "facebook":
+		    	esFacebook = true;
+		    	esTwitter = false;
+		    	esYoutube = false;
+				break;
+				
+		    case "youtube":
+		    	esFacebook = false;
+		    	esTwitter = false;
+		    	esYoutube = true;
+		    	break;
+
+		    case "twitter":
+		    	esFacebook = false;
+		    	esTwitter = true;
+		    	esYoutube = false;
+		    	break;
+		    
+			default:
+				$scope.esFacebook = false;
+				$scope.esTwitter = false;
+				$scope.esYoutube = false;
+				break;
+	       }
+		
+		
+		
 		$scope.formData.FNPartido = "";
 		$scope.formData.tipoFuente = "";
 		//$scope.openModalNoticias();
@@ -703,7 +750,7 @@ angular.module("app.controllers",[
 	$scope.selectionDeptos = []; //Los departamentos seleccionados (x nombre)
 	$scope.seleccion = {eleccion : null};
 	$scope.departamentosSeleccionados = []; //Son los *objetos* departamentos
-			
+
 	/*Funcion para abrir el 2do modal*/
 	$scope.openModalFuente = function (deptoNombre) {			
 		var modalInstance = $modal.open({		     
@@ -777,13 +824,57 @@ angular.module("app.controllers",[
 	
 	$scope.listaFuentes = [];
 	
+	var esFacebook = false;
+	var esTwitter = false;
+	var esYoutube = false;
+	
+	$scope.esTwitter = function(){
+		return esTwitter;
+	}
+	
+	$scope.esYoutube = function(){
+		return esYoutube;
+	}
+	
+	$scope.esFacebook = function(){
+		return esFacebook;
+	}
+	
+		
 	$scope.crearFuenteDepto = function (){
 		
 		var DataFuenteDatos = {
 			url: $scope.formData.FNDepto,	
 			tipo: $scope.formData.tipoFuente	
 		}		
-		$scope.listaFuentes.push(DataFuenteDatos)		
+		$scope.listaFuentes.push(DataFuenteDatos)	
+		
+			  switch ($scope.formData.tipoFuente) {
+	       
+		    case "facebook":
+		    	esFacebook = true;
+		    	esTwitter = false;
+		    	esYoutube = false;
+				break;
+				
+		    case "youtube":
+		    	esFacebook = false;
+		    	esTwitter = false;
+		    	esYoutube = true;
+		    	break;
+
+		    case "twitter":
+		    	esFacebook = false;
+		    	esTwitter = true;
+		    	esYoutube = false;
+		    	break;
+		    
+			default:
+				$scope.esFacebook = false;
+				$scope.esTwitter = false;
+				$scope.esYoutube = false;
+				break;
+	       }
 		
 		$scope.formData.FNDepto = ""
 		$scope.formData.tipoFuente = ""	
