@@ -1,8 +1,8 @@
 <div class="modal-header">
 	<h3 class="modal-title">Seleccione fuente de noticia</h3>
 </div>
-<div class="modal-body ">
-	 <div class="form-group">
+<div class="modal-body">
+	<!--  <div class="form-group">
 		
 		<div class="row">
       		 
@@ -22,18 +22,70 @@
 					<img src="resources/img/youtube.png"></img>		
 			  </label>	
 		</div>
-	 </div>
-</div>		
-
+	 </div> -->
+	 	<div class="form-group col-md-12">
+	       			<input class="form-control" placeholder="Fuente de Informacion" ng-model="formData.FNDepto"required autofocus> 
+			</div>
+			
+	 		<div class="radio-div">
+		 		<label class="col-md-4">
+			    	<input type="radio" ng-model="formData.tipoFuente" value="facebook">
+			    	<span class="fa-stack fa-lg facebook-icon">
+					     	<i class="fa fa-facebook-square fa-stack-2x"></i>
+					</span>
+			  	</label>
+				<label class="col-md-4">
+			    	<input type="radio" ng-model="formData.tipoFuente" value="twitter">
+			    	<span class="fa-stack fa-lg twitter-icon">
+					     	<i class="fa fa-twitter fa-stack-2x"></i>
+					</span>
+			  	</label>
+				<label class="col-md-4">
+				  	<input type="radio" ng-model="formData.tipoFuente" value="youtube">
+					<span class="fa-stack fa-lg youtube-icon">
+					     	<i class="fa fa-youtube-play fa-stack-2x"></i>
+					</span>	
+				</label>
+	 		</div>
+	 
 	
+
+	  <div ng-show="hayFuentes()" class="fuentes-informacion ">
+		  <h4 class="text-center">Fuentes agregadas </h4>
+	      	<hr>
+	       		<div class="col-md-4" style="margin-top: -20px;" ng-repeat="fn in listaFuentes">
+				  	<div ng-switch="fn.tipo">
+				      <div ng-switch-when="facebook">
+			       		<span class="fa-stack fa-lg facebook-icon">
+				     	<i class="fa fa-facebook-square"></i>
+						</span>
+				     	{{fn.url}}
+					  </div>
+					  <div ng-switch-when="twitter">
+					  	<span class="fa-stack fa-lg twitter-icon">
+				     	<i class="fa fa-twitter"></i>
+						</span>
+				       	{{fn.url}}
+	  				  </div>
+					  <div ng-switch-when="youtube">
+					    <span class="fa-stack fa-lg youtube-icon">
+				     	<i class="fa fa-youtube-play"></i>
+						</span>
+				       	{{fn.url}}
+					  </div> 
+					</div>
+				</div>
+	    </div>
+	</div>       	
    
-     <div ng-show="hayFuentes()" class="row"> 
+   <!--   <div ng-show="hayFuentes()" class="row"> 
 	  		
        		<label>Fuentes Agregadas:</label>
        		<div class="row">
        		<label ng-repeat="fn in listaFuentes"> {{fn.url}} - {{fn.tipo}}	<br></label><br>
 			</div>
-       	</div>
+       	</div> -->
+       	
    
 
 <div class="modal-footer">
