@@ -8,10 +8,9 @@
 	   	<label>Partido </label>
 		<select ng-change="deptoXPartido()" class="form-control" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoSeleccionado"></select>          
 	</div>
-	<hr>
 	<div ng-show="deptosYNoticias()" class="row"> 
-	 		<label>Seleccione Depto:</label>
-	  	<select ng-change="deptoXPartido()"  ng-options="departamento.nombre for departamento in departamentoPartido" ng-model="formData.DeptoLista"></select>
+	 	<label>Seleccione Depto:</label>
+	  	<select ng-change="deptoXPartido()" class="form-control" ng-options="departamento.nombre for departamento in departamentoPartido" ng-model="formData.DeptoLista"></select>			
 	</div>
 </div>						
 <div class="row margin-bottom-panel">

@@ -23,6 +23,12 @@
 			  <input style="" type="checkbox" value="{{lis}}"  class="form-control" ng-checked="selection.indexOf(lis) > -1" ng-click="toggleSelection(lis)"> {{lis.numero}}
 			</label>
 	      	</div>
+	      	<div ng-show="mostrarListasOtra()" class="row"> 
+	      		<label>Seleccione Lista/s:</label><br>
+	      		<label ng-repeat="lis in listas">
+			  <input style="" type="checkbox" value="{{lis}}"  class="form-control" ng-checked="selection.indexOf(lis) > -1" ng-click="toggleSelection(lis)"> {{lis.numero}}
+			</label>
+	      	</div>
 	       <div class="row"> 
 	          	<label for="cargo">Cargo:</label>
 	          	<select class="form-control" id="cargo" name="cargo" type="checkbox" ng-model="formData.cargo" >
@@ -42,7 +48,7 @@
 			<input class="form-control" placeholder="Usuario de Facebook, Twitter o canal de Youtube.." ng-model="formData.FNCandidato" required autofocus>
 			</div>
 			<div class="form-group col-md-4">
-			<button  ng-click="nuevaFuenteCandidato()" class="btn btn-block btn-info">Alta Fuente</button>
+				<a ng-click="nuevaFuenteCandidato()" class="btn btn-block btn-info"> Alta Fuente </a>
 			</div>
 	 		<div class="radio-div">
 				<label class="col-md-4">

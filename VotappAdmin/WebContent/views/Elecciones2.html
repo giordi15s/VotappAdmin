@@ -7,7 +7,7 @@
         <div class="row">
         <label>Fecha de Fundación</label>
             <p class="input-group">
-              <input type="text" class="form-control" datepicker-popup="{{format}}" init-date="Fecha" placeholder="Ej: 24/11/1990" ng-model="formData.FechaPartido" is-open="datePicker.isOpen" min-date="1700-12-22" max-date="{{dt}}" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <input type="text" class="form-control" datepicker-popup="{{format}}" init-date="formData.FechaPartido" ng-model="formData.FechaPartido" is-open="datePicker.isOpen" min-date="1700-12-22" max-date="{{dt}}" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
@@ -32,7 +32,7 @@
 	       			<input class="form-control" placeholder="Fuente de Informacion" ng-model="formData.FNPartido"required autofocus> 
 			</div>
 			<div class="form-group col-md-4">
-				<button  ng-click="nuevaFuente()" class="btn btn-block btn-info">Alta Fuente</button>	
+			        <a ng-click="nuevaFuente()" class="btn btn-block btn-info"> Alta Fuente </a>
 			</div>
 	 		<div class="radio-div">
 		 		<label class="col-md-4">

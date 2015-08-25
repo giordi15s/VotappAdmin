@@ -74,9 +74,11 @@ angular.module("app.controllers",[
 	$scope.selectionParaOtro = [];
 	$scope.listasPorPartido = [];
 	$scope.noticiasPartidos = [];
+	$scope.noticiasPartidosReal = [];
 	$scope.noticiasCandidato = [];
 	var esNacional = false;
 	var mostrarListas = false;
+	var mostrarListasOtra = false;
 	var esOtra = true;
 	var salteo = null;
 	$scope.numeroPaso3 = 3;
@@ -210,6 +212,7 @@ angular.module("app.controllers",[
 			url:  $scope.formData.FNPartido
 		}
 		$scope.noticiasPartidos.push(fuente);
+		//$scope.noticiasPartidosReal.push(fuente);
 		$scope.formData.FNPartido = "";
 		$scope.formData.tipoFuente = "";
 		//$scope.openModalNoticias();
@@ -230,6 +233,9 @@ angular.module("app.controllers",[
 	$scope.mostrarListas = function(){
 		return mostrarListas;
 	}
+	$scope.mostrarListasOtra = function(){
+		return mostrarListasOtra;
+	}
 	
 	$scope.tipoEleccionSel = function(){
 		  
@@ -243,6 +249,7 @@ angular.module("app.controllers",[
 		    	fuenteXPartido = true;
 				esNacional = true;
 				mostrarListas = false;
+				mostrarListasOtra = false;
 				esOtra = true;
 				$scope.numeroPaso3 = 3;
 				$scope.numeroPaso4 = 4;
@@ -258,6 +265,7 @@ angular.module("app.controllers",[
 		    	fuenteXPartido = false;
 				esNacional = false;
 				mostrarListas = true;
+				mostrarListasOtra = false;
 				esOtra = true;
 				$scope.numeroPaso3 = 3;
 				$scope.numeroPaso4 = 4;
@@ -272,6 +280,7 @@ angular.module("app.controllers",[
 		    	$scope.esDepartamental = false; 
 		    	esNacional = false;
 		    	mostrarListas = false;
+		    	mostrarListasOtra = true;
 		    	esOtra = false;
 		    	$scope.numeroPaso3 = 2;
 		    	$scope.numeroPaso4 = 3;
@@ -340,6 +349,7 @@ angular.module("app.controllers",[
 		$scope.selectionParaOtro = [];
 		formData.FNCandidato = "";
 		formData.PartidoCandidato = "";
+		$scope.noticiasCandidato = [];
 							
 	}
 	
@@ -413,6 +423,9 @@ angular.module("app.controllers",[
 		$scope.formData.Presidente="";
 		$scope.formData.Descripcion="";
 		$scope.formData.FNPartido="";
+		//$scope.noticiasPartidosReal= null;
+		$scope.noticiasPartidos = [];
+
 	}
 	
 	$scope.datePicker = {
@@ -506,7 +519,8 @@ angular.module("app.controllers",[
     } //Cambia las vistas del wizzard
 	
 	 $scope.formData = {};
-		$scope.formData.Fecha = new Date();	
+		$scope.formData.Fecha = new Date();
+		$scope.formData.FechaPartido = new Date();
 		
 	    
 	    // function to process the form
@@ -640,28 +654,6 @@ angular.module("app.controllers",[
 		    );
 	  };
 	  
-		
-	  $scope.openModalNoticias = function () {
-			console.log("Entro al OPenModal");
-		    var modalInstance = $modal.open({
-		      templateUrl: 'views/NoticiasModal.html',
-		      controller: 'EleccionController',		      
-		      resolve: {
-		    	  noticiasPartidos: function(){
-		    		  return $scope.noticiasPartidos;
-		        }
-		      }
-		    });
-		    
-		    modalInstance.result.then(
-		    	function (listaDeptos) {
-		    		$scope.selectedDeptos = listaDeptos;
-		    	},
-		      	function () {
-		        //$log.info('Modal dismissed at: ' + new Date());
-		      }
-		    );
-	  };
 	
 	  
 	  $scope.addLogo = function($flow, $file, $message){
