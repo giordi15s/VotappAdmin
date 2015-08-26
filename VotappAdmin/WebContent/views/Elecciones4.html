@@ -5,11 +5,11 @@
 	       <label>Nombre</label>    
 	       <input  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: José Pérez" ng-model="formData.NombreCandidato"required autofocus>
 	       </div>
-	       <div class="row"> 
+	       <div class="row" ng-hide="formData.tipoEleccion == 'Simple'"> 
 	       	<label>Edad</label>
 	       	<input  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: 50" ng-model="formData.EdadCandidato"required autofocus>
 	      	</div>
-	      	<div class="row" ng-hide="formData.tipoEleccion == 'Otra'"> 
+	      	<div class="row" ng-hide="formData.tipoEleccion == 'Otra' || formData.tipoEleccion == 'Simple'"> 
 	      		<label>Seleccione Partido</label>
 	       	<select ng-change="deptoXPartidoCandidato()"  class="form-control" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoCandidato"></select>
 	       </div>
@@ -26,10 +26,10 @@
 	      	<div ng-show="mostrarListasOtra()" class="row"> 
 	      		<label>Seleccione Lista/s:</label><br>
 	      		<label ng-repeat="lis in listas">
-			  <input style="" type="checkbox" value="{{lis}}"  class="form-control" ng-checked="selection.indexOf(lis) > -1" ng-click="toggleSelection(lis)"> {{lis.numero}}
+			  <input style="" type="checkbox" value="{{lis}}"  class="form-control" ng-checked="selection.indexOf(lis) > -1" ng-click="toggleSelectionOtro(lis)"> {{lis.numero}}
 			</label>
 	      	</div>
-	       <div class="row"> 
+	       <div class="row" ng-hide="formData.tipoEleccion == 'Simple'"> 
 	          	<label for="cargo">Cargo:</label>
 	          	<select class="form-control" id="cargo" name="cargo" type="checkbox" ng-model="formData.cargo" >
 	          		<option value="{{primerCargo}}">{{primerCargo}}</option>

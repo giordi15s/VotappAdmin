@@ -320,6 +320,21 @@ angular.module("app.controllers",[
 		    	deptosYnoticias = false;
 		    	$scope.mostrarTodasListas = true;
 		    	break;
+		    	
+		    case "Simple":
+		  
+		    	$scope.esDepartamental = false; 
+		    	esNacional = false;
+		    	mostrarListas = false;
+		    	mostrarListasOtra = false;
+		    	esOtra = false;
+		    	
+		    	$scope.numeroPaso4 = 2;
+		    	$scope.numeroPaso5 = 3;
+		    	$scope.siguientePaso1 = 4;
+		    	deptosYnoticias = false;
+		    	$scope.mostrarTodasListas = true;
+		    	break;
 		    
 			default:
 				deptosYnoticias = false;
@@ -362,13 +377,17 @@ angular.module("app.controllers",[
 			 dataFuenteDatos: $scope.noticiasCandidato,
 			 dataListas: $scope.selection,
 			 nombrePartido: '',
-			 cargo : formData.cargo.toUpperCase()
-		}
+			 cargo : 'UNKNOWN'
+		}					
 		
 		if($scope.formData.tipoEleccion == 'Otra'){
 			candidato.dataListas = $scope.selectionParaOtro;
 		}else{
-			candidato.nombrePartido = formData.PartidoCandidato.nombre;
+			if(formData.tipoEleccion != 'Simple'){
+				candidato.nombrePartido = formData.PartidoCandidato.nombre;
+				candidato.cargo = formData.cargo.toUpperCase();
+			}
+				
 		}
 		
 		$scope.candidatos.push(candidato);
@@ -422,7 +441,7 @@ angular.module("app.controllers",[
 			 nombrePartido: ''
 			}
 		
-		if($scope.formData.tipoEleccion != 'Otra'){
+		if(($scope.formData.tipoEleccion != 'Otra') && (formData.tipoEleccion != 'Simple')){
 			lista.nombrePartido = formData.PartidoSeleccionado.nombre;
 		}
 		
@@ -485,10 +504,11 @@ angular.module("app.controllers",[
 	    		$scope.step = 1;
 	    	}
 	    	else{
-		    	if (!$scope.eleccionOtra){
+		    	if ($scope.formData.tipoEleccion == 'Otra'){
 		    		$scope.setStep(3)
-		    	}
-	    		console.log("Entro al Else");
+		    	}else
+		    		if($scope.formData.tipoEleccion == 'Simple')
+		    			$scope.setStep(4)
 
 		    	$scope.activoPaso1 = false;
 				$scope.activoPaso2 = true;
@@ -499,7 +519,7 @@ angular.module("app.controllers",[
 			break;
 	    case 3:
 	    	if(($scope.formData.Nombre==null)||($scope.formData.DescripcionEleccion==null)||($scope.formData.Fecha==null)||($scope.formData.tipoEleccion==null)||($scope.partidos.length==0
-	    			&& $scope.formData.tipoEleccion!="Otra")){
+	    			&& $scope.formData.tipoEleccion=="Nacional") || ($scope.partidos.length==0 && $scope.formData.tipoEleccion=="Departamental")){
 	    		alert('Todos los campos son obligatorios');
 	    		
 	    		if ($scope.formData.tipoEleccion=="Otra"){
@@ -508,18 +528,27 @@ angular.module("app.controllers",[
 	    		else{
 	    			$scope.step = 2;
 	    		}
+	    	}else{
+	    		console.log("else del case 3")
+	    		if($scope.formData.tipoEleccion == 'Simple')
+	    			$scope.setStep(4)
+	    		else{
+	    			$scope.activoPaso1 = false;
+	    			$scope.activoPaso2 = false;
+	    			$scope.activoPaso3 = true;
+	    			$scope.activoPaso4 = false;
+	    			$scope.activoPaso5 = false;
+	    		}
 	    	}
-	    	$scope.activoPaso1 = false;
-			$scope.activoPaso2 = false;
-			$scope.activoPaso3 = true;
-			$scope.activoPaso4 = false;
-			$scope.activoPaso5 = false;
+	    	
 			break;
 	    case 4:
 	    	if(($scope.formData.Nombre==null)||($scope.formData.DescripcionEleccion==null)||($scope.formData.Fecha==null)||($scope.formData.tipoEleccion==null)||($scope.partidos.length==0
-	    			&& $scope.formData.tipoEleccion!="Otra")||($scope.listas.length==0)){
+	    			&& $scope.formData.tipoEleccion=="Nacional") || ($scope.partidos.length==0 && $scope.formData.tipoEleccion=="Departamental") || ($scope.listas.length==0 && $scope.formData.tipoEleccion!="Simple") ){
 	    		alert('Todos los campos son obligatorios');
 	    		$scope.step = 3;
+	    		if($scope.formData.tipoEleccion == 'Simple')
+	    			$scope.step = 1;
 	    	}
 	    	$scope.activoPaso1 = false;
 			$scope.activoPaso2 = false;
@@ -529,7 +558,7 @@ angular.module("app.controllers",[
 			break;
 	    case 5:
 	    	if(($scope.formData.Nombre==null)||($scope.formData.DescripcionEleccion==null)||($scope.formData.Fecha==null)||($scope.formData.tipoEleccion==null)||($scope.partidos.length==0
-	    			&& $scope.formData.tipoEleccion!="Otra")||($scope.listas.length==0)||($scope.candidatos.length==0)){
+	    			&& $scope.formData.tipoEleccion=="Nacional") || ($scope.partidos.length==0 && $scope.formData.tipoEleccion=="Departamental") ||($scope.listas.length==0  && $scope.formData.tipoEleccion!="Simple")||($scope.candidatos.length==0)){
 	    		alert('Todos los campos son obligatorios');
 	    		$scope.step = 4;
 	    	}
