@@ -382,6 +382,7 @@ angular.module("app.controllers",[
 		
 		if($scope.formData.tipoEleccion == 'Otra'){
 			candidato.dataListas = $scope.selectionParaOtro;
+			candidato.cargo = formData.cargo.toUpperCase();
 		}else{
 			if(formData.tipoEleccion != 'Simple'){
 				candidato.nombrePartido = formData.PartidoCandidato.nombre;
@@ -400,7 +401,6 @@ angular.module("app.controllers",[
 		formData.FNCandidato = "";
 		formData.PartidoCandidato = "";
 		$scope.noticiasCandidato = [];
-							
 	}
 	
 	$scope.toggleSelection = function toggleSelection(listasPorPartido) {
@@ -906,11 +906,9 @@ angular.module("app.controllers",[
 		
 		if($scope.listaFuentes.length<1){
 			hayFuentes = false;
-			console.log("Nticiassss Llenas:"+$scope.listaFuentes);
 		}
 		else{
 			hayFuentes = true;
-			console.log("Noticiasss Vacias"+$scope.listaFuentes);
 		}
 	
 		return hayFuentes;
