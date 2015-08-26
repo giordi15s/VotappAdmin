@@ -88,9 +88,9 @@ angular.module("app.controllers",[
 	$scope.deptos = [];
 	var fuenteXPartido = false;
 	var deptosYnoticias = false;
-	var esFacebook = false;
-	var esTwitter = false;
-	var esYoutube = false;
+	$scope.esFacebook = false;
+	$scope.esTwitter = false;
+	$scope.esYoutube = false;
 	$scope.esDepartamental = false; 
 	$scope.DeptoPartido = [];
 	$scope.elecciones = [];
@@ -209,61 +209,45 @@ angular.module("app.controllers",[
 	}
 	
 	
-		
-	$scope.esTwitter = function(){
-		return esTwitter;
-	}
-	
-	$scope.esYoutube = function(){
-		return esYoutube;
-	}
-	
-	$scope.esFacebook = function(){
-		return esFacebook;
-	}
-	
 	$scope.nuevaFuente =function (){
 		
-		
-		var fuente = {
-			tipo: $scope.formData.tipoFuente,
-			url:  $scope.formData.FNPartido
-		}
-		$scope.noticiasPartidos.push(fuente);
-		
-		  switch ($scope.formData.tipoFuente) {
-	       
-		    case "facebook":
-		    	esFacebook = true;
-		    	esTwitter = false;
-		    	esYoutube = false;
-				break;
-				
-		    case "youtube":
-		    	esFacebook = false;
-		    	esTwitter = false;
-		    	esYoutube = true;
-		    	break;
+			
+			var fuente = {
+				tipo: $scope.formData.tipoFuente,
+				url:  $scope.formData.FNPartido
+			}
+			$scope.noticiasPartidos.push(fuente);
+			
+			  switch ($scope.formData.tipoFuente) {
+		       
+			    case "facebook":
+			    	$scope.esFacebook = true;
+			 
+					break;
+					
+			    case "youtube":
+			    	
+			    	$scope.esYoutube = true;
+			    	break;
 
-		    case "twitter":
-		    	esFacebook = false;
-		    	esTwitter = true;
-		    	esYoutube = false;
-		    	break;
-		    
-			default:
-				$scope.esFacebook = false;
-				$scope.esTwitter = false;
-				$scope.esYoutube = false;
-				break;
-	       }
+			    case "twitter":
+			    	
+			    	$scope.esTwitter = true;
+			    	
+			    	break;
+			    
+				default:
+				
+					break;
+		       }
+			
+			
+			$scope.formData.FNPartido = "";
+			$scope.formData.tipoFuente = "";
 		
 		
-		
-		$scope.formData.FNPartido = "";
-		$scope.formData.tipoFuente = "";
-		//$scope.openModalNoticias();
 	}
+		
 	
 	$scope.nuevaFuenteCandidato =function (){
 		
@@ -470,6 +454,9 @@ angular.module("app.controllers",[
 		$scope.formData.Presidente="";
 		$scope.formData.Descripcion="";
 		$scope.formData.FNPartido="";
+		$scope.esFacebook = false;
+		$scope.esTwitter = false;
+		$scope.esYoutube = false;
 		//$scope.noticiasPartidosReal= null;
 		$scope.noticiasPartidos = [];
 
