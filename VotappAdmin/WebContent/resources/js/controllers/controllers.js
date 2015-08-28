@@ -24,16 +24,30 @@ angular.module("app.controllers",[
 	
 }])
 .controller('ConsultoraController', ['$scope', 'ConsultoraFactory', function($scope, ConsultoraFactory) {
-	
+
+	$scope.alerts = [];
+
 	$scope.crearUsuario = function(consultora){
 		
 		ConsultoraFactory.crearConsultora(consultora).then(
 				function(response){
+					console.log("SE GUARDA");
+					 $scope.alerts.push({type: 'success', msg: 'Consultora creada con éxito'});
+					 console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
+					 $scope.closeAlert = function(index) {
+							    $scope.alerts.splice(index, 1);
+							  };
+					                 
 					
 				},
 				
 				function(response){
 					//error messagge
+					$scope.alerts.push({type: 'danger', msg: 'Falló'});
+					 console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
+					 $scope.closeAlert = function(index) {
+							    $scope.alerts.splice(index, 1);
+							  };
 						
 				}
 		)
@@ -65,6 +79,7 @@ angular.module("app.controllers",[
 
 .controller('EleccionController', ['$scope', 'ConsultoraFactory', 'EleccionFactory', '$filter', '$modal',function($scope, ConsultoraFactory, EleccionFactory, $filter, $modal) {
 	
+	$scope.alerts = [];
 	$scope.seleccion = {eleccion : null};
 	$scope.step = 1;
 	$scope.partidos = [];
@@ -91,6 +106,9 @@ angular.module("app.controllers",[
 	$scope.esFacebook = false;
 	$scope.esTwitter = false;
 	$scope.esYoutube = false;
+	$scope.esFacebookCandi = false;
+	$scope.esTwitterCandi = false;
+	$scope.esYoutubeCandi = false;
 	$scope.esDepartamental = false; 
 	$scope.DeptoPartido = [];
 	$scope.elecciones = [];
@@ -222,7 +240,6 @@ angular.module("app.controllers",[
 		       
 			    case "facebook":
 			    	$scope.esFacebook = true;
-			 
 					break;
 					
 			    case "youtube":
@@ -231,9 +248,7 @@ angular.module("app.controllers",[
 			    	break;
 
 			    case "twitter":
-			    	
 			    	$scope.esTwitter = true;
-			    	
 			    	break;
 			    
 				default:
@@ -256,6 +271,27 @@ angular.module("app.controllers",[
 			url:  $scope.formData.FNCandidato
 		}
 		$scope.noticiasCandidato.push(fuente);
+		
+		 switch ($scope.formData.tipoFuenteCandidato) {
+	       
+		    case "facebook":
+		    	$scope.esFacebookCandi = true;
+				break;
+				
+		    case "youtube":
+		    	
+		    	$scope.esYoutubeCandi = true;
+		    	break;
+
+		    case "twitter":
+		    	
+		    	$scope.esTwitterCandi = true;    	
+		    	break;
+		    
+			default:
+			
+				break;
+	       }
 		$scope.formData.FNCandidato = "";
 		$scope.formData.tipoFuenteCandidato = "";
 	}
@@ -401,6 +437,9 @@ angular.module("app.controllers",[
 		formData.FNCandidato = "";
 		formData.PartidoCandidato = "";
 		$scope.noticiasCandidato = [];
+		$scope.esFacebookCandi = false;
+		$scope.esTwitterCandi = false;
+		$scope.esYoutubeCandi = false;
 	}
 	
 	$scope.toggleSelection = function toggleSelection(listasPorPartido) {
@@ -585,11 +624,6 @@ angular.module("app.controllers",[
 		$scope.formData.Fecha = new Date();
 		$scope.formData.FechaPartido = new Date();
 		
-	    
-	    // function to process the form
-	    $scope.processForm = function() {
-	        alert('Eleccion creada!');
-	    };
 	
 	//Se invoca desde el navbar para mostrar el Wizard
 	$scope.crearEleccion = function(){		
@@ -617,11 +651,20 @@ angular.module("app.controllers",[
 		
 		EleccionFactory.crearEleccion(dataEleccion).then(
 				function(response){
-					
+					 $scope.alerts.push({type: 'success', msg: 'Elección creada con éxito'});
+					 console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
+					 $scope.closeAlert = function(index) {
+							    $scope.alerts.splice(index, 1);
+							  };
 				},
 				
 				function(response){
 					//error messagge
+					 $scope.alerts.push({type: 'danger', msg: 'Error al crear la Eleccion'});
+					 console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
+					 $scope.closeAlert = function(index) {
+							    $scope.alerts.splice(index, 1);
+							  };
 						
 				}
 		)
@@ -840,21 +883,10 @@ angular.module("app.controllers",[
 	
 	$scope.listaFuentes = [];
 	
-	var esFacebook = false;
-	var esTwitter = false;
-	var esYoutube = false;
-	
-	$scope.esTwitter = function(){
-		return esTwitter;
-	}
-	
-	$scope.esYoutube = function(){
-		return esYoutube;
-	}
-	
-	$scope.esFacebook = function(){
-		return esFacebook;
-	}
+	$scope.esFacebook = false;
+	$scope.esTwitter = false;
+	$scope.esYoutube = false;
+
 	
 		
 	$scope.crearFuenteDepto = function (){
@@ -865,35 +897,28 @@ angular.module("app.controllers",[
 		}		
 		$scope.listaFuentes.push(DataFuenteDatos)	
 		
-			  switch ($scope.formData.tipoFuente) {
-	       
+			switch ($scope.formData.tipoFuente) {
+	      
 		    case "facebook":
-		    	esFacebook = true;
-		    	esTwitter = false;
-		    	esYoutube = false;
-				break;
+		    	$scope.esFacebook = true;
+		    	break;
 				
 		    case "youtube":
-		    	esFacebook = false;
-		    	esTwitter = false;
-		    	esYoutube = true;
+		    	$scope.esYoutube = true;
 		    	break;
 
 		    case "twitter":
-		    	esFacebook = false;
-		    	esTwitter = true;
-		    	esYoutube = false;
+		    	$scope.esTwitter = true;
 		    	break;
 		    
 			default:
-				$scope.esFacebook = false;
-				$scope.esTwitter = false;
-				$scope.esYoutube = false;
+			
 				break;
 	       }
 		
-		$scope.formData.FNDepto = ""
-		$scope.formData.tipoFuente = ""	
+		$scope.formData.FNDepto = "";
+		$scope.formData.tipoFuente = "";
+		
 	
 	}	
 	

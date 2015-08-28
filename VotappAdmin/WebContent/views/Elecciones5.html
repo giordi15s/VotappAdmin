@@ -1,4 +1,7 @@
 <div class="margin-top-panel">
+		  <div>
+				<alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1500" close="closeAlert($index)">{{alert.msg}}</alert>
+		  </div>
 	<div class="panel panel-info">
 		<div class="panel-heading">
 		    <h3 class="panel-title">Ingrese un logo <small>Arrastra tu imagen dentro del área coloreada.</small></h3>

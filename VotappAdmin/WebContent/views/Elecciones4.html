@@ -45,26 +45,26 @@
 		</div>
 		<div class="panel-body">
 			<div class="form-group col-md-8">
-			<input class="form-control" placeholder="Usuario de Facebook, Twitter o canal de Youtube.." ng-model="formData.FNCandidato" required autofocus>
+			<input class="form-control" ng-disabled="esFacebook && esTwitter && esYoutube" placeholder="Usuario de Facebook, Twitter o canal de Youtube.." ng-model="formData.FNCandidato" required autofocus>
 			</div>
 			<div class="form-group col-md-4">
-				<a ng-click="nuevaFuenteCandidato()" class="btn btn-block btn-info"> Alta Fuente </a>
+				<a ng-click="nuevaFuenteCandidato()" ng-disabled="esFacebookCandi && esTwitterCandi && esYoutubeCandi" class="btn btn-block btn-info"> Alta Fuente </a>
 			</div>
 	 		<div class="radio-div">
 				<label class="col-md-4">
-			    	<input type="radio" ng-model="formData.tipoFuenteCandidato" ng-disabled="esFacebook()" value="facebook">
+			    	<input type="radio" ng-model="formData.tipoFuenteCandidato" ng-disabled="esFacebookCandi" value="facebook">
 			    	<span class="fa-stack fa-lg facebook-icon">
 					     	<i class="fa fa-facebook-square fa-stack-2x"></i>
 					</span>
 			  	</label>
 				<label class="col-md-4">
-			    	<input type="radio" ng-model="formData.tipoFuenteCandidato" ng-disabled="esTwitter()" value="twitter">
+			    	<input type="radio" ng-model="formData.tipoFuenteCandidato" ng-disabled="esTwitterCandi" value="twitter">
 			    	<span class="fa-stack fa-lg twitter-icon">
 					     	<i class="fa fa-twitter fa-stack-2x"></i>
 					</span>
 			  	</label>
 				<label class="col-md-4">
-				  	<input type="radio" ng-model="formData.tipoFuenteCandidato" ng-disabled="esYoutube()" value="youtube">
+				  	<input type="radio" ng-model="formData.tipoFuenteCandidato" ng-disabled="esYoutubeCandi" value="youtube">
 					<span class="fa-stack fa-lg youtube-icon">
 					     	<i class="fa fa-youtube-play fa-stack-2x"></i>
 					</span>	

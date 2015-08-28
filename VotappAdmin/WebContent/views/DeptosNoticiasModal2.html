@@ -4,24 +4,24 @@
 <div class="modal-body">
 
 	 	<div class="form-group col-md-12">
-	       			<input class="form-control" placeholder="Fuente de Informacion" ng-model="formData.FNDepto"required autofocus> 
+	       			<input class="form-control" ng-disabled="esFacebook && esTwitter && esYoutube" placeholder="Fuente de Informacion" ng-model="formData.FNDepto"required autofocus> 
 			</div>
 			
 	 		<div class="radio-div">
 		 		<label class="col-md-4">
-			    	<input type="radio" ng-model="formData.tipoFuente" ng-disabled="esFacebook()" value="facebook">
+			    	<input type="radio" ng-model="formData.tipoFuente" ng-disabled="esFacebook" value="facebook">
 			    	<span class="fa-stack fa-lg facebook-icon">
 					     	<i class="fa fa-facebook-square fa-stack-2x"></i>
 					</span>
 			  	</label>
 				<label class="col-md-4">
-			    	<input type="radio" ng-model="formData.tipoFuente" ng-disabled="esTwitter()" value="twitter">
+			    	<input type="radio" ng-model="formData.tipoFuente" ng-disabled="esTwitter" value="twitter">
 			    	<span class="fa-stack fa-lg twitter-icon">
 					     	<i class="fa fa-twitter fa-stack-2x"></i>
 					</span>
 			  	</label>
 				<label class="col-md-4">
-				  	<input type="radio" ng-model="formData.tipoFuente" ng-disabled="esYoutube())" value="youtube">
+				  	<input type="radio" ng-model="formData.tipoFuente" ng-disabled="esYoutube" value="youtube">
 					<span class="fa-stack fa-lg youtube-icon">
 					     	<i class="fa fa-youtube-play fa-stack-2x"></i>
 					</span>	
@@ -61,6 +61,6 @@
    
 
 <div class="modal-footer">
-	<button class="btn btn-primary" ng-click="crearFuenteDepto()">OK</button>
+	<button class="btn btn-primary" ng-disabled="esFacebook && esTwitter && esYoutube" ng-click="crearFuenteDepto()">OK</button>
 	<button class="btn btn-danger" ng-click="finCrearFuentes()">Finalizar</button>
 </div>
