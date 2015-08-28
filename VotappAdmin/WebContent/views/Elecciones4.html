@@ -9,6 +9,10 @@
 	       	<label>Edad</label>
 	       	<input  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: 50" ng-model="formData.EdadCandidato"required autofocus>
 	      	</div>
+	      	<div class="row" ng-hide="formData.tipoEleccion == 'Simple'"> 
+	       	<label>Biografia</label>
+	       	<textarea  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: Nació en..." ng-model="formData.BiografiaCandidato"required autofocus></textarea>
+	      	</div>
 	      	<div class="row" ng-hide="formData.tipoEleccion == 'Otra' || formData.tipoEleccion == 'Simple'"> 
 	      		<label>Seleccione Partido</label>
 	       	<select ng-change="deptoXPartidoCandidato()"  class="form-control" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoCandidato"></select>

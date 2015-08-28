@@ -409,6 +409,7 @@ angular.module("app.controllers",[
 		
 		var candidato =	{
 			 nombre: $scope.formData.NombreCandidato,
+			 biografia: $scope.formData.BiografiaCandidato,
 			 edad: $scope.formData.EdadCandidato,
 			 dataFuenteDatos: $scope.noticiasCandidato,
 			 dataListas: $scope.selection,
@@ -432,6 +433,7 @@ angular.module("app.controllers",[
 		//Limpiar para el siguiente candidato:
 		formData.NombreCandidato = "";
 		formData.EdadCandidato = "";
+		formData.BiografiaCandidato = "";
 		$scope.selection = [];
 		$scope.selectionParaOtro = [];
 		formData.FNCandidato = "";
