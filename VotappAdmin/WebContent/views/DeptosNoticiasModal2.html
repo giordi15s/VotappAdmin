@@ -27,13 +27,32 @@
 
 	
    
-     <div ng-show="hayFuentes()" class="row"> 
-	  		
-       		<label>Fuentes Agregadas:</label>
-       		<div class="row">
-       		<label ng-repeat="fn in listaFuentes"> {{fn.url}} - {{fn.tipo}}	<br></label><br>
+     <div ng-show="hayFuentes()" class="fuentes-informacion ">
+  		<h4 class="text-center">Fuentes agregadas </h4>
+      		<hr>
+     	<div class="col-md-6" ng-repeat="fn in listaFuentes">
+		  	<div ng-switch="fn.tipo">
+		      <div ng-switch-when="facebook">
+	       		<span class="fa-stack fa-lg facebook-icon">
+		     	<i class="fa fa-facebook-square"></i>
+				</span>
+		     	{{fn.url}}
+			  </div>
+			  <div ng-switch-when="twitter">
+			  	<span class="fa-stack fa-lg twitter-icon">
+		     	<i class="fa fa-twitter"></i>
+				</span>
+		       	{{fn.url}}
+ 				  </div>
+			  <div ng-switch-when="youtube">
+			    <span class="fa-stack fa-lg youtube-icon">
+		     	<i class="fa fa-youtube-play"></i>
+				</span>
+		       	{{fn.url}}
+			  </div> 
 			</div>
-       	</div>
+		</div>
+	</div>
    
 
 <div class="modal-footer">
