@@ -1,37 +1,51 @@
  <div>
 		<h3 class="text-center">Candidatos <small>Crea un nuevo candidato.</small></h3>
 	<div class="form-step">
-	       <div class="row">
-	       <label>Nombre</label>    
-	       <input  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: José Pérez" ng-model="formData.NombreCandidato"required autofocus>
-	       </div>
-	       <div class="row"> 
-	       	<label>Edad</label>
-	       	<input  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: 50" ng-model="formData.EdadCandidato"required autofocus>
-	      	</div>
-	      	<div class="row" ng-hide="formData.tipoEleccion == 'Otra'"> 
-	      		<label>Seleccione Partido</label>
-	       	<select ng-change="deptoXPartidoCandidato()"  class="form-control" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoCandidato"></select>
-	       </div>
-	       	<div ng-show="deptosYNoticias()" class="row"> 
-	     	 		<label>Seleccione Depto</label>
-	      		<select ng-change="listasXDeptos()" class="form-control" ng-options="departamento.nombre for departamento in DeptoPartido" ng-model="formData.DeptoPartido"></select>
-	         	</div>
-	      	<div ng-show="mostrarListas()" class="row"> 
-	      		<label>Seleccione Lista/s:</label><br>
-	      		<label ng-repeat="lis in listasPorPartido">
-			  <input style="" type="checkbox" value="{{lis}}"  class="form-control" ng-checked="selection.indexOf(lis) > -1" ng-click="toggleSelection(lis)"> {{lis.numero}}
-			</label>
-	      	</div>
-	       <div class="row"> 
-	          	<label for="cargo">Cargo:</label>
-	          	<select class="form-control" id="cargo" name="cargo" type="checkbox" ng-model="formData.cargo" >
-	          		<option value="{{primerCargo}}">{{primerCargo}}</option>
-	          		<option ng-hide="esDepartamental" value="{{segundoCargo}}">{{segundoCargo}}</option>
-	          	</select>
-	          <br>
-	     	</div>
-	    	</div> <!-- end form step -->
+		<div class="row">
+		   <label>Imagen</label>    
+		   <input id="imgCandidato" type="file" onchange="angular.element(this).scope().addLogo(this)">
+		</div>
+		      <div class="row">
+		      <label>Nombre</label>    
+		      <input  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: José Pérez" ng-model="formData.NombreCandidato"required autofocus>
+		</div>
+		<div class="row" ng-hide="formData.tipoEleccion == 'Simple'"> 
+			<label>Edad</label>
+			<input  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: 50" ng-model="formData.EdadCandidato"required autofocus>
+		</div>
+		<div class="row" ng-hide="formData.tipoEleccion == 'Simple'"> 
+			<label>Biografia</label>
+			<textarea  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: Nació en..." ng-model="formData.BiografiaCandidato"required autofocus></textarea>
+		  	</div>
+		  	<div class="row" ng-hide="formData.tipoEleccion == 'Otra' || formData.tipoEleccion == 'Simple'"> 
+		  		<label>Seleccione Partido</label>
+		   	<select ng-change="deptoXPartidoCandidato()"  class="form-control" ng-options="partido.nombre for partido in partidos" ng-model="formData.PartidoCandidato"></select>
+		   </div>
+		   	<div ng-show="deptosYNoticias()" class="row"> 
+		 	 		<label>Seleccione Depto</label>
+		  		<select ng-change="listasXDeptos()" class="form-control" ng-options="departamento.nombre for departamento in DeptoPartido" ng-model="formData.DeptoPartido"></select>
+		     	</div>
+		  	<div ng-show="mostrarListas()" class="row"> 
+		  		<label>Seleccione Lista/s:</label><br>
+		  		<label ng-repeat="lis in listasPorPartido">
+		<input style="" type="checkbox" value="{{lis}}"  class="form-control" ng-checked="selection.indexOf(lis) > -1" ng-click="toggleSelection(lis)"> {{lis.numero}}
+		</label>
+		    	</div>
+		    	<div ng-show="mostrarListasOtra()" class="row"> 
+		    		<label>Seleccione Lista/s:</label><br>
+		    		<label ng-repeat="lis in listas">
+		  <input style="" type="checkbox" value="{{lis}}"  class="form-control" ng-checked="selectionParaOtro.indexOf(lis) > -1" ng-click="toggleSelectionOtro(lis)"> {{lis.numero}}
+		</label>
+		    	</div>
+		     <div class="row" ng-hide="formData.tipoEleccion == 'Simple'"> 
+		        	<label for="cargo">Cargo:</label>
+		        	<select class="form-control" id="cargo" name="cargo" type="checkbox" ng-model="formData.cargo" >
+		        		<option value="{{primerCargo}}">{{primerCargo}}</option>
+		        		<option ng-hide="esDepartamental" value="{{segundoCargo}}">{{segundoCargo}}</option>
+		        	</select>
+		        <br>
+		   	</div>
+		  	</div> <!-- end form step -->
 	<div class="panel panel-info">
 		<div class="panel-heading">
 		    <h3 class="panel-title">Fuentes de Noticias</h3>
@@ -39,26 +53,26 @@
 		</div>
 		<div class="panel-body">
 			<div class="form-group col-md-8">
-			<input class="form-control" placeholder="Usuario de Facebook, Twitter o canal de Youtube.." ng-model="formData.FNCandidato" required autofocus>
+			<input class="form-control" ng-disabled="esFacebook && esTwitter && esYoutube" placeholder="Usuario de Facebook, Twitter o canal de Youtube.." ng-model="formData.FNCandidato" required autofocus>
 			</div>
 			<div class="form-group col-md-4">
-			<button  ng-click="nuevaFuenteCandidato()" class="btn btn-block btn-info">Alta Fuente</button>
+				<a ng-click="nuevaFuenteCandidato()" ng-disabled="esFacebookCandi && esTwitterCandi && esYoutubeCandi" class="btn btn-block btn-info"> Alta Fuente </a>
 			</div>
 	 		<div class="radio-div">
 				<label class="col-md-4">
-			    	<input type="radio" ng-model="formData.tipoFuenteCandidato" value="facebook">
+			    	<input type="radio" ng-model="formData.tipoFuenteCandidato" ng-disabled="esFacebookCandi" value="facebook">
 			    	<span class="fa-stack fa-lg facebook-icon">
 					     	<i class="fa fa-facebook-square fa-stack-2x"></i>
 					</span>
 			  	</label>
 				<label class="col-md-4">
-			    	<input type="radio" ng-model="formData.tipoFuenteCandidato" value="twitter">
+			    	<input type="radio" ng-model="formData.tipoFuenteCandidato" ng-disabled="esTwitterCandi" value="twitter">
 			    	<span class="fa-stack fa-lg twitter-icon">
 					     	<i class="fa fa-twitter fa-stack-2x"></i>
 					</span>
 			  	</label>
 				<label class="col-md-4">
-				  	<input type="radio" ng-model="formData.tipoFuenteCandidato" value="youtube">
+				  	<input type="radio" ng-model="formData.tipoFuenteCandidato" ng-disabled="esYoutubeCandi" value="youtube">
 					<span class="fa-stack fa-lg youtube-icon">
 					     	<i class="fa fa-youtube-play fa-stack-2x"></i>
 					</span>	

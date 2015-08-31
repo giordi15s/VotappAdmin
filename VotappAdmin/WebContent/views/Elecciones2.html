@@ -1,5 +1,9 @@
  <h3 class="text-center">Partidos <small>Crea los partidos participantes.</small></h3>
 <div class="form-step"> 
+		<div class="row">
+		   <label>Imagen</label>    
+		   <input id="imgPartido" type="file" onchange="angular.element(this).scope().addLogo(this)">
+		</div>
         <div class="row">    
         <label>Nombre</label>
         <input  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: Partido Popular" ng-model="formData.NombrePartido"required autofocus>
@@ -7,7 +11,7 @@
         <div class="row">
         <label>Fecha de Fundación</label>
             <p class="input-group">
-              <input type="text" class="form-control" datepicker-popup="{{format}}" init-date="Fecha" placeholder="Ej: 24/11/1990" ng-model="formData.FechaPartido" is-open="datePicker.isOpen" min-date="1700-12-22" max-date="{{dt}}" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <input type="text" class="form-control" datepicker-popup="{{format}}" init-date="formData.FechaPartido" ng-model="formData.FechaPartido" is-open="datePicker.isOpen" min-date="1700-12-22" max-date="{{dt}}" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
@@ -19,7 +23,7 @@
        	</div>
        	<div class="row"> 
        	<label>Historia</label>
-          <input  style="margin-bottom: 10px;" class="form-control" placeholder="" ng-model="formData.Descripcion"required autofocus>
+          <textarea  style="margin-bottom: 10px;" class="form-control" placeholder="" ng-model="formData.Descripcion"required autofocus></textarea>
        	</div>
 </div>						
     	<div ng-if="fuentePorPartido()" class="row"> 
@@ -28,27 +32,27 @@
 		    <h3 class="panel-title">Fuentes de Noticias</h3>
 		</div>
 		<div class="panel-body">	
-			<div class="form-group col-md-8">
-	       			<input class="form-control" placeholder="Fuente de Informacion" ng-model="formData.FNPartido"required autofocus> 
+			<div class="form-group col-md-8" >
+	       			<input class="form-control" ng-disabled="esFacebook && esTwitter && esYoutube" placeholder="Fuente de Informacion" ng-model="formData.FNPartido"required autofocus> 
 			</div>
 			<div class="form-group col-md-4">
-				<button  ng-click="nuevaFuente()" class="btn btn-block btn-info">Alta Fuente</button>	
+			        <a ng-click="nuevaFuente()" class="btn btn-block btn-info" ng-disabled="esFacebook && esTwitter && esYoutube"> Alta Fuente </a>
 			</div>
 	 		<div class="radio-div">
 		 		<label class="col-md-4">
-			    	<input type="radio" ng-model="formData.tipoFuente" value="facebook">
+			    	<input type="radio" ng-model="formData.tipoFuente" ng-disabled="esFacebook" value="facebook">
 			    	<span class="fa-stack fa-lg facebook-icon">
 					     	<i class="fa fa-facebook-square fa-stack-2x"></i>
 					</span>
 			  	</label>
 				<label class="col-md-4">
-			    	<input type="radio" ng-model="formData.tipoFuente" value="twitter">
+			    	<input type="radio" ng-model="formData.tipoFuente" ng-disabled="esTwitter" value="twitter">
 			    	<span class="fa-stack fa-lg twitter-icon">
 					     	<i class="fa fa-twitter fa-stack-2x"></i>
 					</span>
 			  	</label>
 				<label class="col-md-4">
-				  	<input type="radio" ng-model="formData.tipoFuente" value="youtube">
+				  	<input type="radio" ng-model="formData.tipoFuente" ng-disabled="esYoutube" value="youtube">
 					<span class="fa-stack fa-lg youtube-icon">
 					     	<i class="fa fa-youtube-play fa-stack-2x"></i>
 					</span>	

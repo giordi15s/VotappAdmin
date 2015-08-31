@@ -1,26 +1,11 @@
 <div class="margin-top-panel">
-	<div class="panel panel-info">
-		<div class="panel-heading">
-		    <h3 class="panel-title">Ingrese un logo <small>Arrastra tu imagen dentro del área coloreada.</small></h3>
+		  <div>
+				<alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1500" close="closeAlert($index)">{{alert.msg}}</alert>
+		  </div>
+	<div class="row">
+		   <label>Logo</label>    
+		   <input id="logoEleccion" type="file" onchange="angular.element(this).scope().addLogo(this)">
 		</div>
-	  	<div class="panel-body">
-			<div class="row" flow-init="" flow-file-added="addLogo($flow, $file, $message)">
-				<div class="logo-container bg-info" flow-drop 
-							flow-drag-enter="style={border:'4px solid #FFFFFF'}" 
-							flow-drag-leave="style={}"
-			     			ng-style="style">
-					<div ng-repeat="file in $flow.files" class="gallery-box ng-scope">
-				      <div class="thumbnail logo-img" ng-show="$flow.files.length">
-				        <img flow-img="file" src="">
-					      <div class="btn-group">
-					        <a class="btn btn-xs btn-danger" ng-click="file.cancel()">Quitar</a>
-					      </div>
-				      </div>
-				    </div>
-			 	</div>
-			</div>
-		</div>
-	</div>
 	<hr>
 	<div class="panel panel-info">
 		<div class="panel-heading">

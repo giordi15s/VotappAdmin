@@ -12,7 +12,7 @@
             
                 <a ng-class="{active : activoPaso1}" ng-click="setStep(1)"><span>1</span> Eleccion</a>
                 <a ng-show="eleccionOtra()" ng-class="{active : activoPaso2}" ng-click="setStep(2)"><span>2</span> Partidos</a>
-			    <a ng-class="{active : activoPaso3}" ng-click="setStep(3)"><span>{{numeroPaso3}}</span> Listas</a>
+			    <a ng-hide="formData.tipoEleccion == 'Simple'" ng-class="{active : activoPaso3}" ng-click="setStep(3)"><span>{{numeroPaso3}}</span> Listas</a>
 			    <a ng-class="{active : activoPaso4}" ng-click="setStep(4)"><span>{{numeroPaso4}}</span> Candidatos</a>
 			    <a ng-class="{active : activoPaso5}" ng-click="setStep(5)"><span>{{numeroPaso5}}</span> Diseño</a> 
             </div>
@@ -44,7 +44,7 @@
 			
 			 <pre>
 
-        {{candidatos|json }}
+        {{formData|json }}
         
     </pre>
 

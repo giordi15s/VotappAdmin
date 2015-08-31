@@ -6,12 +6,12 @@
 	</div>
 	<div class="row">   
 	<label>Descripción</label> 
-	<input  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: La próxima eleccion.." ng-model="formData.DescripcionEleccion"required>
+	<textarea  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: La próxima eleccion.." ng-model="formData.DescripcionEleccion"required></textarea>
 	</div>
 	<div class="row">
 	<label>Fecha</label>
 	    <p class="input-group">
-	      <input type="text" class="form-control" datepicker-popup="{{format}}" init-date="Fecha" placeholder="Ej: 29/10/2019" ng-model="formData.Fecha" is-open="datePicker.isOpen" min-date="{{dt}}" max-date="'2020-12-30'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+	      <input type="text" class="form-control" datepicker-popup="{{format}}" init-date="formData.Fecha" ng-model="formData.Fecha" is-open="datePicker.isOpen" min-date="{{dt}}" max-date="'2020-12-30'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"required/>
 	      <span class="input-group-btn">
 	        <button type="button"  class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 	            </span>
@@ -19,10 +19,11 @@
 	      </div>
 	      <div class="row"> 
 	         	<label for="tipoEleccion">Tipo Eleccion:</label>
-	         	<select ng-click="tipoEleccionSel()" class="form-control" id="tipoEleccion" name="tipoEleccion" type="checkbox" ng-model="formData.tipoEleccion" >
+	         	<select ng-click="tipoEleccionSel()" class="form-control" id="tipoEleccion" name="tipoEleccion" type="checkbox" ng-model="formData.tipoEleccion" required>
 	         		<option value="Nacional">Nacional</option>
 	         		<option value="Departamental">Departamental</option>
-			<option value="Otra">Otra</option>	
+	         		<option value= "Simple">Plebiscito</option>
+					<option value="Otra">Otra</option>	
 	         	</select>
 	         <br>
 	    	</div>

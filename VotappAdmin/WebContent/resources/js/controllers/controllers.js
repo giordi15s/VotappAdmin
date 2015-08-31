@@ -24,16 +24,30 @@ angular.module("app.controllers",[
 	
 }])
 .controller('ConsultoraController', ['$scope', 'ConsultoraFactory', function($scope, ConsultoraFactory) {
-	
+
+	$scope.alerts = [];
+
 	$scope.crearUsuario = function(consultora){
 		
 		ConsultoraFactory.crearConsultora(consultora).then(
 				function(response){
+					console.log("SE GUARDA");
+					 $scope.alerts.push({type: 'success', msg: 'Consultora creada con éxito'});
+					 console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
+					 $scope.closeAlert = function(index) {
+							    $scope.alerts.splice(index, 1);
+							  };
+					                 
 					
 				},
 				
 				function(response){
 					//error messagge
+					$scope.alerts.push({type: 'danger', msg: 'Falló'});
+					 console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
+					 $scope.closeAlert = function(index) {
+							    $scope.alerts.splice(index, 1);
+							  };
 						
 				}
 		)
@@ -65,6 +79,7 @@ angular.module("app.controllers",[
 
 .controller('EleccionController', ['$scope', 'ConsultoraFactory', 'EleccionFactory', '$filter', '$modal',function($scope, ConsultoraFactory, EleccionFactory, $filter, $modal) {
 	
+	$scope.alerts = [];
 	$scope.seleccion = {eleccion : null};
 	$scope.step = 1;
 	$scope.partidos = [];
@@ -74,9 +89,11 @@ angular.module("app.controllers",[
 	$scope.selectionParaOtro = [];
 	$scope.listasPorPartido = [];
 	$scope.noticiasPartidos = [];
+	$scope.noticiasPartidosReal = [];
 	$scope.noticiasCandidato = [];
 	var esNacional = false;
 	var mostrarListas = false;
+	var mostrarListasOtra = false;
 	var esOtra = true;
 	var salteo = null;
 	$scope.numeroPaso3 = 3;
@@ -86,6 +103,12 @@ angular.module("app.controllers",[
 	$scope.deptos = [];
 	var fuenteXPartido = false;
 	var deptosYnoticias = false;
+	$scope.esFacebook = false;
+	$scope.esTwitter = false;
+	$scope.esYoutube = false;
+	$scope.esFacebookCandi = false;
+	$scope.esTwitterCandi = false;
+	$scope.esYoutubeCandi = false;
 	$scope.esDepartamental = false; 
 	$scope.DeptoPartido = [];
 	$scope.elecciones = [];
@@ -202,18 +225,44 @@ angular.module("app.controllers",[
 	$scope.eleccionOtra = function(){
 		return esOtra;
 	}
-
+	
+	
 	$scope.nuevaFuente =function (){
 		
-		var fuente = {
-			tipo: $scope.formData.tipoFuente,
-			url:  $scope.formData.FNPartido
-		}
-		$scope.noticiasPartidos.push(fuente);
-		$scope.formData.FNPartido = "";
-		$scope.formData.tipoFuente = "";
-		//$scope.openModalNoticias();
+			
+			var fuente = {
+				tipo: $scope.formData.tipoFuente,
+				url:  $scope.formData.FNPartido
+			}
+			$scope.noticiasPartidos.push(fuente);
+			
+			  switch ($scope.formData.tipoFuente) {
+		       
+			    case "facebook":
+			    	$scope.esFacebook = true;
+					break;
+					
+			    case "youtube":
+			    	
+			    	$scope.esYoutube = true;
+			    	break;
+
+			    case "twitter":
+			    	$scope.esTwitter = true;
+			    	break;
+			    
+				default:
+				
+					break;
+		       }
+			
+			
+			$scope.formData.FNPartido = "";
+			$scope.formData.tipoFuente = "";
+		
+		
 	}
+		
 	
 	$scope.nuevaFuenteCandidato =function (){
 		
@@ -222,6 +271,27 @@ angular.module("app.controllers",[
 			url:  $scope.formData.FNCandidato
 		}
 		$scope.noticiasCandidato.push(fuente);
+		
+		 switch ($scope.formData.tipoFuenteCandidato) {
+	       
+		    case "facebook":
+		    	$scope.esFacebookCandi = true;
+				break;
+				
+		    case "youtube":
+		    	
+		    	$scope.esYoutubeCandi = true;
+		    	break;
+
+		    case "twitter":
+		    	
+		    	$scope.esTwitterCandi = true;    	
+		    	break;
+		    
+			default:
+			
+				break;
+	       }
 		$scope.formData.FNCandidato = "";
 		$scope.formData.tipoFuenteCandidato = "";
 	}
@@ -229,6 +299,9 @@ angular.module("app.controllers",[
 	
 	$scope.mostrarListas = function(){
 		return mostrarListas;
+	}
+	$scope.mostrarListasOtra = function(){
+		return mostrarListasOtra;
 	}
 	
 	$scope.tipoEleccionSel = function(){
@@ -243,6 +316,7 @@ angular.module("app.controllers",[
 		    	fuenteXPartido = true;
 				esNacional = true;
 				mostrarListas = false;
+				mostrarListasOtra = false;
 				esOtra = true;
 				$scope.numeroPaso3 = 3;
 				$scope.numeroPaso4 = 4;
@@ -258,6 +332,7 @@ angular.module("app.controllers",[
 		    	fuenteXPartido = false;
 				esNacional = false;
 				mostrarListas = true;
+				mostrarListasOtra = false;
 				esOtra = true;
 				$scope.numeroPaso3 = 3;
 				$scope.numeroPaso4 = 4;
@@ -272,11 +347,27 @@ angular.module("app.controllers",[
 		    	$scope.esDepartamental = false; 
 		    	esNacional = false;
 		    	mostrarListas = false;
+		    	mostrarListasOtra = true;
 		    	esOtra = false;
 		    	$scope.numeroPaso3 = 2;
 		    	$scope.numeroPaso4 = 3;
 		    	$scope.numeroPaso5 = 4;
 		    	$scope.siguientePaso1 = 3;
+		    	deptosYnoticias = false;
+		    	$scope.mostrarTodasListas = true;
+		    	break;
+		    	
+		    case "Simple":
+		  
+		    	$scope.esDepartamental = false; 
+		    	esNacional = false;
+		    	mostrarListas = false;
+		    	mostrarListasOtra = false;
+		    	esOtra = false;
+		    	
+		    	$scope.numeroPaso4 = 2;
+		    	$scope.numeroPaso5 = 3;
+		    	$scope.siguientePaso1 = 4;
 		    	deptosYnoticias = false;
 		    	$scope.mostrarTodasListas = true;
 		    	break;
@@ -318,17 +409,24 @@ angular.module("app.controllers",[
 		
 		var candidato =	{
 			 nombre: $scope.formData.NombreCandidato,
+			 biografia: $scope.formData.BiografiaCandidato,
 			 edad: $scope.formData.EdadCandidato,
 			 dataFuenteDatos: $scope.noticiasCandidato,
 			 dataListas: $scope.selection,
 			 nombrePartido: '',
-			 cargo : formData.cargo.toUpperCase()
-		}
+			 cargo : 'UNKNOWN',
+			 imagen : $scope.formData.imgCandidato
+		}					
 		
 		if($scope.formData.tipoEleccion == 'Otra'){
 			candidato.dataListas = $scope.selectionParaOtro;
+			candidato.cargo = formData.cargo.toUpperCase();
 		}else{
-			candidato.nombrePartido = formData.PartidoCandidato.nombre;
+			if(formData.tipoEleccion != 'Simple'){
+				candidato.nombrePartido = formData.PartidoCandidato.nombre;
+				candidato.cargo = formData.cargo.toUpperCase();
+			}
+				
 		}
 		
 		$scope.candidatos.push(candidato);
@@ -336,11 +434,15 @@ angular.module("app.controllers",[
 		//Limpiar para el siguiente candidato:
 		formData.NombreCandidato = "";
 		formData.EdadCandidato = "";
+		formData.BiografiaCandidato = "";
 		$scope.selection = [];
 		$scope.selectionParaOtro = [];
 		formData.FNCandidato = "";
 		formData.PartidoCandidato = "";
-							
+		$scope.noticiasCandidato = [];
+		$scope.esFacebookCandi = false;
+		$scope.esTwitterCandi = false;
+		$scope.esYoutubeCandi = false;
 	}
 	
 	$scope.toggleSelection = function toggleSelection(listasPorPartido) {
@@ -381,7 +483,7 @@ angular.module("app.controllers",[
 			 nombrePartido: ''
 			}
 		
-		if($scope.formData.tipoEleccion != 'Otra'){
+		if(($scope.formData.tipoEleccion != 'Otra') && (formData.tipoEleccion != 'Simple')){
 			lista.nombrePartido = formData.PartidoSeleccionado.nombre;
 		}
 		
@@ -404,8 +506,8 @@ angular.module("app.controllers",[
 	         presidente: $scope.formData.Presidente,
 	         descripcion:$scope.formData.Descripcion,
 	         dataFuenteDatos: $scope.noticiasPartidos,
-	         dataDeptos: $scope.selectedDeptos
-
+	         dataDeptos: $scope.selectedDeptos,
+	         imagen : $scope.formData.imgPartido
         }
 		$scope.partidos.push(partido);
 		$scope.formData.NombrePartido="";
@@ -413,6 +515,12 @@ angular.module("app.controllers",[
 		$scope.formData.Presidente="";
 		$scope.formData.Descripcion="";
 		$scope.formData.FNPartido="";
+		$scope.esFacebook = false;
+		$scope.esTwitter = false;
+		$scope.esYoutube = false;
+		//$scope.noticiasPartidosReal= null;
+		$scope.noticiasPartidos = [];
+
 	}
 	
 	$scope.datePicker = {
@@ -425,30 +533,65 @@ angular.module("app.controllers",[
        
        switch (step) {
 	    case 1:
-			$scope.activoPaso1 = true;
+	    	$scope.activoPaso1 = true;
 			$scope.activoPaso2 = false;
 			$scope.activoPaso3 = false;
 			$scope.activoPaso4 = false;
 			$scope.activoPaso5 = false;
+	    	
 			break;
 	    case 2:
-	    	if (!$scope.eleccionOtra){
-	    		$scope.setStep(3)
+	    	if(($scope.formData.Nombre==null)||($scope.formData.DescripcionEleccion==null)||($scope.formData.Fecha==null)||($scope.formData.tipoEleccion==null)){
+	    		alert('Todos los campos son obligatorios');
+	    		$scope.step = 1;
 	    	}
-	    	$scope.activoPaso1 = false;
-			$scope.activoPaso2 = true;
-			$scope.activoPaso3 = false;
-			$scope.activoPaso4 = false;
-			$scope.activoPaso5 = false;
+	    	else{
+		    	if ($scope.formData.tipoEleccion == 'Otra'){
+		    		$scope.setStep(3)
+		    	}else
+		    		if($scope.formData.tipoEleccion == 'Simple')
+		    			$scope.setStep(4)
+
+		    	$scope.activoPaso1 = false;
+				$scope.activoPaso2 = true;
+				$scope.activoPaso3 = false;
+				$scope.activoPaso4 = false;
+				$scope.activoPaso5 = false;
+		    }
 			break;
 	    case 3:
-	    	$scope.activoPaso1 = false;
-			$scope.activoPaso2 = false;
-			$scope.activoPaso3 = true;
-			$scope.activoPaso4 = false;
-			$scope.activoPaso5 = false;
+	    	if(($scope.formData.Nombre==null)||($scope.formData.DescripcionEleccion==null)||($scope.formData.Fecha==null)||($scope.formData.tipoEleccion==null)||($scope.partidos.length==0
+	    			&& $scope.formData.tipoEleccion=="Nacional") || ($scope.partidos.length==0 && $scope.formData.tipoEleccion=="Departamental")){
+	    		alert('Todos los campos son obligatorios');
+	    		
+	    		if ($scope.formData.tipoEleccion=="Otra"){
+	    			$scope.step = 3;
+	    		}
+	    		else{
+	    			$scope.step = 2;
+	    		}
+	    	}else{
+	    		console.log("else del case 3")
+	    		if($scope.formData.tipoEleccion == 'Simple')
+	    			$scope.setStep(4)
+	    		else{
+	    			$scope.activoPaso1 = false;
+	    			$scope.activoPaso2 = false;
+	    			$scope.activoPaso3 = true;
+	    			$scope.activoPaso4 = false;
+	    			$scope.activoPaso5 = false;
+	    		}
+	    	}
+	    	
 			break;
 	    case 4:
+	    	if(($scope.formData.Nombre==null)||($scope.formData.DescripcionEleccion==null)||($scope.formData.Fecha==null)||($scope.formData.tipoEleccion==null)||($scope.partidos.length==0
+	    			&& $scope.formData.tipoEleccion=="Nacional") || ($scope.partidos.length==0 && $scope.formData.tipoEleccion=="Departamental") || ($scope.listas.length==0 && $scope.formData.tipoEleccion!="Simple") ){
+	    		alert('Todos los campos son obligatorios');
+	    		$scope.step = 3;
+	    		if($scope.formData.tipoEleccion == 'Simple')
+	    			$scope.step = 1;
+	    	}
 	    	$scope.activoPaso1 = false;
 			$scope.activoPaso2 = false;
 			$scope.activoPaso3 = false;
@@ -456,6 +599,12 @@ angular.module("app.controllers",[
 			$scope.activoPaso5 = false;
 			break;
 	    case 5:
+	    	if(($scope.formData.Nombre==null)||($scope.formData.DescripcionEleccion==null)||($scope.formData.Fecha==null)||($scope.formData.tipoEleccion==null)||($scope.partidos.length==0
+	    			&& $scope.formData.tipoEleccion=="Nacional") || ($scope.partidos.length==0 && $scope.formData.tipoEleccion=="Departamental") ||($scope.listas.length==0  && $scope.formData.tipoEleccion!="Simple")||($scope.candidatos.length==0)){
+	    		alert('Todos los campos son obligatorios');
+	    		$scope.step = 4;
+	    	}
+	    
 	    	$scope.activoPaso1 = false;
 			$scope.activoPaso2 = false;
 			$scope.activoPaso3 = false;
@@ -475,16 +624,16 @@ angular.module("app.controllers",[
     } //Cambia las vistas del wizzard
 	
 	 $scope.formData = {};
-	    
-	    // function to process the form
-	    $scope.processForm = function() {
-	        alert('Eleccion creada!');
-	    };
+		$scope.formData.Fecha = new Date();
+		$scope.formData.FechaPartido = new Date();
+		
 	
 	//Se invoca desde el navbar para mostrar el Wizard
 	$scope.crearEleccion = function(){		
 		$scope.formData.PartidoSeleccionado = null;
-		$scope.formData.Nombre="";
+		$scope.formData.Nombre= "";
+		$scope.formData.DescripcionEleccion = "";
+		$scope.formData.Fecha = "";
 	}
 	
 	
@@ -505,11 +654,20 @@ angular.module("app.controllers",[
 		
 		EleccionFactory.crearEleccion(dataEleccion).then(
 				function(response){
-					
+					 $scope.alerts.push({type: 'success', msg: 'Elección creada con éxito'});
+					 console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
+					 $scope.closeAlert = function(index) {
+							    $scope.alerts.splice(index, 1);
+							  };
 				},
 				
 				function(response){
 					//error messagge
+					 $scope.alerts.push({type: 'danger', msg: 'Error al crear la Eleccion'});
+					 console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
+					 $scope.closeAlert = function(index) {
+							    $scope.alerts.splice(index, 1);
+							  };
 						
 				}
 		)
@@ -605,54 +763,45 @@ angular.module("app.controllers",[
 		    );
 	  };
 	  
-		
-	  $scope.openModalNoticias = function () {
-			console.log("Entro al OPenModal");
-		    var modalInstance = $modal.open({
-		      templateUrl: 'views/NoticiasModal.html',
-		      controller: 'EleccionController',		      
-		      resolve: {
-		    	  noticiasPartidos: function(){
-		    		  return $scope.noticiasPartidos;
-		        }
-		      }
-		    });
-		    
-		    modalInstance.result.then(
-		    	function (listaDeptos) {
-		    		$scope.selectedDeptos = listaDeptos;
-		    	},
-		      	function () {
-		        //$log.info('Modal dismissed at: ' + new Date());
-		      }
-		    );
-	  };
 	
 	  
-	  $scope.addLogo = function($flow, $file, $message){
-			
-			var logo = {
+	$scope.addLogo = function($files){
+		var idElement = $files.id;
+		var $file = $files.files[0];
+		  
+		var logo = {
 					name : $file.name,
 					file : '',
 					tipo : ''
-			};
-			
-			var fileReader = new FileReader();
-			fileReader.onload = function(event){
-				var base64 = event.target.result;
-				var regex = /^data:.+\/(.+);base64,(.*)$/;
-				
-				var matches = base64.match(regex);
-				var ext = matches[1];
-				var data = matches[2];
-				logo.file = data;
-				logo.tipo = ext;
+		};
+		var fileReader = new FileReader();
+		
+		fileReader.onload = function(event){
+			var base64 = event.target.result;
+			var regex = /^data:.+\/(.+);base64,(.*)$/;
+		
+			var matches = base64.match(regex);
+			var ext = matches[1];
+			var data = matches[2];
+			logo.file = data;
+			logo.tipo = ext;
+			switch (idElement) {
+			case 'logoEleccion':
 				$scope.formData.logo = logo;
+				break;
+			case 'imgPartido':
+				$scope.formData.imgPartido = logo;
+				break;
+			case 'imgCandidato':
+					$scope.formData.imgCandidato = logo;
+					break;
 			}
-			
-			fileReader.readAsDataURL($file.file);
-			
+		
 		}
+	
+		fileReader.readAsDataURL($file);
+			
+	}
 	  
 	  $scope.aceLoaded = function(_editor) {
 		    // Options
@@ -676,7 +825,7 @@ angular.module("app.controllers",[
 	$scope.selectionDeptos = []; //Los departamentos seleccionados (x nombre)
 	$scope.seleccion = {eleccion : null};
 	$scope.departamentosSeleccionados = []; //Son los *objetos* departamentos
-			
+
 	/*Funcion para abrir el 2do modal*/
 	$scope.openModalFuente = function (deptoNombre) {			
 		var modalInstance = $modal.open({		     
@@ -750,16 +899,42 @@ angular.module("app.controllers",[
 	
 	$scope.listaFuentes = [];
 	
+	$scope.esFacebook = false;
+	$scope.esTwitter = false;
+	$scope.esYoutube = false;
+
+	
+		
 	$scope.crearFuenteDepto = function (){
 		
 		var DataFuenteDatos = {
 			url: $scope.formData.FNDepto,	
 			tipo: $scope.formData.tipoFuente	
 		}		
-		$scope.listaFuentes.push(DataFuenteDatos)		
+		$scope.listaFuentes.push(DataFuenteDatos)	
 		
-		$scope.formData.FNDepto = ""
-		$scope.formData.tipoFuente = ""	
+			switch ($scope.formData.tipoFuente) {
+	      
+		    case "facebook":
+		    	$scope.esFacebook = true;
+		    	break;
+				
+		    case "youtube":
+		    	$scope.esYoutube = true;
+		    	break;
+
+		    case "twitter":
+		    	$scope.esTwitter = true;
+		    	break;
+		    
+			default:
+			
+				break;
+	       }
+		
+		$scope.formData.FNDepto = "";
+		$scope.formData.tipoFuente = "";
+		
 	
 	}	
 	
@@ -772,11 +947,9 @@ angular.module("app.controllers",[
 		
 		if($scope.listaFuentes.length<1){
 			hayFuentes = false;
-			console.log("Nticiassss Llenas:"+$scope.listaFuentes);
 		}
 		else{
 			hayFuentes = true;
-			console.log("Noticiasss Vacias"+$scope.listaFuentes);
 		}
 	
 		return hayFuentes;
