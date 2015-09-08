@@ -32,7 +32,10 @@ value('version', '0.1')
 		},
 		getEleccionesActuales:function(){
 			return $http.get(ApiEndpointFactory.ApiEndpoint +'/Votapp/services/eleccion/protected/getEleccionesActuales')
-		}	
+		},
+		borrarEleccion : function(id){
+			return $http.post(ApiEndpointFactory.ApiEndpoint +'/Votapp/services/eleccion/protected/borrar/'+ id)
+		}
 	}	
 	
 }])
