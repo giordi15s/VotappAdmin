@@ -151,8 +151,7 @@ angular.module("app.controllers",[
 	}
 	
 	
-	$scope.getEleccionesActuales = function() {
-		console.log("Te Entroooo");
+	$scope.getEleccionesActuales = function() {		
 		EleccionFactory.getEleccionesActuales().then(
 				function(response) {
 					$scope.elecciones = response.data;
@@ -170,6 +169,16 @@ angular.module("app.controllers",[
         if (index !== -1) {
             $scope.elecciones.splice(index, 1);
         }
+        
+        EleccionFactory.borrarEleccion(eleccion.id)
+        	.success(function(data){
+        		console.log("Exito al borar la eleccion con id = "+eleccion.id);
+        		console.log(data);
+        	})
+        	.error(function(){
+        		console.log("Error al intentar borrar la eleccion... "+ data);
+        	})
+        
 	}
 
 	
