@@ -91,6 +91,7 @@ angular.module("app.controllers",[
 	$scope.noticiasPartidos = [];
 	$scope.noticiasPartidosReal = [];
 	$scope.noticiasCandidato = [];
+	$scope.noticiasEleccion = [];
 	var esNacional = false;
 	var mostrarListas = false;
 	var mostrarListasOtra = false;
@@ -99,6 +100,7 @@ angular.module("app.controllers",[
 	$scope.numeroPaso3 = 3;
 	$scope.numeroPaso4 = 4;
 	$scope.numeroPaso5 = 5;
+	$scope.numeroPaso6 = 6;
 	$scope.siguientePaso1 = 2;
 	$scope.deptos = [];
 	var fuenteXPartido = false;
@@ -110,6 +112,9 @@ angular.module("app.controllers",[
 	$scope.esTwitterCandi = false;
 	$scope.esYoutubeCandi = false;
 	$scope.esDepartamental = false; 
+	$scope.esFacebookElecc = false;
+	$scope.esTwitterElecc = false;
+	$scope.esYoutubeElecc = false;
 	$scope.DeptoPartido = [];
 	$scope.elecciones = [];
 	
@@ -141,6 +146,20 @@ angular.module("app.controllers",[
 		var hayFuentes = false; 
 		
 		if($scope.noticiasCandidato.length<1){
+			hayFuentes = false;
+		}
+		else{
+			hayFuentes = true;
+		}
+	
+		return hayFuentes;	
+	}
+	
+	$scope.hayFuentesEleccion = function (){
+		
+		var hayFuentes = false; 
+		
+		if($scope.noticiasEleccion.length<1){
 			hayFuentes = false;
 		}
 		else{
@@ -303,6 +322,38 @@ angular.module("app.controllers",[
 	       }
 		$scope.formData.FNCandidato = "";
 		$scope.formData.tipoFuenteCandidato = "";
+	}
+	
+	$scope.nuevaFuenteEleccion = function (){
+		
+		var fuente = {
+			tipo: $scope.formData.tipoFuenteEleccion,
+			url:  $scope.formData.FNEleccion
+		}
+		$scope.noticiasEleccion.push(fuente);
+		
+		 switch ($scope.formData.tipoFuenteEleccion) {
+	       
+		    case "facebook":
+		    	$scope.esFacebookElecc = true;
+				break;
+				
+		    case "youtube":
+		    	
+		    	$scope.esYoutubeElecc = true;
+		    	break;
+
+		    case "twitter":
+		    	
+		    	$scope.esTwitterElecc = true;    	
+		    	break;
+		    
+			default:
+			
+				break;
+	       }
+		$scope.formData.FNEleccion = "";
+		$scope.formData.tipoFuenteEleccion = "";
 	}
 	
 	
@@ -655,6 +706,7 @@ angular.module("app.controllers",[
 				dataPartidos: $scope.partidos,
 				dataListas: $scope.listas,
 				dataCandidatos: $scope.candidatos,
+				dataNoticias: $scope.noticiasEleccion,
 				tipoEleccion: formData.tipoEleccion,
 				logo : $scope.formData.logo,
 				css : $scope.formData.css
