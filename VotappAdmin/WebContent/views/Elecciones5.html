@@ -3,8 +3,9 @@
 				<alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1500" close="closeAlert($index)">{{alert.msg}}</alert>
 		  </div>
 	<div class="row">
-		   <label>Logo</label>    
+		   <label>Logo</label>
 		   <input id="logoEleccion" type="file" onchange="angular.element(this).scope().addLogo(this)">
+		   <img id="logoEleccionPreview" alt="" data-ng-src="{{prevImgEleccion}}">
 		</div>
 	<hr>
 	<div class="panel panel-info">

@@ -2,8 +2,9 @@
 		<h3 class="text-center">Candidatos <small>Crea un nuevo candidato.</small></h3>
 	<div class="form-step">
 		<div class="row">
-		   <label>Imagen</label>    
+		   <label>Imagen</label>   
 		   <input id="imgCandidato" type="file" onchange="angular.element(this).scope().addLogo(this)">
+		   <img id="imgCandidatoPreview" alt="" data-ng-src="{{prevImgCandidato}}"> 
 		</div>
 		      <div class="row">
 		      <label>Nombre</label>    

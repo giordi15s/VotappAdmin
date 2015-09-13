@@ -797,15 +797,18 @@ angular.module("app.controllers",[
 			switch (idElement) {
 			case 'logoEleccion':
 				$scope.formData.logo = logo;
+				$scope.prevImgEleccion = base64;
 				break;
 			case 'imgPartido':
 				$scope.formData.imgPartido = logo;
+				$scope.prevImgPartido = base64;
 				break;
 			case 'imgCandidato':
-					$scope.formData.imgCandidato = logo;
-					break;
+				$scope.formData.imgCandidato = logo;
+				$scope.prevImgCandidato = base64;
+				break;
 			}
-		
+			$scope.$apply();
 		}
 	
 		fileReader.readAsDataURL($file);
