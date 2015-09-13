@@ -3,6 +3,7 @@
 		<div class="row">
 		   <label>Imagen</label>    
 		   <input id="imgPartido" type="file" onchange="angular.element(this).scope().addLogo(this)">
+		   <img id="imgPartidoPreview" alt="" data-ng-src="{{prevImgPartido}}">
 		</div>
         <div class="row">    
         <label>Nombre</label>
