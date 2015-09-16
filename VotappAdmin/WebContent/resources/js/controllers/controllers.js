@@ -91,6 +91,8 @@ angular.module("app.controllers",[
 	$scope.noticiasPartidos = [];
 	$scope.noticiasPartidosReal = [];
 	$scope.noticiasCandidato = [];
+	$scope.noticiasDelSi = [];
+	$scope.noticiasDelNo = [];
 	$scope.noticiasEleccion = [];
 	var esNacional = false;
 	var mostrarListas = false;
@@ -141,6 +143,36 @@ angular.module("app.controllers",[
 //	$scope.elecciones = EleccionFactory.getEleccionesActuales();
 
 
+	$scope.hayFuentesDelSi = function (){
+		
+		var hayFuentes = false; 
+		
+		if($scope.noticiasDelSi.length<1){
+			hayFuentes = false;
+		}
+		else{
+			hayFuentes = true;
+		}
+	
+		return hayFuentes;	
+	}
+	
+	$scope.hayFuentesDelNo = function (){
+		
+		var hayFuentes = false; 
+		
+		if($scope.noticiasDelNo.length<1){
+			hayFuentes = false;
+		}
+		else{
+			hayFuentes = true;
+		}
+	
+		return hayFuentes;	
+	}
+	
+	
+	
 	$scope.hayFuentesCandidato = function (){
 		
 		var hayFuentes = false; 
@@ -290,6 +322,71 @@ angular.module("app.controllers",[
 		
 		
 	}
+	
+	$scope.nuevaFuenteSimple = function (){
+			
+		var fuente = {
+			tipo: $scope.formData.tipoFuenteCandidato,
+			url:  $scope.formData.FNCandidato
+		}
+		
+		console.log(fuente.url);
+		
+		if ($scope.formData.NombreCandidato=='Si'){
+			$scope.noticiasDelSi.push(fuente);
+			 switch ($scope.formData.tipoFuenteCandidato) {
+		       
+			    case "facebook":
+			    	$scope.esFacebookCandi = true;
+					break;
+					
+			    case "youtube":
+			    	
+			    	$scope.esYoutubeCandi = true;
+			    	break;
+
+			    case "twitter":
+			    	
+			    	$scope.esTwitterCandi = true;    	
+			    	break;
+			    
+				default:
+				
+					break;
+		       }
+		}
+		
+		else if ($scope.formData.NombreCandidato=='No'){
+			$scope.noticiasDelNo.push(fuente);
+			 switch ($scope.formData.tipoFuenteCandidato) {
+		       
+			    case "facebook":
+			    	$scope.esFacebookCandi = true;
+					break;
+					
+			    case "youtube":
+			    	
+			    	$scope.esYoutubeCandi = true;
+			    	break;
+
+			    case "twitter":
+			    	
+			    	$scope.esTwitterCandi = true;    	
+			    	break;
+			    
+				default:
+				
+					break;
+		       }
+			
+		}
+	      
+		
+		$scope.formData.FNCandidato = "";
+		$scope.formData.tipoFuenteCandidato = "";
+	
+	
+}
 		
 	
 	$scope.nuevaFuenteCandidato =function (){
@@ -355,7 +452,7 @@ angular.module("app.controllers",[
 		$scope.formData.FNEleccion = "";
 		$scope.formData.tipoFuenteEleccion = "";
 	}
-	
+		
 	
 	$scope.mostrarListas = function(){
 		return mostrarListas;
@@ -448,6 +545,7 @@ angular.module("app.controllers",[
 			
 	}
 	
+	
 	$scope.listasXPartido = function (){	
 		$scope.listasPorPartido = [];
 		for (var x=0;x<$scope.listas.length;x++){
@@ -467,6 +565,42 @@ angular.module("app.controllers",[
 	//Arreglo de Candidatos creados en Wizard
 	$scope.nuevoCandidato = function (formData){
 		
+		if($scope.formData.tipoEleccion == 'Simple'){
+			if($scope.formData.NombreCandidato == 'Si'){
+				var candidato =	{
+						 nombre: $scope.formData.NombreCandidato,
+						 biografia: $scope.formData.BiografiaCandidato,
+						 edad: $scope.formData.EdadCandidato,
+						 dataFuenteDatos: $scope.noticiasDelSi,
+						 dataListas: $scope.selection,
+						 nombrePartido: '',
+						 cargo : 'UNKNOWN'
+					}	
+				
+			}
+			else if($scope.formData.NombreCandidato == 'No'){
+				var candidato =	{
+						 nombre: $scope.formData.NombreCandidato,
+						 biografia: $scope.formData.BiografiaCandidato,
+						 edad: $scope.formData.EdadCandidato,
+						 dataFuenteDatos: $scope.noticiasDelNo,
+						 dataListas: $scope.selection,
+						 nombrePartido: '',
+						 cargo : 'UNKNOWN'
+					}				
+			}
+		
+			$scope.candidatos.push(candidato);
+			
+			//Limpiar para el siguiente candidato:
+			formData.NombreCandidato = "";
+			formData.FNCandidato = "";
+			$scope.esFacebookCandi = false;
+			$scope.esTwitterCandi = false;
+			$scope.esYoutubeCandi = false;
+			
+		}
+		else {
 		var candidato =	{
 			 nombre: $scope.formData.NombreCandidato,
 			 biografia: $scope.formData.BiografiaCandidato,
@@ -502,6 +636,7 @@ angular.module("app.controllers",[
 		$scope.esFacebookCandi = false;
 		$scope.esTwitterCandi = false;
 		$scope.esYoutubeCandi = false;
+		}
 	}
 	
 	$scope.toggleSelection = function toggleSelection(listasPorPartido) {

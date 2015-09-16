@@ -1,10 +1,20 @@
  <div>
-		<h3 class="text-center">Candidatos <small>Crea un nuevo candidato.</small></h3>
+		<h3 class="text-center"  ng-hide="formData.tipoEleccion == 'Simple'">Candidatos <small>Crea un nuevo candidato.</small></h3>
+		<h3 class="text-center"  ng-show="formData.tipoEleccion == 'Simple'">Opciones <small>Elija Si o No y proporcione fuentes de noticias.</small></h3>
 	<div class="form-step">
-	       <div class="row">
+	       <div class="row"  ng-hide="formData.tipoEleccion == 'Simple'">
 	       <label>Nombre</label>    
 	       <input  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: José Pérez" ng-model="formData.NombreCandidato"required autofocus>
 	       </div>
+	       
+	       <div class="row" ng-show="formData.tipoEleccion == 'Simple'"> 
+	         	<select ng-click="opcionPlebiscito()" class="form-control" id="opcionPlebiscito" name="opcionPlebiscito" type="checkbox" ng-model="formData.NombreCandidato" required>
+	         		<option value="Si">Si</option>
+	         		<option value="No">No</option>	
+	         	</select>
+	         <br>
+	    	</div>
+	    	
 	       <div class="row" ng-hide="formData.tipoEleccion == 'Simple'"> 
 	       	<label>Edad</label>
 	       	<input  style="margin-bottom: 10px;" class="form-control" placeholder="Ej: 50" ng-model="formData.EdadCandidato"required autofocus>
@@ -42,14 +52,14 @@
 	          <br>
 	     	</div>
 	    	</div> <!-- end form step -->
-	<div class="panel panel-info">
+	<div class="panel panel-info" ng-hide="formData.tipoEleccion == 'Simple'">
 		<div class="panel-heading">
 		    <h3 class="panel-title">Fuentes de Noticias</h3>
 
 		</div>
 		<div class="panel-body">
 			<div class="form-group col-md-8">
-			<input class="form-control" ng-disabled="esFacebook && esTwitter && esYoutube" placeholder="Usuario de Facebook, Twitter o canal de Youtube.." ng-model="formData.FNCandidato" required autofocus>
+			<input class="form-control" ng-disabled="esFacebookCandi && esTwitterCandi && esYoutubeCandi" placeholder="Usuario de Facebook, Twitter o canal de Youtube.." ng-model="formData.FNCandidato" required autofocus>
 			</div>
 			<div class="form-group col-md-4">
 				<a ng-click="nuevaFuenteCandidato()" ng-disabled="esFacebookCandi && esTwitterCandi && esYoutubeCandi" class="btn btn-block btn-info"> Alta Fuente </a>
@@ -79,6 +89,96 @@
 	  			<h4 class="text-center">Fuentes agregadas </h4>
 		  		<hr>
 	       		<div class="col-md-4" ng-repeat="fn in noticiasCandidato">
+				  	<div ng-switch="fn.tipo">
+				      <div ng-switch-when="facebook">
+			       		<span class="fa-stack fa-lg facebook-icon">
+				     	<i class="fa fa-facebook-square"></i>
+						</span>
+				     	{{fn.url}}
+					  </div>
+					  <div ng-switch-when="twitter">
+					  	<span class="fa-stack fa-lg twitter-icon">
+				     	<i class="fa fa-twitter"></i>
+						</span>
+				       	{{fn.url}}
+	  				  </div>
+					  <div ng-switch-when="youtube">
+					    <span class="fa-stack fa-lg youtube-icon">
+				     	<i class="fa fa-youtube-play"></i>
+						</span>
+				       	{{fn.url}}
+					  </div> 
+					</div>
+				</div>
+       		</div>
+		</div>
+	</div>
+	
+						<!-- ALTA FUENTE DE NOTICIA PARA ELECCIONES SIMPLES -->	
+	
+	<div class="panel panel-info" ng-show="formData.tipoEleccion == 'Simple'">
+		<div class="panel-heading">
+		    <h3 class="panel-title">Fuentes de Noticias</h3>
+
+		</div>
+		<div class="panel-body">
+			<div class="form-group col-md-8">
+			<input class="form-control" ng-disabled="esFacebook && esTwitter && esYoutube" placeholder="Usuario de Facebook, Twitter o canal de Youtube.." ng-model="formData.FNCandidato" required autofocus>
+			</div>
+			<div class="form-group col-md-4">
+				<a ng-click="nuevaFuenteSimple()" ng-disabled="esFacebookCandi && esTwitterCandi && esYoutubeCandi" class="btn btn-block btn-info"> Alta Fuente </a>
+			</div>
+	 		<div class="radio-div">
+				<label class="col-md-4">
+			    	<input type="radio" ng-model="formData.tipoFuenteCandidato" ng-disabled="esFacebookCandi" value="facebook">
+			    	<span class="fa-stack fa-lg facebook-icon">
+					     	<i class="fa fa-facebook-square fa-stack-2x"></i>
+					</span>
+			  	</label>
+				<label class="col-md-4">
+			    	<input type="radio" ng-model="formData.tipoFuenteCandidato" ng-disabled="esTwitterCandi" value="twitter">
+			    	<span class="fa-stack fa-lg twitter-icon">
+					     	<i class="fa fa-twitter fa-stack-2x"></i>
+					</span>
+			  	</label>
+				<label class="col-md-4">
+				  	<input type="radio" ng-model="formData.tipoFuenteCandidato" ng-disabled="esYoutubeCandi" value="youtube">
+					<span class="fa-stack fa-lg youtube-icon">
+					     	<i class="fa fa-youtube-play fa-stack-2x"></i>
+					</span>	
+				</label>
+			</div>
+						
+			<div ng-show="hayFuentesDelSi() && formData.NombreCandidato == 'Si'" class="fuentes-informacion"> 
+	  			<h4 class="text-center">Fuentes agregadas </h4>
+		  		<hr>
+	       		<div class="col-md-4" ng-repeat="fn in noticiasDelSi">
+				  	<div ng-switch="fn.tipo">
+				      <div ng-switch-when="facebook">
+			       		<span class="fa-stack fa-lg facebook-icon">
+				     	<i class="fa fa-facebook-square"></i>
+						</span>
+				     	{{fn.url}}
+					  </div>
+					  <div ng-switch-when="twitter">
+					  	<span class="fa-stack fa-lg twitter-icon">
+				     	<i class="fa fa-twitter"></i>
+						</span>
+				       	{{fn.url}}
+	  				  </div>
+					  <div ng-switch-when="youtube">
+					    <span class="fa-stack fa-lg youtube-icon">
+				     	<i class="fa fa-youtube-play"></i>
+						</span>
+				       	{{fn.url}}
+					  </div> 
+					</div>
+				</div>
+       		</div>
+       		<div ng-show="hayFuentesDelNo() && formData.NombreCandidato == 'No'" class="fuentes-informacion "> 
+	  			<h4 class="text-center">Fuentes agregadas </h4>
+		  		<hr>
+	       		<div class="col-md-4" ng-repeat="fn in noticiasDelNo">
 				  	<div ng-switch="fn.tipo">
 				      <div ng-switch-when="facebook">
 			       		<span class="fa-stack fa-lg facebook-icon">
