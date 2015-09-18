@@ -1,8 +1,8 @@
  <h3 class="text-center">Partidos <small>Crea los partidos participantes.</small></h3>
 <div class="form-step"> 
 		<div class="row">
-		   <label>Imagen</label>    
-		   <input id="imgPartido" type="file" onchange="angular.element(this).scope().addLogo(this)">
+		   <label>Imagen</label>   
+		   <div id="imgPartido" droppable callback="addLogo(files, id)" class="dropzone"></div> 
 		   <img id="imgPartidoPreview" alt="" data-ng-src="{{prevImgPartido}}">
 		</div>
         <div class="row">    

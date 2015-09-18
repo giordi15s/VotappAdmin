@@ -4,7 +4,7 @@
 		  </div>
 	<div class="row">
 		   <label>Logo</label>
-		   <input id="logoEleccion" type="file" onchange="angular.element(this).scope().addLogo(this)">
+		   <div id="imgEleccion" droppable callback="addLogo(files, id)" class="dropzone"></div>
 		   <img id="logoEleccionPreview" alt="" data-ng-src="{{prevImgEleccion}}">
 		</div>
 	<hr>

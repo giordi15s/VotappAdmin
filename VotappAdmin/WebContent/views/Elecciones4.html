@@ -3,7 +3,7 @@
 	<div class="form-step">
 		<div class="row">
 		   <label>Imagen</label>   
-		   <input id="imgCandidato" type="file" onchange="angular.element(this).scope().addLogo(this)">
+		   <div id="imgCandidato" droppable callback="addLogo(files, id)" class="dropzone"></div>
 		   <img id="imgCandidatoPreview" alt="" data-ng-src="{{prevImgCandidato}}"> 
 		</div>
 		      <div class="row">
