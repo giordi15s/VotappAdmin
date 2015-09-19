@@ -91,6 +91,9 @@ angular.module("app.controllers",[
 	$scope.noticiasPartidos = [];
 	$scope.noticiasPartidosReal = [];
 	$scope.noticiasCandidato = [];
+	$scope.noticiasDelSi = [];
+	$scope.noticiasDelNo = [];
+	$scope.noticiasEleccion = [];
 	var esNacional = false;
 	var mostrarListas = false;
 	var mostrarListasOtra = false;
@@ -99,6 +102,7 @@ angular.module("app.controllers",[
 	$scope.numeroPaso3 = 3;
 	$scope.numeroPaso4 = 4;
 	$scope.numeroPaso5 = 5;
+	$scope.numeroPaso6 = 6;
 	$scope.siguientePaso1 = 2;
 	$scope.deptos = [];
 	var fuenteXPartido = false;
@@ -110,6 +114,9 @@ angular.module("app.controllers",[
 	$scope.esTwitterCandi = false;
 	$scope.esYoutubeCandi = false;
 	$scope.esDepartamental = false; 
+	$scope.esFacebookElecc = false;
+	$scope.esTwitterElecc = false;
+	$scope.esYoutubeElecc = false;
 	$scope.DeptoPartido = [];
 	$scope.elecciones = [];
 	
@@ -136,11 +143,55 @@ angular.module("app.controllers",[
 //	$scope.elecciones = EleccionFactory.getEleccionesActuales();
 
 
+	$scope.hayFuentesDelSi = function (){
+		
+		var hayFuentes = false; 
+		
+		if($scope.noticiasDelSi.length<1){
+			hayFuentes = false;
+		}
+		else{
+			hayFuentes = true;
+		}
+	
+		return hayFuentes;	
+	}
+	
+	$scope.hayFuentesDelNo = function (){
+		
+		var hayFuentes = false; 
+		
+		if($scope.noticiasDelNo.length<1){
+			hayFuentes = false;
+		}
+		else{
+			hayFuentes = true;
+		}
+	
+		return hayFuentes;	
+	}
+	
+	
+	
 	$scope.hayFuentesCandidato = function (){
 		
 		var hayFuentes = false; 
 		
 		if($scope.noticiasCandidato.length<1){
+			hayFuentes = false;
+		}
+		else{
+			hayFuentes = true;
+		}
+	
+		return hayFuentes;	
+	}
+	
+	$scope.hayFuentesEleccion = function (){
+		
+		var hayFuentes = false; 
+		
+		if($scope.noticiasEleccion.length<1){
 			hayFuentes = false;
 		}
 		else{
@@ -271,6 +322,71 @@ angular.module("app.controllers",[
 		
 		
 	}
+	
+	$scope.nuevaFuenteSimple = function (){
+			
+		var fuente = {
+			tipo: $scope.formData.tipoFuenteCandidato,
+			url:  $scope.formData.FNCandidato
+		}
+		
+		console.log(fuente.url);
+		
+		if ($scope.formData.NombreCandidato=='Si'){
+			$scope.noticiasDelSi.push(fuente);
+			 switch ($scope.formData.tipoFuenteCandidato) {
+		       
+			    case "facebook":
+			    	$scope.esFacebookCandi = true;
+					break;
+					
+			    case "youtube":
+			    	
+			    	$scope.esYoutubeCandi = true;
+			    	break;
+
+			    case "twitter":
+			    	
+			    	$scope.esTwitterCandi = true;    	
+			    	break;
+			    
+				default:
+				
+					break;
+		       }
+		}
+		
+		else if ($scope.formData.NombreCandidato=='No'){
+			$scope.noticiasDelNo.push(fuente);
+			 switch ($scope.formData.tipoFuenteCandidato) {
+		       
+			    case "facebook":
+			    	$scope.esFacebookCandi = true;
+					break;
+					
+			    case "youtube":
+			    	
+			    	$scope.esYoutubeCandi = true;
+			    	break;
+
+			    case "twitter":
+			    	
+			    	$scope.esTwitterCandi = true;    	
+			    	break;
+			    
+				default:
+				
+					break;
+		       }
+			
+		}
+	      
+		
+		$scope.formData.FNCandidato = "";
+		$scope.formData.tipoFuenteCandidato = "";
+	
+	
+}
 		
 	
 	$scope.nuevaFuenteCandidato =function (){
@@ -305,6 +421,38 @@ angular.module("app.controllers",[
 		$scope.formData.tipoFuenteCandidato = "";
 	}
 	
+	$scope.nuevaFuenteEleccion = function (){
+		
+		var fuente = {
+			tipo: $scope.formData.tipoFuenteEleccion,
+			url:  $scope.formData.FNEleccion
+		}
+		$scope.noticiasEleccion.push(fuente);
+		
+		 switch ($scope.formData.tipoFuenteEleccion) {
+	       
+		    case "facebook":
+		    	$scope.esFacebookElecc = true;
+				break;
+				
+		    case "youtube":
+		    	
+		    	$scope.esYoutubeElecc = true;
+		    	break;
+
+		    case "twitter":
+		    	
+		    	$scope.esTwitterElecc = true;    	
+		    	break;
+		    
+			default:
+			
+				break;
+	       }
+		$scope.formData.FNEleccion = "";
+		$scope.formData.tipoFuenteEleccion = "";
+	}
+		
 	
 	$scope.mostrarListas = function(){
 		return mostrarListas;
@@ -397,6 +545,7 @@ angular.module("app.controllers",[
 			
 	}
 	
+	
 	$scope.listasXPartido = function (){	
 		$scope.listasPorPartido = [];
 		for (var x=0;x<$scope.listas.length;x++){
@@ -416,6 +565,42 @@ angular.module("app.controllers",[
 	//Arreglo de Candidatos creados en Wizard
 	$scope.nuevoCandidato = function (formData){
 		
+		if($scope.formData.tipoEleccion == 'Simple'){
+			if($scope.formData.NombreCandidato == 'Si'){
+				var candidato =	{
+						 nombre: $scope.formData.NombreCandidato,
+						 biografia: $scope.formData.BiografiaCandidato,
+						 edad: $scope.formData.EdadCandidato,
+						 dataFuenteDatos: $scope.noticiasDelSi,
+						 dataListas: $scope.selection,
+						 nombrePartido: '',
+						 cargo : 'UNKNOWN'
+					}	
+				
+			}
+			else if($scope.formData.NombreCandidato == 'No'){
+				var candidato =	{
+						 nombre: $scope.formData.NombreCandidato,
+						 biografia: $scope.formData.BiografiaCandidato,
+						 edad: $scope.formData.EdadCandidato,
+						 dataFuenteDatos: $scope.noticiasDelNo,
+						 dataListas: $scope.selection,
+						 nombrePartido: '',
+						 cargo : 'UNKNOWN'
+					}				
+			}
+		
+			$scope.candidatos.push(candidato);
+			
+			//Limpiar para el siguiente candidato:
+			formData.NombreCandidato = "";
+			formData.FNCandidato = "";
+			$scope.esFacebookCandi = false;
+			$scope.esTwitterCandi = false;
+			$scope.esYoutubeCandi = false;
+			
+		}
+		else {
 		var candidato =	{
 			 nombre: $scope.formData.NombreCandidato,
 			 biografia: $scope.formData.BiografiaCandidato,
@@ -452,6 +637,7 @@ angular.module("app.controllers",[
 		$scope.esFacebookCandi = false;
 		$scope.esTwitterCandi = false;
 		$scope.esYoutubeCandi = false;
+		}
 	}
 	
 	$scope.toggleSelection = function toggleSelection(listasPorPartido) {
@@ -656,6 +842,7 @@ angular.module("app.controllers",[
 				dataPartidos: $scope.partidos,
 				dataListas: $scope.listas,
 				dataCandidatos: $scope.candidatos,
+				dataNoticias: $scope.noticiasEleccion,
 				tipoEleccion: formData.tipoEleccion,
 				logo : $scope.formData.logo,
 				css : $scope.formData.css
