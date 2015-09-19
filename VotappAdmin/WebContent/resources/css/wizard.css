@@ -70,7 +70,7 @@
 	border: 1px solid #337AA5;
 }
 .dropzone{
-	height: 100px;
+	padding-left: 3em;
 	width: 100%;
 	background-color: #67c9fd;
 }

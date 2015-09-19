@@ -4,8 +4,10 @@
 	<div class="form-step">
 		<div class="row"  ng-hide="formData.tipoEleccion == 'Simple'">
 		   <label>Imagen</label>   
-		   <div id="imgCandidato" droppable callback="addLogo(files, id)" class="dropzone"></div>
+		   <div id="imgCandidato" droppable callback="addLogo(files, id)" class="dropzone">
 		   <img id="imgCandidatoPreview" alt="" data-ng-src="{{prevImgCandidato}}"> 
+		   </div>
+		   
 		</div>
 		      <div class="row">
 		      <label>Nombre</label>    

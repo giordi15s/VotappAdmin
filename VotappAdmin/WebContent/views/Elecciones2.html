@@ -2,8 +2,9 @@
 <div class="form-step"> 
 		<div class="row">
 		   <label>Imagen</label>   
-		   <div id="imgPartido" droppable callback="addLogo(files, id)" class="dropzone"></div> 
-		   <img id="imgPartidoPreview" alt="" data-ng-src="{{prevImgPartido}}">
+		   <div id="imgPartido" droppable callback="addLogo(files, id)" class="dropzone">
+		   	<img id="imgPartidoPreview" alt="" data-ng-src="{{prevImgPartido}}">
+		   </div> 
 		</div>
         <div class="row">    
         <label>Nombre</label>
