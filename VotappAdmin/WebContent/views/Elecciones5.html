@@ -1,6 +1,19 @@
+<<<<<<< HEAD
  <div>
 		<h3 class="text-center">Noticias <small>Crea una nueva Fuente de Noticia.</small></h3>
 	
+=======
+<div class="margin-top-panel">
+		  <div>
+				<alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1500" close="closeAlert($index)">{{alert.msg}}</alert>
+		  </div>
+	<div class="row">
+		   <label>Logo</label>
+		   <div id="imgEleccion" droppable callback="addLogo(files, id)" class="dropzone"></div>
+		   <img id="logoEleccionPreview" alt="" data-ng-src="{{prevImgEleccion}}">
+		</div>
+	<hr>
+>>>>>>> refs/heads/fedeLocal
 	<div class="panel panel-info">
 		<div class="panel-heading">
 		    <h3 class="panel-title">Fuentes de Noticias</h3>

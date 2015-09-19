@@ -959,11 +959,9 @@ angular.module("app.controllers",[
 		    );
 	  };
 	  
-	
-	  
-	$scope.addLogo = function($files){
-		var idElement = $files.id;
-		var $file = $files.files[0];
+	$scope.addLogo = function($files, $id){
+		var idElement = $id;
+		var $file = $files[0];
 		  
 		var logo = {
 					name : $file.name,
@@ -1093,7 +1091,66 @@ angular.module("app.controllers",[
 	};	
 		
 }])
+.directive('droppable', function () {
+	
+	function link(scope, element, attrs) {
+		var url = scope.fuente.url;
+		element.append('<iframe ng-transclude id="ytplayer" type="text/html" width="100%" height="100%" src="http://www.youtube.com/embed?listType=user_uploads&list='+url+'" frameborder="0"></iframe>');
+	}
+	
+	return {
+		scope: {
+			callback : '&'
+		},
+        link: function(scope, element) {
+            // again we need the native object
+            var el = element[0];
+            
+            el.addEventListener(
+        	    'dragover',
+        	    function(e) {
+        	        e.dataTransfer.dropEffect = 'move';
+        	        // allows us to drop
+        	        if (e.preventDefault) e.preventDefault();
+        	        this.classList.add('over-votapp');
+        	        return false;
+        	    },
+        	    false
+            );
+            el.addEventListener(
+        	    'dragenter',
+        	    function(e) {
+        	        this.classList.add('over-votapp');
+        	        return false;
+        	    },
+        	    false
+            );
+            el.addEventListener(
+        	    'dragleave',
+        	    function(e) {
+        	        this.classList.remove('over-votapp');
+        	        return false;
+        	    },
+        	    false
+            );
+            function handleDrop(event) {
+            	event.preventDefault();
+    	        // Stops some browsers from redirecting.
+    	        if (event.stopPropagation) event.stopPropagation();
 
+    	        // {files : event.dataTransfer.files}
+    	        scope.callback({files : event.dataTransfer.files,
+    	        				id : el.id});
+    	        return false;
+             };
+            el.addEventListener(
+	    	    'drop',
+	    	    handleDrop,
+	    	    false
+            );
+        }
+	};
+})
 .controller('ModalInstanceFuenteCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
 	
 	$scope.listaFuentes = [];
