@@ -2,70 +2,24 @@
 	<div>
 		<alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1500" close="closeAlert($index)">{{alert.msg}}</alert>
 	</div>
-	<div class="panel panel-info">
-		<div class="panel-heading">
-		    <h3 class="panel-title">Fuentes de Noticias</h3>
-
-		</div>
-		<div class="panel-body">
-			<div class="form-group col-md-8">
-			<input class="form-control" ng-disabled="esFacebook && esTwitter && esYoutube" placeholder="Usuario de Facebook, Twitter o canal de Youtube.." ng-model="formData.FNEleccion" required autofocus>
-			</div>
-			<div class="form-group col-md-4">
-				<a ng-click="nuevaFuenteEleccion()" ng-disabled="esFacebookElecc && esTwitterElecc && esYoutubeElecc" class="btn btn-block btn-info"> Alta Fuente </a>
-			</div>
-	 		<div class="radio-div">
-				<label class="col-md-4">
-			    	<input type="radio" ng-model="formData.tipoFuenteEleccion" ng-disabled="esFacebookElecc" value="facebook">
-			    	<span class="fa-stack fa-lg facebook-icon">
-					     	<i class="fa fa-facebook-square fa-stack-2x"></i>
-					</span>
-			  	</label>
-				<label class="col-md-4">
-			    	<input type="radio" ng-model="formData.tipoFuenteEleccion" ng-disabled="esTwitterElecc" value="twitter">
-			    	<span class="fa-stack fa-lg twitter-icon">
-					     	<i class="fa fa-twitter fa-stack-2x"></i>
-					</span>
-			  	</label>
-				<label class="col-md-4">
-				  	<input type="radio" ng-model="formData.tipoFuenteEleccion" ng-disabled="esYoutubeElecc" value="youtube">
-					<span class="fa-stack fa-lg youtube-icon">
-					     	<i class="fa fa-youtube-play fa-stack-2x"></i>
-					</span>	
-				</label>
-			</div>
-						
-			<div ng-show="hayFuentesEleccion()" class="fuentes-informacion "> 
-	  			<h4 class="text-center">Fuentes agregadas </h4>
-		  		<hr>
-	       		<div class="col-md-4" ng-repeat="fn in noticiasEleccion">
-				  	<div ng-switch="fn.tipo">
-				      <div ng-switch-when="facebook">
-			       		<span class="fa-stack fa-lg facebook-icon">
-				     	<i class="fa fa-facebook-square"></i>
-						</span>
-				     	{{fn.url}}
-					  </div>
-					  <div ng-switch-when="twitter">
-					  	<span class="fa-stack fa-lg twitter-icon">
-				     	<i class="fa fa-twitter"></i>
-						</span>
-				       	{{fn.url}}
-	  				  </div>
-					  <div ng-switch-when="youtube">
-					    <span class="fa-stack fa-lg youtube-icon">
-				     	<i class="fa fa-youtube-play"></i>
-						</span>
-				       	{{fn.url}}
-					  </div> 
-					</div>
-				</div>
-       		</div>
+	<div class="row">
+		<label>Logo</label>
+		<div id="logoEleccion" droppable callback="addLogo(files, id)" class="dropzone">
+			<img id="logoEleccionPreview" alt="" data-ng-src="{{prevImgEleccion}}">
 		</div>
 	</div>
-    <div class="row margin-bottom-panel">
-		<div class="col-md-6">
-			<a ng-click="setStep(6)" class="btn btn-block btn-info"> Siguiente <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
-		</div> 
-	</div>					
+	<hr>
+	<div class="panel panel-info">
+		<div class="panel-heading">
+		    <h3 class="panel-title">Estilos <small>Agrega los estilos a la web.</small></h3>
+		</div>
+	  	<div class="panel-body">
+		    <p>Aqui puedes modificar el estilo de la web de la eleccion.</p>
+			<div ui-ace="{theme:'monokai', mode: 'css', onLoad: aceLoaded, onChange: aceChanged}" class="editor"></div>
+			{{aceDocumentValue|json}}
+		</div>
+	</div>
+    <div class="margin-bottom-panel">
+		<button ng-click="altaEleccion(formData)" type="submit" class="btn btn-block btn-info">Finalizar</button>
+	</div>
 </div>
