@@ -29,11 +29,18 @@ angular.module("app.controllers",[
 
 	$scope.crearUsuario = function(consultora){
 		
+		if (consultora.nombreAdminConsultora == "" || consultora.passAdminConsultora =="" || consultora.nombre=="" || consultora.descripcion==""){
+			console.log("Entro al if");
+			swal("Todos los campos son obligatorios!");
+			
+		}
+		else{
+		
 		ConsultoraFactory.crearConsultora(consultora).then(
 				function(response){
 					console.log("SE GUARDA");
-					 $scope.alerts.push({type: 'success', msg: 'Consultora creada con éxito'});
-					 console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
+					swal("Consultora creada!","","success");
+					console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
 					 $scope.closeAlert = function(index) {
 							    $scope.alerts.splice(index, 1);
 							  };
@@ -43,15 +50,15 @@ angular.module("app.controllers",[
 				
 				function(response){
 					//error messagge
-					$scope.alerts.push({type: 'danger', msg: 'Falló'});
-					 console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
+					sweetAlert("Oops...", "Error al crear consultora!", "error");
+					console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
 					 $scope.closeAlert = function(index) {
 							    $scope.alerts.splice(index, 1);
 							  };
 						
 				}
 		)
-		
+		}
 	};
 	
 }])
@@ -140,9 +147,21 @@ angular.module("app.controllers",[
 	$scope.deptos.push("San José")
 	$scope.deptos.push("Tacuarembó")
 	$scope.primerCargo = "Presidente";
+	$scope.prevImgPartido = "";
 //	$scope.elecciones = EleccionFactory.getEleccionesActuales();
 
 
+	
+	$scope.SinImagen = function (){
+		if ($scope.prevImgPartido==""){
+			$scope.vacio = true;
+		}
+		else {
+			$scope.vacio = false;
+		}
+			return vacio;
+	}
+	
 	$scope.hayFuentesDelSi = function (){
 		
 		var hayFuentes = false; 
@@ -599,6 +618,7 @@ angular.module("app.controllers",[
 			$scope.esTwitterCandi = false;
 			$scope.esYoutubeCandi = false;
 			
+			
 		}
 		else {
 		var candidato =	{
@@ -637,6 +657,7 @@ angular.module("app.controllers",[
 		$scope.esFacebookCandi = false;
 		$scope.esTwitterCandi = false;
 		$scope.esYoutubeCandi = false;
+	
 		}
 	}
 	
@@ -714,6 +735,8 @@ angular.module("app.controllers",[
 		$scope.esTwitter = false;
 		$scope.esYoutube = false;
 		//$scope.noticiasPartidosReal= null;
+		$scope.prevImgPartido = "";
+		$scope.$apply();
 		$scope.noticiasPartidos = [];
 		$scope.prevImgCandidato = "";
 		$scope.$apply();
@@ -739,7 +762,7 @@ angular.module("app.controllers",[
 			break;
 	    case 2:
 	    	if(($scope.formData.Nombre==null)||($scope.formData.DescripcionEleccion==null)||($scope.formData.Fecha==null)||($scope.formData.tipoEleccion==null)){
-	    		alert('Todos los campos son obligatorios');
+	    		swal("Todos los campos son obligatorios!");
 	    		$scope.step = 1;
 	    	}
 	    	else{
@@ -759,7 +782,7 @@ angular.module("app.controllers",[
 	    case 3:
 	    	if(($scope.formData.Nombre==null)||($scope.formData.DescripcionEleccion==null)||($scope.formData.Fecha==null)||($scope.formData.tipoEleccion==null)||($scope.partidos.length==0
 	    			&& $scope.formData.tipoEleccion=="Nacional") || ($scope.partidos.length==0 && $scope.formData.tipoEleccion=="Departamental")){
-	    		alert('Todos los campos son obligatorios');
+	    		swal("Todos los campos son obligatorios!");
 	    		
 	    		if ($scope.formData.tipoEleccion=="Otra"){
 	    			$scope.step = 3;
@@ -784,7 +807,7 @@ angular.module("app.controllers",[
 	    case 4:
 	    	if(($scope.formData.Nombre==null)||($scope.formData.DescripcionEleccion==null)||($scope.formData.Fecha==null)||($scope.formData.tipoEleccion==null)||($scope.partidos.length==0
 	    			&& $scope.formData.tipoEleccion=="Nacional") || ($scope.partidos.length==0 && $scope.formData.tipoEleccion=="Departamental") || ($scope.listas.length==0 && $scope.formData.tipoEleccion!="Simple") ){
-	    		alert('Todos los campos son obligatorios');
+	    		swal("Todos los campos son obligatorios!");
 	    		$scope.step = 3;
 	    		if($scope.formData.tipoEleccion == 'Simple')
 	    			$scope.step = 1;
@@ -798,7 +821,7 @@ angular.module("app.controllers",[
 	    case 5:
 	    	if(($scope.formData.Nombre==null)||($scope.formData.DescripcionEleccion==null)||($scope.formData.Fecha==null)||($scope.formData.tipoEleccion==null)||($scope.partidos.length==0
 	    			&& $scope.formData.tipoEleccion=="Nacional") || ($scope.partidos.length==0 && $scope.formData.tipoEleccion=="Departamental") ||($scope.listas.length==0  && $scope.formData.tipoEleccion!="Simple")||($scope.candidatos.length==0)){
-	    		alert('Todos los campos son obligatorios');
+	    		swal("Todos los campos son obligatorios!");
 	    		$scope.step = 4;
 	    	}
 	    
@@ -852,7 +875,7 @@ angular.module("app.controllers",[
 		
 		EleccionFactory.crearEleccion(dataEleccion).then(
 				function(response){
-					 $scope.alerts.push({type: 'success', msg: 'Elección creada con éxito'});
+					swal("Eleccion creada!","","success");
 					 console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
 					 $scope.closeAlert = function(index) {
 							    $scope.alerts.splice(index, 1);
@@ -861,8 +884,8 @@ angular.module("app.controllers",[
 				
 				function(response){
 					//error messagge
-					 $scope.alerts.push({type: 'danger', msg: 'Error al crear la Eleccion'});
-					 console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
+					sweetAlert("Oops...", "Error al crear la elección!", "error");
+					console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
 					 $scope.closeAlert = function(index) {
 							    $scope.alerts.splice(index, 1);
 							  };
@@ -999,6 +1022,7 @@ angular.module("app.controllers",[
 		}
 	
 		fileReader.readAsDataURL($file);
+		
 			
 	}
 	  
