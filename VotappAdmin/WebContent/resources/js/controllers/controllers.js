@@ -715,6 +715,8 @@ angular.module("app.controllers",[
 		$scope.esYoutube = false;
 		//$scope.noticiasPartidosReal= null;
 		$scope.noticiasPartidos = [];
+		$scope.prevImgCandidato = "";
+		$scope.$apply();
 
 	}
 	
