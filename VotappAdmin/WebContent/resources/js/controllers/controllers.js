@@ -26,7 +26,6 @@ angular.module("app.controllers",[
 .controller('ConsultoraController', ['$scope', 'ConsultoraFactory', function($scope, ConsultoraFactory) {
 
 	$scope.alerts = [];
-
 	$scope.crearUsuario = function(consultora){
 		
 		if (consultora.nombreAdminConsultora == "" || consultora.passAdminConsultora =="" || consultora.nombre=="" || consultora.descripcion==""){
