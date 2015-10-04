@@ -37,6 +37,7 @@ angular.module("app.controllers",[
 		
 		ConsultoraFactory.crearConsultora(consultora).then(
 				function(response){
+					ConsultoraFactory.enviarMailConsultora(consultora);
 					console.log("SE GUARDA");
 					swal("Consultora creada!","","success");
 					console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
@@ -147,7 +148,7 @@ angular.module("app.controllers",[
 	$scope.deptos.push("Tacuarembó")
 	$scope.primerCargo = "Presidente";
 	$scope.prevImgPartido = "";
-//	$scope.elecciones = EleccionFactory.getEleccionesActuales();
+	$scope.eleccionesABorrar = EleccionFactory.getEleccionesABorrar();
 
 
 	
@@ -232,11 +233,11 @@ angular.module("app.controllers",[
 		)
 	}
 	
-	$scope.displayedCollection = [].concat($scope.elecciones);
+	$scope.displayedCollection = [].concat($scope.eleccionesABorrar);
 	$scope.removeEleccion = function removeEleccion(eleccion) {
-        var index = $scope.elecciones.indexOf(eleccion);
+        var index = $scope.eleccionesABorrar.indexOf(eleccion);
         if (index !== -1) {
-            $scope.elecciones.splice(index, 1);
+            $scope.eleccionesABorrar.splice(index, 1);
         }
         
         EleccionFactory.borrarEleccion(eleccion.id)

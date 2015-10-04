@@ -1,7 +1,19 @@
 <div class="container" style="padding-top:50px;">
 	
+	<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped" width="">
+			<tbody>
+			<tr ng-repeat="eleccion in eleccionesABorrar">
+				<td>{{eleccion.nombre}}</td>
+				<td style="width: 5px;">
+				<button type="button" ng-click="removeEleccion(eleccion)" class="btn btn-sm btn-danger">
+					<i class="glyphicon glyphicon-remove-circle"></i>
+				</button>
+				</td>
+			</tr>
+			</tbody>
+		</table>
 
-		<button type="button" ng-click="getEleccionesActuales()" class="btn btn-sm btn-success">
+	<!-- 	<button type="button" ng-click="getEleccionesActuales()" class="btn btn-sm btn-success">
 			<i class="glyphicon glyphicon-plus">
 			</i> Mostrar Elecciones
 		</button>
@@ -17,7 +29,7 @@
 				</td>
 			</tr>
 			</tbody>
-		</table>
+		</table> -->
 
 
 

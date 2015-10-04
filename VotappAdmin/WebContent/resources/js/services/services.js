@@ -10,9 +10,22 @@ value('version', '0.1')
 			return $http.get(ApiEndpointFactory.ApiEndpoint +'/Votapp/services/consultoras/'+idConsultora)
 		},
 		crearConsultora:function(dataConsultora){
+			var dataConsultoraEnvio = {
+					nombreAdminConsultora : dataConsultora.nombreAdminConsultora,
+					username : dataConsultora.username,
+					nombre : dataConsultora.nombre,
+					descripcion : dataConsultora.descripcion,
+					nombreAdminConsultora : dataConsultora.nombreAdminConsultora,
+					passAdminConsultora: dataConsultora.passAdminConsultora,
+					email : dataConsultora.email
+			}
 			
-			dataConsultora.passAdminConsultora = CryptoJS.SHA256(dataConsultora.passAdminConsultora).toString(CryptoJS.enc.Hex);
-			return $http.post(ApiEndpointFactory.ApiEndpoint +'/Votapp/services/consultoras/protected/crear', dataConsultora)
+			dataConsultoraEnvio.passAdminConsultora = CryptoJS.SHA256(dataConsultora.passAdminConsultora).toString(CryptoJS.enc.Hex);
+			return $http.post(ApiEndpointFactory.ApiEndpoint +'/Votapp/services/consultoras/protected/crear', dataConsultoraEnvio)
+		},
+		enviarMailConsultora:function(dataConsultora){
+			return $http.post(ApiEndpointFactory.ApiEndpoint +'/Votapp/services/consultoras/protected/enviarMailConsultora', dataConsultora)
+			
 		}
 	}	
 	
@@ -20,13 +33,17 @@ value('version', '0.1')
 }])
 
 .factory('EleccionFactory',['$http', 'ApiEndpointFactory', function($http, ApiEndpointFactory) {
-//	var elecciones = null;
-//    var promise = $http.get('http://localhost:8080/Votapp/services/eleccion/getElecciones')
-//    .success(function (data) {
-//    	elecciones = data;
-//    });
+	var eleccionesABorrar = null;
+    var promise = $http.get('http://localhost:8080/Votapp/services/eleccion/getElecciones')
+    .success(function (data) {
+    	eleccionesABorrar = data;
+    });
     
 	return{
+		promise:promise,
+		getEleccionesABorrar: function () {
+	          return eleccionesABorrar;//.getSomeData();
+	      },
 		crearEleccion:function(dataEleccion){
 			return $http.post(ApiEndpointFactory.ApiEndpoint +'/Votapp/services/eleccion/protected/crear', dataEleccion)
 		},
