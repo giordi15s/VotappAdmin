@@ -3,7 +3,7 @@
 		<div class="row">
 		   <label>Imagen</label>   
 		   <div id="imgPartido" droppable callback="addLogo(files, id)" class="dropzone">
-		   	<img id="imgPartidoPreview" alt="" data-ng-src="{{prevImgPartido}}">
+		   	<img id="imgPartidoPreview" alt="" data-ng-src="{{prevImgPartido}}" ng-show="prevImgPartido != null">
 		   </div> 
 		</div>
         <div class="row">    

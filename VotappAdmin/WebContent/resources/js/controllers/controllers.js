@@ -147,9 +147,10 @@ angular.module("app.controllers",[
 	$scope.deptos.push("San José")
 	$scope.deptos.push("Tacuarembó")
 	$scope.primerCargo = "Presidente";
-	$scope.prevImgPartido = "";
+	$scope.prevImgPartido = null;
+	$scope.prevImgCandidato = null;
 	$scope.eleccionesABorrar = EleccionFactory.getEleccionesABorrar();
-
+	
 
 	
 	$scope.SinImagen = function (){
@@ -735,10 +736,10 @@ angular.module("app.controllers",[
 		$scope.esTwitter = false;
 		$scope.esYoutube = false;
 		//$scope.noticiasPartidosReal= null;
-		$scope.prevImgPartido = "";
+		$scope.prevImgPartido = null;
 		$scope.$apply();
 		$scope.noticiasPartidos = [];
-		$scope.prevImgCandidato = "";
+		$scope.prevImgCandidato = null;
 		$scope.$apply();
 
 	}
