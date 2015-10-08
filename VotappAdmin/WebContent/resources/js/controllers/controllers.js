@@ -26,10 +26,11 @@ angular.module("app.controllers",[
 .controller('ConsultoraController', ['$scope', 'ConsultoraFactory', function($scope, ConsultoraFactory) {
 
 	$scope.alerts = [];
+	$scope.isCollapsed = true;
 	$scope.crearUsuario = function(consultora){
 		
 		if (consultora.nombreAdminConsultora == "" || consultora.passAdminConsultora =="" || consultora.nombre=="" || consultora.descripcion==""){
-			console.log("Entro al if");
+			
 			swal("Todos los campos son obligatorios!");
 			
 		}
@@ -38,28 +39,33 @@ angular.module("app.controllers",[
 		ConsultoraFactory.crearConsultora(consultora).then(
 				function(response){
 					ConsultoraFactory.enviarMailConsultora(consultora);
-					console.log("SE GUARDA");
+					
 					swal("Consultora creada!","","success");
-					console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
-					 $scope.closeAlert = function(index) {
-							    $scope.alerts.splice(index, 1);
-							  };
-					                 
 					
 				},
 				
 				function(response){
 					//error messagge
 					sweetAlert("Oops...", "Error al crear consultora!", "error");
-					console.log("TAMAÑO DE ALERTS"+$scope.alerts.length);	
-					 $scope.closeAlert = function(index) {
-							    $scope.alerts.splice(index, 1);
-							  };
-						
+										 
 				}
 		)
 		}
 	};
+	
+	$scope.existeUsuario = function(){
+		ConsultoraFactory.existeUsuario($scope.consultora.nombreAdminConsultora).then(
+				function(response){
+					if(response.data === true)
+						$scope.isCollapsed = false;
+					else
+						$scope.isCollapsed = true;
+				},
+				function(response){
+					console.log("Error en validacion de usuario: "+ response.data)
+				}
+			)
+	}
 	
 }])
 

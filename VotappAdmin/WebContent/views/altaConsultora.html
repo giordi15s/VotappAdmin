@@ -2,15 +2,17 @@
  	 <div class="container container-fluid" style="padding-top: 3%">
      
       <form class="form-signin">
-	       <div>
-				<alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1500" close="closeAlert($index)">{{alert.msg}}</alert>
-		  </div>
+	       
       	<h1>Administrador</h1>
         <div class="row">    
-        <input  style="margin-bottom: 10px;" class="form-control" placeholder="Usuario" ng-model="consultora.nombreAdminConsultora" required>
+        <input  style="margin-bottom: 10px;" class="form-control" placeholder="Usuario" ng-model="consultora.nombreAdminConsultora" required ng-blur="existeUsuario()">
         </div>
-        
-        <div class="row">    
+
+		<div collapse="isCollapsed">
+			<div class="well " style="background-color:#ee5f5b;color:white; text-align: center">El nombre de usuario ya existe</div>
+		</div>
+
+			<div class="row">    
 		<input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" ng-model="consultora.passAdminConsultora" required>
         </div>
         
@@ -30,7 +32,7 @@
         </div>
         
          <div  class="row col-md-13"> 
-        <button class="btn btn-lg btn-info btn-block" ng-click="crearUsuario(consultora)" >Crear</button>
+        <button class="btn btn-lg btn-info btn-block" ng-click="crearUsuario(consultora)" ng-disabled="!isCollapsed">Crear</button>
         </div>
       </form>
      

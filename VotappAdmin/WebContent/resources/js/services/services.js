@@ -26,7 +26,11 @@ value('version', '0.1')
 		enviarMailConsultora:function(dataConsultora){
 			return $http.post(ApiEndpointFactory.ApiEndpoint +'/Votapp/services/consultoras/protected/enviarMailConsultora', dataConsultora)
 			
+		},
+		existeUsuario : function(username){
+			return $http.post(ApiEndpointFactory.ApiEndpoint + '/Votapp/services/consultoras/protected/existeUsuario', username)
 		}
+		
 	}	
 	
 	
