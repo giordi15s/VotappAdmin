@@ -664,6 +664,8 @@ angular.module("app.controllers",[
 		$scope.esFacebookCandi = false;
 		$scope.esTwitterCandi = false;
 		$scope.esYoutubeCandi = false;
+		$scope.prevImgCandidato = null;
+		$scope.$apply();
 	
 		}
 	}
@@ -745,8 +747,6 @@ angular.module("app.controllers",[
 		$scope.prevImgPartido = null;
 		$scope.$apply();
 		$scope.noticiasPartidos = [];
-		$scope.prevImgCandidato = null;
-		$scope.$apply();
 
 	}
 	
@@ -1125,11 +1125,6 @@ angular.module("app.controllers",[
 		
 }])
 .directive('droppable', function () {
-	
-	function link(scope, element, attrs) {
-		var url = scope.fuente.url;
-		element.append('<iframe ng-transclude id="ytplayer" type="text/html" width="100%" height="100%" src="http://www.youtube.com/embed?listType=user_uploads&list='+url+'" frameborder="0"></iframe>');
-	}
 	
 	return {
 		scope: {
