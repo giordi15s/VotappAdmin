@@ -41,6 +41,13 @@ angular.module("app.controllers",[
 					ConsultoraFactory.enviarMailConsultora(consultora);
 					
 					swal("Consultora creada!","","success");
+					consultora.nombreAdminConsultora = ""; 
+					consultora.passAdminConsultora =""; 
+					consultora.nombre="";
+					consultora.email="";
+					consultora.descripcion="";
+					
+
 					
 				},
 				
