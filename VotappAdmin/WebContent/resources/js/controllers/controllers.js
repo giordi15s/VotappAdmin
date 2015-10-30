@@ -39,14 +39,8 @@ angular.module("app.controllers",[
 		ConsultoraFactory.crearConsultora(consultora).then(
 				function(response){
 					ConsultoraFactory.enviarMailConsultora(consultora);
-					
 					swal("Consultora creada!","","success");
-					consultora.nombreAdminConsultora = ""; 
-					consultora.passAdminConsultora =""; 
-					consultora.nombre="";
-					consultora.email="";
-					consultora.descripcion="";
-					
+				
 
 					
 				},
@@ -58,6 +52,7 @@ angular.module("app.controllers",[
 				}
 		)
 		}
+		
 	};
 	
 	$scope.existeUsuario = function(){
