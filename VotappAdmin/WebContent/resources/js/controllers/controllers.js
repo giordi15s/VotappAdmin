@@ -600,6 +600,7 @@ angular.module("app.controllers",[
 						 dataFuenteDatos: $scope.noticiasDelSi,
 						 dataListas: $scope.selection,
 						 nombrePartido: '',
+						 imagen : $scope.formData.imgCandidato,
 						 cargo : 'UNKNOWN'
 					}	
 				
@@ -612,6 +613,7 @@ angular.module("app.controllers",[
 						 dataFuenteDatos: $scope.noticiasDelNo,
 						 dataListas: $scope.selection,
 						 nombrePartido: '',
+						 imagen : $scope.formData.imgCandidato,
 						 cargo : 'UNKNOWN'
 					}				
 			}
@@ -624,6 +626,8 @@ angular.module("app.controllers",[
 			$scope.esFacebookCandi = false;
 			$scope.esTwitterCandi = false;
 			$scope.esYoutubeCandi = false;
+			$scope.prevImgCandidato = null;
+			$scope.$apply();
 			
 			
 		}

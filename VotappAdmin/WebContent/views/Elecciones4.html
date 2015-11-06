@@ -2,7 +2,7 @@
 		<h3 class="text-center"  ng-hide="formData.tipoEleccion == 'Simple'">Candidatos <small>Crea un nuevo candidato.</small></h3>
 		<h3 class="text-center"  ng-show="formData.tipoEleccion == 'Simple'">Opciones <small>Elija Si o No y proporcione fuentes de noticias.</small></h3>
 	<div class="form-step">
-		<div class="row"  ng-hide="formData.tipoEleccion == 'Simple'">
+		<div class="row">
 		   <label>Imagen</label>   
 		   <div id="imgCandidato" droppable callback="addLogo(files, id)" class="dropzone">
 		   <img id="imgCandidatoPreview" alt="" data-ng-src="{{prevImgCandidato}}" ng-show="prevImgCandidato != null"> 
